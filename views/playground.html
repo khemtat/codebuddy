@@ -1,6 +1,8 @@
 <!doctype html>
 
-<html><head>
+<html>
+
+<head>
   <!-- Standard Meta -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -17,7 +19,7 @@
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/header.css">
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/image.css">
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/menu.css">
-
+  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/form.css">
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/divider.css">
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/list.css">
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/segment.css">
@@ -25,32 +27,42 @@
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/icon.css">
 
   <style type="text/css">
-  body {
-    background-color: #FFFFFF;
-  }
-  .ui.menu .item img.logo {
-    margin-right: 1.5em;
-  }
-  .main.container {
-    margin-top: 7em;
-  }
-  .wireframe {
-    margin-top: 2em;
-  }
-  .ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
-  }
+    body {
+      background-color: #FFFFFF;
+    }
+    
+    .ui.menu .item img.logo {
+      margin-right: 1.5em;
+    }
+    
+    .main.container {
+      margin-top: 7em;
+    }
+    
+    .wireframe {
+      margin-top: 2em;
+    }
+    
+    .ui.footer.segment {
+      margin: 5em 0em 0em;
+      padding: 5em 0em;
+    }
   </style>
 
-<style id="extension_grayscale" type="text/css">html *, * { filter: initial !important; }</style></head>
+  <style id="extension_grayscale" type="text/css">
+    html *,
+    * {
+      filter: initial !important;
+    }
+  </style>
+</head>
+
 <body>
 
   <div class="ui fixed inverted menu">
     <div class="ui container">
       <a href="#" class="header item">
-        <img class="logo" src="assets/images/logo.png">
-        Project Name
+        <img class="logo" src="assets/images/logo.png"> Project Name
       </a>
       <a href="#" class="item">Home</a>
       <div class="ui simple dropdown item">
@@ -61,8 +73,7 @@
           <div class="divider"></div>
           <div class="header">Header Item</div>
           <div class="item">
-            <i class="dropdown icon"></i>
-            Sub Menu
+            <i class="dropdown icon"></i> Sub Menu
             <div class="menu">
               <a class="item" href="#">Link Item</a>
               <a class="item" href="#">Link Item</a>
@@ -75,17 +86,36 @@
   </div>
 
 
-    <div class="ui main text container">
-    <h1 class="ui header">Semantic UI Fixed Template</h1>
-    <p>This is a basic fixed menu template using fixed size containers.</p>
-    <p>A text container is used for the main container, which is useful for single column layouts</p>
-    <img class="wireframe" src="assets/images/wireframe/media-paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+  <div class="ui main container">
+    <h1 class="ui header">Project Name</h1>
+    <p>Project Description</p>
+    <div class="ui divider"></div><br>
+   
+    <div class="ui grid">
+      <div class="four wide column">
+        <div class="ui top attached tabular menu">
+          <a class="active item">
+            Project
+          </a>
+          <a class="item">
+            Photos
+          </a>
+          <div class="right menu">
+            <div class="item">
+            </div>
+          </div>
+        </div>
+        <div class="ui bottom attached segment">
+          <p></p>
+        </div>
+      </div>
+        <div class="ui form">
+          <div class="field">
+            <textarea style="width:100px; height: 100px;" rows="5"></textarea>
+          </div>
+        </div>
+    </div>
+
   </div>
 
   <div class="ui inverted vertical footer segment">
@@ -136,4 +166,6 @@
 
 
 
-</body></html>
+</body>
+
+</html>
