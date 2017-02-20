@@ -4,6 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 //middleware setup
 const index = require('./routes/index')
@@ -22,6 +23,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+//connect to mongodb
+mongoose.connect('mongodb://localhost/test')
+const db = mongoose.connection
 
 // router setup
 app.use('/', index)
