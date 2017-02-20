@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 //middleware setup
 const index = require('./routes/index')
 const users = require('./routes/users')
+const dashboard = require('./routes/dashboard')
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // router setup
 app.use('/', index)
 app.use('/users', users)
+app.use('/dashboard', dashboard)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
