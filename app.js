@@ -26,8 +26,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost/test')
-const db = mongoose.connection
+// mongoose.connect('mongodb://localhost/test')
+// const db = mongoose.connection
 
 // router setup
 app.use('/', index)
