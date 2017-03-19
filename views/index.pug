@@ -146,16 +146,16 @@ html
         a.item About Us
         .right.menu
           .item
-            a.ui.button Log in
+            a.ui.button(href='/signin') Sign In
           .item
-            a.ui.primary.button Sign Up
+            a.ui.primary.button(href='/register') Register
     // Sidebar Menu
     .ui.vertical.inverted.sidebar.menu
       a.active.item Home
       a.item How it Worked ?
       a.item About Us
-      a.item Login
-      a.item Signup
+      a.item Sign In
+      a.item Register
     // Page Contents
     .pusher
       .ui.inverted.vertical.masthead.center.aligned.segment
@@ -167,8 +167,8 @@ html
             a.item How it Worked ?
             a.item About Us
             .right.item
-              a.ui.inverted.button Log in
-              a.ui.inverted.button Sign Up
+              a.ui.inverted.button(href='/signin') Sign In
+              a.ui.inverted.button(href='/signup') Register
         .ui.text.container
           h1.ui.inverted.header
             | Online Pair Programming System

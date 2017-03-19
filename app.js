@@ -6,10 +6,12 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
-//middleware setup
+//routes setup
 const index = require('./routes/index')
 const users = require('./routes/users')
 const dashboard = require('./routes/dashboard')
+const register = require('./routes/register')
+const signin = require('./routes/signin')
 
 const app = express();
 
@@ -33,6 +35,8 @@ const db = mongoose.connection
 app.use('/', index)
 app.use('/users', users)
 app.use('/dashboard', dashboard)
+app.use('/signin', signin)
+app.use('/register', register)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
