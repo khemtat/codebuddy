@@ -10,21 +10,10 @@
 
   <!-- Site Properties -->
   <title>Fixed Menu Example - Semantic</title>
-
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/reset.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/site.css">
-
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/container.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/grid.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/header.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/image.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/menu.css">
-
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/divider.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/list.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/segment.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/dropdown.css">
-  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="../public/semantic/dist/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="../public/semantic/dist/semantic.min.js"></script>
 
   <style type="text/css">
     body {
@@ -47,19 +36,32 @@
       margin: 5em 0em 0em;
       padding: 5em 0em;
     }
-  </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
-  <script>
-    $('#context1 .menu .item')
-      .tab({
-        context: $('#context1')
-      })
-      ;
-    $('#context2 .menu .item')
-      .tab({
-        // special keyword works same as above
-        context: 'parent'
-      })
-      ;
+  </style>
+  <script type="text/javascript">
+    $(document).on("click", ".show", function () {
+      $(".ui.modal").modal("setting", {
+        closable: false,
+        onApprove: function () {
+          return false;
+        }
+      }).modal("show");
+    }).on("click", ".ui.button", function () {
+      switch ($(this).data("value")) {
+        case 'easy':
+          $("#result").html("easy");
+          $(".ui.modal").modal("hide");
+          break;
+        case 'normal':
+          $("#result").html("normal");
+          $(".ui.modal").modal("hide");
+          break;
+        case 'hard':
+          $("#result").html("hard");
+          $(".ui.modal").modal("hide");
+          break;
+      }
+    });
+
   </script>
 
   <style id="extension_grayscale" type="text/css">
@@ -98,66 +100,81 @@
     </div>
   </div>
 
-<div> </div>
+  <div> </div>
+
+  <div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">Create New Project</div>
+    <div class="content">
+      <form class="ui form">
+        <div class="field">
+          <label>Project Name : </label>
+          <input type="text" name="project-name" placeholder="Your Project Name">
+        </div>
+        <div class="field">
+          <label>Description : </label>
+          <input type="text" name="description" placeholder="Something about your project">
+        </div>
+        <div class="field">
+          <label>Language : </label>
+          <div class="ui selection dropdown">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">Please select your programming language</div>
+            <div class="menu">
+              <div class="item" data-value="1">Python</div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Buddy ID : </label>
+          <input type="text" name="buddy-id" placeholder="Your buddy">
+        </div>
+      
+
+    </div>
+    <div class="actions">
+      <button class="ui button approve green" type="submit">Create</button>
+      <div class="ui button approve red" data-value="cancle">Cancle</div>
+    </div>
+    </form>
+  </div>
+
+  <div>Result: <span id="result"></span></div>
 
   <div class="ui main text container">
-    <h1 class="ui header">Semantic UI Fixed Template</h1>
-    <p>This is a basic fixed menu template using fixed size containers.</p>
-    <p>A text container is used for the main container, which is useful for single column layouts</p>
-    <div id="context1">
-      <div class="ui secondary menu">
-        <a class="item" data-tab="first">First</a>
-        <a class="item active" data-tab="second">Second</a>
-        <a class="item" data-tab="third">Third</a>
-      </div>
-      <div class="ui tab segment" data-tab="first">
-        <div class="ui top attached tabular menu">
-          <a class="active item" data-tab="first/a">1A</a>
-          <a class="item" data-tab="first/b">1B</a>
-          <a class="item" data-tab="first/c">1C</a>
-        </div>
-        <div class="ui bottom attached active tab segment" data-tab="first/a">1A</div>
-        <div class="ui bottom attached tab segment" data-tab="first/b">1B</div>
-        <div class="ui bottom attached tab segment" data-tab="first/c">1C</div>
-      </div>
-      <div class="ui tab segment active" data-tab="second">
-        <div class="ui top attached tabular menu">
-          <a class="item" data-tab="second/a">2A</a>
-          <a class="item" data-tab="second/b">2B</a>
-          <a class="item active" data-tab="second/c">2C</a>
-        </div>
-        <div class="ui bottom attached tab segment" data-tab="second/a">2A</div>
-        <div class="ui bottom attached tab segment" data-tab="second/b">2B</div>
-        <div class="ui bottom attached tab segment active" data-tab="second/c">2C</div>
-      </div>
-      <div class="ui tab segment" data-tab="third">
-        <div class="ui top attached tabular menu">
-          <a class="item" data-tab="third/a">3A</a>
-          <a class="item" data-tab="third/b">3B</a>
-          <a class="item" data-tab="third/c">3C</a>
-        </div>
-        <div class="ui bottom attached tab segment" data-tab="third/a">3A</div>
-        <div class="ui bottom attached tab segment" data-tab="third/b">3B</div>
-        <div class="ui bottom attached tab segment" data-tab="third/c">3C</div>
-      </div>
+    <div class="ui right aligned grid">
+    <div class="sixteen wide column"> <button class="ui button approve green show" id="new">Create New Project</button></div>
     </div>
-    <div class="ui divider"></div>
-    <div id="context2">
-      <div class="ui secondary menu">
-        <a class="item" data-tab="fourth">Fourth</a>
-        <a class="item active" data-tab="fifth">Fifth</a>
-        <a class="item" data-tab="sixth">Sixth</a>
-      </div>
-      <div class="ui tab segment" data-tab="fourth">
-        4
-      </div>
-      <div class="ui active tab segment" data-tab="fifth">
-        5
-      </div>
-      <div class="ui tab segment" data-tab="sixth">
-        6
-      </div>
+    <h1 class="ui header">My Projects</h1>
+    <p></p>
+   
+<div class="ui relaxed divided list">
+  <div class="item">
+    <a class="ui blue image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/christian.jpg"> <div class="detail middle">Pj. Owner</div></a>
+    <div class="content">
+      <a class="header">Semantic-Org/Semantic-UI</a>
+      	Lorem ipsum dolor sit amet,
+      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
     </div>
+  </div>
+  <div class="item">
+    <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg"><div class="detail">Co-worker</div></a>
+    <div class="content">
+      <a class="header">Semantic-Org/Semantic-UI</a>
+      	Lorem ipsum dolor sit amet,
+      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+    </div>
+  </div>
+    <div class="item">
+    <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg"><div class="detail">Co-worker</div></a>
+    <div class="content">
+      <a class="header">Semantic-Org/Semantic-UI</a>
+      	Lorem ipsum dolor sit amet,
+      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+    </div>
+  </div>
+</div>
   </div>
 
   <div class="ui inverted vertical footer segment">
@@ -205,33 +222,6 @@
       </div>
     </div>
   </div>
-
-<div class="ui modal">
-  <i class="close icon"></i>
-  <div class="header">
-    Profile Picture
-  </div>
-  <div class="image content">
-    <div class="ui medium image">
-      <img src="/images/avatar/large/chris.jpg">
-    </div>
-    <div class="description">
-      <div class="ui header">We've auto-chosen a profile image for you.</div>
-      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-      <p>Is it okay to use this photo?</p>
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      Nope
-    </div>
-    <div class="ui positive right labeled icon button">
-      Yep, that's me
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
-
 </body>
 
 </html>
