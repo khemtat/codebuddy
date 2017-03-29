@@ -4,24 +4,24 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Codebuddy - Register
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/reset.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/site.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/container.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/grid.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/header.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/image.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/menu.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/divider.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/list.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/dropdown.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/icon.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/button.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/transition.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/sidebar.css')
+    title Codebuddy - Edit Profile
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/reset.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/site.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/container.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/grid.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/header.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/image.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/menu.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/divider.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/list.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/segment.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/dropdown.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/icon.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/form.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/button.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/checkbox.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/transition.css')
+    link(rel='stylesheet', type='text/css', href='../public/semantic/dist/components/sidebar.css')
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -42,25 +42,41 @@ html
     style#extension_grayscale(type='text/css').
       html *, * { filter: initial !important; }
   body
-    .ui.large.top.fixed.hidden.menu
+    .ui.fixed.inverted.menu
       .ui.container
-        a.active.item(href='/') Home
-        a.item How it Worked ?
-        a.item About Us
-        .right.menu
-          .item
-            a.ui.button(href='/signin') Sign In
-          .item
-            a.ui.primary.button(href='/register') Register
+        a.header.item(href='#')
+          img.logo(src='assets/images/logo.png')
+          |  Project Name
+        |  
+        a.item(href='#') Home
+        .ui.simple.dropdown.item
+          | My Projects
+          i.dropdown.icon
+          .menu
+            a.item(href='#') Link Item
+            |  
+            a.item(href='#') Link Item
+            .divider
+            .header Header Item
+            .item
+              i.dropdown.icon
+              |  Sub Menu
+              .menu
+                a.item(href='#') Link Item
+                |  
+                a.item(href='#') Link Item
+            |  
+            a.item(href='#') Link Item
+        | User
     .ui.main.text.container
-      h1.ui.header Sign Up Now
-      p Fill in the form below to get access
-      form.ui.form(method='POST')
+      h1.ui.header Edit your profile
+      p Edit your profile in the form below
+      form.ui.form
         h4.ui.dividing.header Access information
         .field
           label Username
           |  
-          input(type='text', name='username', placeholder='joe')
+          input(type='text', name='user-name', placeholder='joe', disabled='true')
         .field
           label Password
           |  
@@ -73,11 +89,11 @@ html
         .field
           label First Name
           |  
-          input(type='text', name='firstname', placeholder='First Name')
+          input(type='text', name='first-name', placeholder='First Name')
         .field
           label Last Name
           |  
-          input(type='text', name='lastname', placeholder='Last Name')
+          input(type='text', name='last-name', placeholder='Last Name')
         .field
           label Occupation
           |  
@@ -89,11 +105,11 @@ html
             i.dropdown.icon
             .default.text Gender
             .menu
-              .item(data-value='male') Male
-              .item(data-value='female') Female
+              .item(data-value='1') Male
+              .item(data-value='0') Female
         .field
           .ui.checkbox
-            input.hidden(type='checkbox', tabindex='0', name='agreement')
+            input.hidden(type='checkbox', tabindex='0')
             |  
             label I agree to the Terms and Conditions
         |  

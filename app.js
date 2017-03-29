@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const app = express();
 
 //routes setup
 const index = require('./routes/index')
@@ -12,8 +13,6 @@ const users = require('./routes/users')
 const dashboard = require('./routes/dashboard')
 const register = require('./routes/register')
 const signin = require('./routes/signin')
-
-const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
