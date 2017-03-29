@@ -1,6 +1,8 @@
 <!doctype html>
 
-<html><head>
+<html>
+
+<head>
   <!-- Standard Meta -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -25,32 +27,55 @@
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/components/icon.css">
 
   <style type="text/css">
-  body {
-    background-color: #FFFFFF;
-  }
-  .ui.menu .item img.logo {
-    margin-right: 1.5em;
-  }
-  .main.container {
-    margin-top: 7em;
-  }
-  .wireframe {
-    margin-top: 2em;
-  }
-  .ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
-  }
-  </style>
+    body {
+      background-color: #FFFFFF;
+    }
+    
+    .ui.menu .item img.logo {
+      margin-right: 1.5em;
+    }
+    
+    .main.container {
+      margin-top: 7em;
+    }
+    
+    .wireframe {
+      margin-top: 2em;
+    }
+    
+    .ui.footer.segment {
+      margin: 5em 0em 0em;
+      padding: 5em 0em;
+    }
+  </style><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
+  <script>
+    $('#context1 .menu .item')
+      .tab({
+        context: $('#context1')
+      })
+      ;
+    $('#context2 .menu .item')
+      .tab({
+        // special keyword works same as above
+        context: 'parent'
+      })
+      ;
+  </script>
 
-<style id="extension_grayscale" type="text/css">html *, * { filter: initial !important; }</style></head>
+  <style id="extension_grayscale" type="text/css">
+    html *,
+    * {
+      filter: initial !important;
+    }
+  </style>
+</head>
+
 <body>
 
   <div class="ui fixed inverted menu">
     <div class="ui container">
       <a href="#" class="header item">
-        <img class="logo" src="assets/images/logo.png">
-        Project Name
+        <img class="logo" src="assets/images/logo.png"> Project Name
       </a>
       <a href="#" class="item">Home</a>
       <div class="ui simple dropdown item">
@@ -61,8 +86,7 @@
           <div class="divider"></div>
           <div class="header">Header Item</div>
           <div class="item">
-            <i class="dropdown icon"></i>
-            Sub Menu
+            <i class="dropdown icon"></i> Sub Menu
             <div class="menu">
               <a class="item" href="#">Link Item</a>
               <a class="item" href="#">Link Item</a>
@@ -74,18 +98,66 @@
     </div>
   </div>
 
+<div> </div>
 
-    <div class="ui main text container">
+  <div class="ui main text container">
     <h1 class="ui header">Semantic UI Fixed Template</h1>
     <p>This is a basic fixed menu template using fixed size containers.</p>
     <p>A text container is used for the main container, which is useful for single column layouts</p>
-    <img class="wireframe" src="assets/images/wireframe/media-paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
-    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <div id="context1">
+      <div class="ui secondary menu">
+        <a class="item" data-tab="first">First</a>
+        <a class="item active" data-tab="second">Second</a>
+        <a class="item" data-tab="third">Third</a>
+      </div>
+      <div class="ui tab segment" data-tab="first">
+        <div class="ui top attached tabular menu">
+          <a class="active item" data-tab="first/a">1A</a>
+          <a class="item" data-tab="first/b">1B</a>
+          <a class="item" data-tab="first/c">1C</a>
+        </div>
+        <div class="ui bottom attached active tab segment" data-tab="first/a">1A</div>
+        <div class="ui bottom attached tab segment" data-tab="first/b">1B</div>
+        <div class="ui bottom attached tab segment" data-tab="first/c">1C</div>
+      </div>
+      <div class="ui tab segment active" data-tab="second">
+        <div class="ui top attached tabular menu">
+          <a class="item" data-tab="second/a">2A</a>
+          <a class="item" data-tab="second/b">2B</a>
+          <a class="item active" data-tab="second/c">2C</a>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="second/a">2A</div>
+        <div class="ui bottom attached tab segment" data-tab="second/b">2B</div>
+        <div class="ui bottom attached tab segment active" data-tab="second/c">2C</div>
+      </div>
+      <div class="ui tab segment" data-tab="third">
+        <div class="ui top attached tabular menu">
+          <a class="item" data-tab="third/a">3A</a>
+          <a class="item" data-tab="third/b">3B</a>
+          <a class="item" data-tab="third/c">3C</a>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="third/a">3A</div>
+        <div class="ui bottom attached tab segment" data-tab="third/b">3B</div>
+        <div class="ui bottom attached tab segment" data-tab="third/c">3C</div>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+    <div id="context2">
+      <div class="ui secondary menu">
+        <a class="item" data-tab="fourth">Fourth</a>
+        <a class="item active" data-tab="fifth">Fifth</a>
+        <a class="item" data-tab="sixth">Sixth</a>
+      </div>
+      <div class="ui tab segment" data-tab="fourth">
+        4
+      </div>
+      <div class="ui active tab segment" data-tab="fifth">
+        5
+      </div>
+      <div class="ui tab segment" data-tab="sixth">
+        6
+      </div>
+    </div>
   </div>
 
   <div class="ui inverted vertical footer segment">
@@ -134,6 +206,32 @@
     </div>
   </div>
 
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="/images/avatar/large/chris.jpg">
+    </div>
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
 
+</body>
 
-</body></html>
+</html>
