@@ -1,32 +1,41 @@
 // import all of modules used for our app
 const express = require('express')
 const path = require('path')
-const favicon = require('serve-favicon')
 const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const winston = require('winston')
 const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
 
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 8080
 const app = express()
 const routes = require('./routes')
 const dbConfig = require('./config/dbConfig')
+const redisConfig = require('./config/redisConfig')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// get server ready
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session({
+  secret: 'khktcodebuddysecretsigned',
+  store: new RedisStore(redisConfig),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 // connect to mongodb
-mongoose.connect(dbConfig.url)
+mongoose.connect(dbConfig.url, (err) => {
+  if (err) throw err
+  winston.info('Connect to MongoDB successfully')
+})
 
 // routes setup
 app.use('/', routes.index)
@@ -49,5 +58,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log(`Listening on localhost:${port}`)
+  winston.info(`Listening on localhost:${port}`)
 })
