@@ -7,6 +7,8 @@
         "import"
     ],
     "rules": {
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "comma-dangle": ["error", "never"],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
     }
 }
