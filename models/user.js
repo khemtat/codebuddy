@@ -1,4 +1,13 @@
 const mongoose = require('mongoose')
-let user = mongoose.model('User', )
 
-module.exports = user
+module.exports = mongoose.model('User', {
+  username: String,
+  password: String,
+  email: String,
+  info: {
+    name: String,
+    occupation: String,
+    gender: String
+  },
+  projects: Array
+})
