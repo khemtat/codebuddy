@@ -4,28 +4,10 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Login Example - Semantic
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/reset.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/site.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/container.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/grid.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/header.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/menu.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/divider.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/list.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.css')
-    script(src='assets/library/jquery.min.js')
-    script(src='semantic/dist/components/form.js')
-    script(src='semantic/dist/components/transition.js')
+    title Code Buddy - Sign In
     style(type='text/css').
       body {
-      background-color: #DADADA;
+        background-color: #d0d0d0
       }
       body > .grid {
       height: 100%;
@@ -79,7 +61,7 @@ html
     .ui.middle.aligned.center.aligned.grid
       .column
         h2.ui.teal.image.header
-          img.image(src='assets/images/logo.png')
+          //img.image(src='/images/logo.png')
           .content  Log-in to your account
         form.ui.large.form
           .ui.stacked.segment
@@ -97,4 +79,8 @@ html
           .ui.error.message
         .ui.message
           | New to us? 
-          a(href='#') Sign Up
+          a(href='/register') Register
+    link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
+    script(src='javascripts/jquery.min.js')
+    script(src='semantic/dist/components/form.js')
+    script(src='semantic/dist/components/transition.js')
