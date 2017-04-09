@@ -1,5 +1,5 @@
 {
-  "name": "codebuddy",
+  "name": "Code Buddy - A Web-based Software Development Environment for Pair Programming",
   "version": "0.0.0",
   "private": true,
   "main": "server.js",
@@ -29,8 +29,8 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3"
   },
-  "author": [
-    "Khemtat Lengpaiboon",
-    "Kittikorn Prasertsak"
+  "about": [
+    "school": "Faculty of Information Technology King Mongkut's Institute of Technology Ladkrabang",
+    "name": ["Khemtat Lengpaiboon", "Kittikorn Prasertsak"]
   ]
 }
