@@ -39,7 +39,7 @@ html
           .item
             a.ui.primary.button(href='/register') Register
     .ui.main.text.container
-      h1.ui.header Sign Up Now
+      h1.ui.header Register Now
       p Fill in the form below to get access
       form.ui.form(method='POST')
         h4.ui.dividing.header Access information
@@ -81,7 +81,9 @@ html
           .ui.checkbox
             input.hidden(type='checkbox', tabindex='0', name='agreement')
             |  
-            label I agree to the Terms and Conditions
+            label 
+              | I agree to the 
+              a(href="#toc") Terms and Conditions
         |  
         button.ui.button(type='submit') Register
     .ui.inverted.vertical.footer.segment

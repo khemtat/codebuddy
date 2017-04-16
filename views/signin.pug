@@ -62,8 +62,8 @@ html
       .column
         h2.ui.teal.image.header
           //img.image(src='/images/logo.png')
-          .content  Log-in to your account
-        form.ui.large.form
+          .content Sign In Account
+        form.ui.large.form(action='/signin', method='POST')
           .ui.stacked.segment
             .field
               .ui.left.icon.input
@@ -75,7 +75,7 @@ html
                 i.lock.icon
                 |  
                 input(type='password', name='password', placeholder='Password')
-            .ui.fluid.large.teal.submit.button Login
+          button.ui.fluid.large.teal.submit.button(type='submit') Sign In
           .ui.error.message
         .ui.message
           | New to us? 
