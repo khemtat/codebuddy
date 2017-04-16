@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properties -->
-  <title>Fixed Menu Example - Semantic</title>
+  <title>Dashboard - CodeBuddy</title>
   <link rel="stylesheet" type="text/css" href="../public/semantic/dist/semantic.min.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
@@ -61,7 +61,6 @@
           break;
       }
     });
-
   </script>
 
   <style id="extension_grayscale" type="text/css">
@@ -74,33 +73,30 @@
 
 <body>
 
-  <div class="ui fixed inverted menu">
+  <div class="ui attached stackable menu">
     <div class="ui container">
-      <a href="#" class="header item">
-        <img class="logo" src="assets/images/logo.png"> Project Name
+      <img class="logo large" src="img/logo-codebuddy-s.png">
+      <a class="item">
+        <i class="home icon"></i> Home
       </a>
-      <a href="#" class="item">Home</a>
-      <div class="ui simple dropdown item">
-        My Projects <i class="dropdown icon"></i>
+      <a class="item">
+        <i class="grid layout icon"></i> Projects
+      </a>
+      <a class="item">
+        <i class="mail icon"></i> Messages
+        <div class="ui red horizontal label">1</div>
+      </a>
+      <div class="ui simple dropdown right item">
+        <i class="user icon"></i> Kittikorn Prasertsak
+        <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-          <div class="divider"></div>
-          <div class="header">Header Item</div>
-          <div class="item">
-            <i class="dropdown icon"></i> Sub Menu
-            <div class="menu">
-              <a class="item" href="#">Link Item</a>
-              <a class="item" href="#">Link Item</a>
-            </div>
-          </div>
-          <a class="item" href="#">Link Item</a>
+          <a class="item"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item"><i class="calendar icon"></i> History</a>
+          <a class="item"><i class="sign out icon"></i> Sign Out</a>
         </div>
-      </div>User
+      </div>
     </div>
   </div>
-
-  <div> </div>
 
   <div class="ui small modal">
     <i class="close icon"></i>
@@ -130,7 +126,7 @@
           <label>Buddy ID : </label>
           <input type="text" name="buddy-id" placeholder="Your buddy">
         </div>
-      
+
 
     </div>
     <div class="actions">
@@ -140,86 +136,74 @@
     </form>
   </div>
 
-  <div>Result: <span id="result"></span></div>
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column doubling stackable grid container">
+      <div class="column">
+        <h1 class="ui header">My Projects</h1>
+      </div>
+      <div class="right column">
+        <a class="right">
+          <button class="ui button approve green show" id="new" style="float: right;">Create New Project</button></a>
+      </div>
+    </div>
+    <br>
 
-  <div class="ui main text container">
-    <div class="ui right aligned grid">
-    <div class="sixteen wide column
-    "> <button class="ui button approve green show" id="new">Create New Project</button></div>
+    <div class="ui relaxed divided list">
+      <div class="item">
+        <a class="ui blue image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/christian.jpg">
+          <div class="detail middle">Pj. Owner</div>
+        </a>
+        <div class="content">
+          <a class="header">Semantic-Org/Semantic-UI</a> Lorem ipsum dolor sit amet,
+          <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
+          <div class="detail">Co-worker</div>
+        </a>
+        <div class="content">
+          <a class="header">Semantic-Org/Semantic-UI</a> Lorem ipsum dolor sit amet,
+          <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
+          <div class="detail">Co-worker</div>
+        </a>
+        <div class="content">
+          <a class="header">Semantic-Org/Semantic-UI</a> Lorem ipsum dolor sit amet,
+          <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
+          <div class="detail">Co-worker</div>
+        </a>
+        <div class="content">
+          <a class="header">Semantic-Org/Semantic-UI</a> Lorem ipsum dolor sit amet,
+          <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
+          <div class="detail">Co-worker</div>
+        </a>
+        <div class="content">
+          <a class="header">Semantic-Org/Semantic-UI</a> Lorem ipsum dolor sit amet,
+          <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
+        </div>
+      </div>
     </div>
-    <h1 class="ui header">My Projects</h1>
-    <p></p>
-   
-<div class="ui relaxed divided list">
-  <div class="item">
-    <a class="ui blue image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/christian.jpg"> <div class="detail middle">Pj. Owner</div></a>
-    <div class="content">
-      <a class="header">Semantic-Org/Semantic-UI</a>
-      	Lorem ipsum dolor sit amet,
-      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
-    </div>
-  </div>
-  <div class="item">
-    <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg"><div class="detail">Co-worker</div></a>
-    <div class="content">
-      <a class="header">Semantic-Org/Semantic-UI</a>
-      	Lorem ipsum dolor sit amet,
-      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
-    </div>
-  </div>
-    <div class="item">
-    <a class="ui yellow image label middle aligned"><img src="https://semantic-ui.com/images/avatar/small/elliot.jpg"><div class="detail">Co-worker</div></a>
-    <div class="content">
-      <a class="header">Semantic-Org/Semantic-UI</a>
-      	Lorem ipsum dolor sit amet,
-      <div class="description">Updated 10 mins ago (<a href="#">@Username</a>)</div>
-    </div>
-  </div>
-</div>
   </div>
 
   <div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
-      <div class="ui stackable inverted divided grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 1</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 2</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 3</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
-          </div>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Footer Header</h4>
-          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-        </div>
-      </div>
-      <div class="ui inverted section divider"></div>
-      <img src="assets/images/logo.png" class="ui centered mini image">
+      <img src="img/logo-white-s.png" class="ui centered small image">
       <div class="ui horizontal inverted small divided link list">
-        <a class="item" href="#">Site Map</a>
+        <a class="item" href="#">How it worked?</a>
         <a class="item" href="#">Contact Us</a>
-        <a class="item" href="#">Terms and Conditions</a>
-        <a class="item" href="#">Privacy Policy</a>
+        <a class="item" href="#">About Us</a>
       </div>
     </div>
   </div>
