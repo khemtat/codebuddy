@@ -1,11 +1,46 @@
-const index = require('./routes/index')
-const users = require('./routes/users')
-const dashboard = require('./routes/dashboard')
-const register = require('./routes/register')
-const signin = require('./routes/signin')
+// const isLoggedIn = require('./middlewares/isLoggedIn')
 
-exports.index = index
-exports.users = users
-exports.dashboard = dashboard
-exports.register = register
-exports.signin = signin
+module.exports = (app) => {
+  // **** NORMAL ROUTES (NO NEED AUTHENTICATED) ****
+
+  // =========================
+  // ======= Home Page =======
+  // =========================
+
+  app.get('/', (req, res) => {
+    res.render('index')
+  })
+
+  app.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
+  })
+
+  // =======================
+  // ======= Sign In =======
+  // =======================
+
+  app.get('/signin', (req, res) => {
+    res.render('signin')
+  })
+
+  app.post('/signin', (req, res) => {
+    // TODO: implement signin form
+  })
+
+  // ========================
+  // ======= Register =======
+  // ========================
+
+  app.get('/register', (req, res) => {
+    res.render('register')
+  })
+
+  app.post('/register', (req, res) => {
+    // TODO: implement register form
+  })
+
+  // **** AUTHENTICATE (FIRST LOGIN) ****
+
+  // **** AUTHORIZE (ALREADY LOGGED IN) ****
+}
