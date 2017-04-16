@@ -1,11 +1,12 @@
 {
-  "name": "Code Buddy - A Web-based Software Development Environment for Pair Programming",
+  "name": "codebuddy",
   "version": "0.0.0",
   "private": true,
   "main": "server.js",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "~1.15.2",
+    "connect-flash": "^0.1.1",
     "connect-redis": "^3.2.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -28,9 +29,5 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3"
-  },
-  "about": [
-    "school": "Faculty of Information Technology King Mongkut's Institute of Technology Ladkrabang",
-    "name": ["Khemtat Lengpaiboon", "Kittikorn Prasertsak"]
-  ]
+  }
 }
