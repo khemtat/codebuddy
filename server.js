@@ -97,6 +97,16 @@ app.post('/playground', (req, res) => {
   // TODO: implement playground form
 })
 
+// ======= Dashboard =======
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard')
+})
+
+app.post('/dashboard', (req, res) => {
+  // TODO: implement dashboard form
+})
+
 // ======= editprofile =======
 
 app.get('/editprofile', (req, res) => {
