@@ -70,13 +70,15 @@ html
           input(type='text', name='occupation', placeholder='occupation')
         .field
           label Gender
-          .ui.selection.dropdown
-            input(type='hidden', name='gender')
-            i.dropdown.icon
-            .default.text Gender
-            .menu
-              .item(data-value='male') Male
-              .item(data-value='female') Female
+          .field
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='male')
+              |  
+              label Male
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='female')
+              |  
+              label Female
         .field
           .ui.checkbox
             input.hidden(type='checkbox', tabindex='0', name='agreement')
