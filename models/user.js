@@ -1,6 +1,12 @@
+/**
+ * Module dependencies
+ */
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+/**
+ * `User` model schema based on Mongoose schema
+ */
 const userSchema = mongoose.Schema({
   username: String,
   password: String,
@@ -13,12 +19,30 @@ const userSchema = mongoose.Schema({
   projects: Array
 })
 
-userSchema.methods.generateHash = function generateHash(plainPassword) {
-  return bcrypt.hash(plainPassword, 10, null)
+/**
+ * Generating password hashed before called save function
+ * @param {Function} next
+ */
+userSchema.pre('save', function (next) {
+  bcrypt.hash(this.password, 10, (err, hash) => {
+    if (err) return next(err)
+    this.password = hash
+    return next()
+  })
+})
+
+/**
+ * Checking plain password and stored passport in database is valid
+ * @param {String} plainPassword
+ */
+userSchema.methods.validPassword = function validPassword(plainPassword, cb) {
+  bcrypt.compare(plainPassword, this.password, (err, isMatch) => {
+    if (err) return cb(err)
+    return cb(null, isMatch)
+  })
 }
 
-userSchema.methods.validPassword = function validPassword(plainPassword) {
-  return bcrypt.compare(plainPassword, this.local.password, null)
-}
-
+/**
+ * Expose `User` model
+ */
 module.exports = mongoose.model('User', userSchema)

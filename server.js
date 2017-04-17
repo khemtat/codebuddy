@@ -1,5 +1,5 @@
 /**
- * Module Dependencies
+ * Module dependencies
  */
 const express = require('express')
 const app = express()
@@ -33,7 +33,7 @@ app.set('view engine', 'pug')
 app.use(morgan('dev'))
 app.use(flash())
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
   secret: 'khktcodebuddysecretsigned',
@@ -47,6 +47,7 @@ app.use(passport.session())
 passportConfig(passport)
 
 // connect to mongodb
+mongoose.Promise = global.Promise
 mongoose.connect(dbConfig.url, (err) => {
   if (err) throw err
   winston.info('Connect to MongoDB successfully')
@@ -72,7 +73,6 @@ app.get('/signin', (req, res) => {
 
 app.post('/signin', (req, res) => {
   // TODO: implement signin form
-  res.json({'req.body.email':req.body.email, 'req.body.password': req.body.password})
 })
 
 // ======= Register =======
@@ -80,9 +80,11 @@ app.get('/register', (req, res) => {
   res.render('register')
 })
 
-app.post('/register', (req, res) => {
-  // TODO: implement register form
-})
+app.post('/register', passport.authenticate('local-register', {
+  successRedirect: '/',
+  failureRedirect: '/register_error',
+  failureFlash: true
+}))
 
 /**
  * Middlewears handler
