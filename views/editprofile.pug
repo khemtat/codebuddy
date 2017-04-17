@@ -4,8 +4,8 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Codebuddy - Edit Profile
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
+    title Edit Profile - CodeBuddy
+    link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -24,35 +24,39 @@ html
       padding: 5em 0em;
       }
     style#extension_grayscale(type='text/css').
-      html *, * { filter: initial !important; }
+      html *,
+      * {
+      filter: initial !important;
+      }
   body
-    .ui.fixed.inverted.menu
+    .ui.attached.stackable.menu
       .ui.container
-        a.header.item(href='#')
-          img.logo(src='assets/images/logo.png')
-          |  Project Name
-        |  
-        a.item(href='#') Home
-        .ui.simple.dropdown.item
-          | My Projects
+        img.logo.large(src='images/logo-codebuddy-s.png')
+        a.item
+          i.home.icon
+          |  Home
+        a.item
+          i.grid.layout.icon
+          |  Projects
+        a.item
+          i.mail.icon
+          |  Messages
+          .ui.red.horizontal.label 1
+        .ui.simple.dropdown.right.item
+          i.user.icon
+          |  Kittikorn Prasertsak
           i.dropdown.icon
           .menu
-            a.item(href='#') Link Item
-            |  
-            a.item(href='#') Link Item
-            .divider
-            .header Header Item
-            .item
-              i.dropdown.icon
-              |  Sub Menu
-              .menu
-                a.item(href='#') Link Item
-                |  
-                a.item(href='#') Link Item
-            |  
-            a.item(href='#') Link Item
-        | User
-    .ui.main.text.container
+            a.item
+              i.edit.icon
+              |  Edit Profile
+            a.item
+              i.calendar.icon
+              |  History
+            a.item
+              i.sign.out.icon
+              |  Sign Out
+    .ui.raised.very.padded.text.container.segment
       h1.ui.header Edit your profile
       p Edit your profile in the form below
       form.ui.form
@@ -84,13 +88,16 @@ html
           input(type='text', name='occupation', placeholder='occupation')
         .field
           label Gender
-          .ui.selection.dropdown
-            input(type='hidden', name='gender')
-            i.dropdown.icon
-            .default.text Gender
-            .menu
-              .item(data-value='1') Male
-              .item(data-value='0') Female
+          .field
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='male')
+              |  
+              label Male
+          .field
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='female')
+              |  
+              label Female
         .field
           .ui.checkbox
             input.hidden(type='checkbox', tabindex='0')
@@ -100,49 +107,10 @@ html
         button.ui.button(type='submit') Register
     .ui.inverted.vertical.footer.segment
       .ui.center.aligned.container
-        .ui.stackable.inverted.divided.grid
-          .three.wide.column
-            h4.ui.inverted.header Group 1
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .three.wide.column
-            h4.ui.inverted.header Group 2
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .three.wide.column
-            h4.ui.inverted.header Group 3
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .seven.wide.column
-            h4.ui.inverted.header Footer Header
-            p
-              | Extra space for a call to action inside the footer that could help re-engage users.
-        .ui.inverted.section.divider
-        |  
-        img.ui.centered.mini.image(src='assets/images/logo.png')
+        img.ui.centered.small.image(src='images/logo-white-s.png')
         .ui.horizontal.inverted.small.divided.link.list
-          a.item(href='#') Site Map
+          a.item(href='#') How it worked?
           |  
           a.item(href='#') Contact Us
           |  
-          a.item(href='#') Terms and Conditions
-          |  
-          a.item(href='#') Privacy Policy
+          a.item(href='#') About Us

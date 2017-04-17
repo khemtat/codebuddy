@@ -40,6 +40,18 @@ module.exports = (app) => {
     // TODO: implement register form
   })
 
+    // ========================
+  // ======= PlayGround =======
+  // ========================
+
+  app.get('/playground', (req, res) => {
+    res.render('playground')
+  })
+
+  app.post('/playground', (req, res) => {
+    // TODO: implement playground form
+  })
+
   // **** AUTHENTICATE (FIRST LOGIN) ****
 
   // **** AUTHORIZE (ALREADY LOGGED IN) ****
