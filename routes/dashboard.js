@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 /* GET dashboard page. */
-router.get('/', function(req, res, next) {
+router.get('/dashboard', (req, res, next) => {
   res.render('dashboard')
 })
 
