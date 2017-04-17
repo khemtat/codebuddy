@@ -32,30 +32,30 @@ html
     .ui.attached.stackable.menu
       .ui.container
         img.logo.large(src='images/logo-codebuddy-s.png')
-        a.item
+        a.item(href='/')
           i.home.icon
           |  Home
-        a.item
+        a.item(href='/dashboard')
           i.grid.layout.icon
           |  Projects
-        a.item
+        a.item(href='/notifications')
           i.mail.icon
-          |  Messages
+          |  Notifications
           .ui.red.horizontal.label 1
         .ui.simple.dropdown.right.item
-          i.user.icon
-          |  Kittikorn Prasertsak
-          i.dropdown.icon
-          .menu
-            a.item
-              i.edit.icon
-              |  Edit Profile
-            a.item
-              i.calendar.icon
-              |  History
-            a.item
-              i.sign.out.icon
-              |  Sign Out
+            i.user.icon
+            |  Kittikorn Prasertsak
+            i.dropdown.icon
+            .menu
+              a.item(href='/user/kittikorn')
+                i.unhide.icon
+                |  View Profile
+              a.item(href='/editprofile')
+                i.edit.icon
+                |  Edit Profile
+              a.item(href='/signout')
+                i.sign.out.icon
+                |  Sign Out
     .ui.container.segment
       .ui.grid
         .four.wide.column
