@@ -108,6 +108,25 @@ app.get('/dashboard', isSignedIn, (req, res) => {
   res.render('dashboard', { user: req.user })
 })
 
+// ======= PlayGround =======
+app.get('/playground', (req, res) => {
+  res.render('playground')
+})
+
+app.post('/playground', (req, res) => {
+  // TODO: implement playground form
+})
+
+// ======= editprofile =======
+
+app.get('/editprofile', (req, res) => {
+  res.render('editprofile')
+})
+
+app.post('/editprofile', (req, res) => {
+  // TODO: implement editprofile form
+})
+
 /**
  * Error handler
  */

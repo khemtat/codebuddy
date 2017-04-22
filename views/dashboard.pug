@@ -4,8 +4,8 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Fixed Menu Example - Semantic
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
+    title Dashboard - CodeBuddy
+    link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
     script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
     script(src='/semantic/dist/semantic.min.js')
     style(type='text/css').
@@ -56,33 +56,33 @@ html
       }
   body
     h1 user.username
-    .ui.fixed.inverted.menu
+    .ui.attached.stackable.menu
       .ui.container
-        a.header.item(href='#')
-          img.logo(src='assets/images/logo.png')
-          |  Project Name
-        |  
-        a.item(href='#') Home
-        .ui.simple.dropdown.item
-          | My Projects
-          i.dropdown.icon
-          .menu
-            a.item(href='#') Link Item
-            |  
-            a.item(href='#') Link Item
-            .divider
-            .header Header Item
-            .item
-              i.dropdown.icon
-              |  Sub Menu
-              .menu
-                a.item(href='#') Link Item
-                |  
-                a.item(href='#') Link Item
-            |  
-            a.item(href='#') Link Item
-        | User
-    div
+        img.logo.large(src='images/logo-codebuddy-s.png')
+        a.item(href='/')
+          i.home.icon
+          |  Home
+        a.item(href='/dashboard')
+          i.grid.layout.icon
+          |  Projects
+        a.item(href='/notifications')
+          i.mail.icon
+          |  Messages
+          .ui.red.horizontal.label 1
+        .ui.simple.dropdown.right.item
+            i.user.icon
+            |  Kittikorn Prasertsak
+            i.dropdown.icon
+            .menu
+              a.item(href='/user/kittikorn')
+                i.unhide.icon
+                |  View Profile
+              a.item(href='/editprofile')
+                i.edit.icon
+                |  Edit Profile
+              a.item(href='/signout')
+                i.sign.out.icon
+                |  Sign Out
     .ui.small.modal
       i.close.icon
       .header Create New Project
@@ -111,15 +111,14 @@ html
       .actions
         button.ui.button.approve.green(type='submit') Create
         .ui.button.approve.red(data-value='cancle') Cancle
-    div
-      | Result:
-      span#result
-    .ui.main.text.container
-      .ui.right.aligned.grid
-        .sixteen.wide.column
-          button#new.ui.button.approve.green.show Create New Project
-      h1.ui.header My Projects
-      p
+    .ui.raised.very.padded.text.container.segment
+      .ui.two.column.doubling.stackable.grid.container
+        .column
+          h1.ui.header My Projects
+        .right.column
+          a.right
+            button#new.ui.button.approve.green.show(style='float: right;') Create New Project
+      br
       .ui.relaxed.divided.list
         .item
           a.ui.blue.image.label.middle.aligned
@@ -154,51 +153,34 @@ html
               | Updated 10 mins ago (
               a(href='#') @Username
               | )
+        .item
+          a.ui.yellow.image.label.middle.aligned
+            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
+            .detail Co-worker
+          .content
+            a.header Semantic-Org/Semantic-UI
+            |  Lorem ipsum dolor sit amet,
+            .description
+              | Updated 10 mins ago (
+              a(href='#') @Username
+              | )
+        .item
+          a.ui.yellow.image.label.middle.aligned
+            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
+            .detail Co-worker
+          .content
+            a.header Semantic-Org/Semantic-UI
+            |  Lorem ipsum dolor sit amet,
+            .description
+              | Updated 10 mins ago (
+              a(href='#') @Username
+              | )
     .ui.inverted.vertical.footer.segment
       .ui.center.aligned.container
-        .ui.stackable.inverted.divided.grid
-          .three.wide.column
-            h4.ui.inverted.header Group 1
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .three.wide.column
-            h4.ui.inverted.header Group 2
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .three.wide.column
-            h4.ui.inverted.header Group 3
-            .ui.inverted.link.list
-              a.item(href='#') Link One
-              |  
-              a.item(href='#') Link Two
-              |  
-              a.item(href='#') Link Three
-              |  
-              a.item(href='#') Link Four
-          .seven.wide.column
-            h4.ui.inverted.header Footer Header
-            p
-              | Extra space for a call to action inside the footer that could help re-engage users.
-        .ui.inverted.section.divider
-        |  
-        img.ui.centered.mini.image(src='assets/images/logo.png')
+        img.ui.centered.small.image(src='images/logo-white-s.png')
         .ui.horizontal.inverted.small.divided.link.list
-          a.item(href='#') Site Map
+          a.item(href='#') How it worked?
           |  
           a.item(href='#') Contact Us
           |  
-          a.item(href='#') Terms and Conditions
-          |  
-          a.item(href='#') Privacy Policy
+          a.item(href='#') About Us
