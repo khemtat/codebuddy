@@ -54,13 +54,10 @@ html
   body
     .ui.attached.stackable.menu
       .ui.container
-        img.logo.large(src='images/logo-codebuddy-s.png')
-        a.item(href='/')
-          i.home.icon
-          |  Home
+        img.logo.large(src='images/logo-codebuddy-s.png', href='/')
         a.item(href='/dashboard')
           i.grid.layout.icon
-          |  Projects
+          |  Dashboard
         a.item(href='/notifications')
           i.mail.icon
           |  Messages
@@ -106,7 +103,7 @@ html
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column
-          h1.ui.header My Projects
+          h1.ui.header Dashboard
         .right.column
           a.right
             button#new.ui.button.approve.green.show(style='float: right;') Create New Project
