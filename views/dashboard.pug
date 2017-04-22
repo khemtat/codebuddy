@@ -97,19 +97,15 @@ html
             input(type='text', name='description', placeholder='Something about your project')
           .field
             label Language :
-            .ui.selection.dropdown
-              input(type='hidden', name='gender')
-              i.dropdown.icon
-              .default.text Please select your programming language
-              .menu
-                .item(data-value='1') Python
+            select.ui.dropdown
+               option(value='0') Python
           .field
             label Buddy ID :
             |  
             input(type='text', name='buddy-id', placeholder='Your buddy')
       .actions
         button.ui.button.approve.green(type='submit') Create
-        .ui.button.approve.red(data-value='cancle') Cancle
+        .ui.button.approve.red(data-value='cancle') Cancel
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column
