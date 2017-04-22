@@ -25,8 +25,16 @@ function config(passport) {
     })
   })
 
+  // passport.use('local-register', new LocalStrategy({
+  //   usernameField: 'email',
+  //   passwordField: 'password',
+  //   passReqToCallback: true
+  // }, (email, password, done) => {
+  //   User.findOne()
+  // }))
+
   /**
-   * passport strategy for local register used for handling a local register form
+   * passport strategy for local register
    */
   passport.use('local-register', new LocalStrategy({
     usernameField: 'email',
@@ -35,8 +43,12 @@ function config(passport) {
   },
   (req, email, password, done) => {
     User.findOne({ email: email }, (err, user) => {
+      console.log(`user: ${user}`)
       if (err) return done(err)
-      if (user) return done(null, false, req.flash('registerMessage', 'This email is already registered on codeboddy'))
+      if (user) return done(null, false, { message: 'Email is invalid or already taken' })
+      User.findOne({ username: req.body.username }, (err, user) => {
+        if (user) return done(null, false, { message: 'Username is already taken' })
+      })
       const newUser = new User()
       newUser.username = req.body.username
       newUser.email = email
@@ -47,6 +59,27 @@ function config(passport) {
       newUser.save((err) => {
         if (err) throw err
         return done(null, newUser)
+      })
+    })
+  }))
+
+  /**
+   * Passport strategy for local sign in
+   */
+  passport.use('local-signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+  },
+  (req, email, password, done) => {
+    User.findOne({ email: email }, (err, user) => {
+      console.log(`debug: ${email}, ${password}`)
+      if (err) return done(err)
+      if (!user) return done(null, false, { message: 'Username is not exists' })
+      user.validPassword(password, (err, isMatch) => {
+        console.log(`user: ${user}`)
+        if (err) return done(err)
+        return isMatch === true ? done(null, user) : done(null, false, { message: 'Wrong password' })
       })
     })
   }))

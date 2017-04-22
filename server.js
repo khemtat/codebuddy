@@ -23,13 +23,13 @@ const passportConfig = require('./config/passport')
 const errorHandler = require('./middlewares/handler')
 
 /**
- * Server Settings
+ * Server settings
  */
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-// get server ready
+// Getting server ready
 app.use(morgan('dev'))
 app.use(flash())
 app.use(bodyParser.json())
@@ -38,15 +38,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
   secret: 'khktcodebuddysecretsigned',
   store: new RedisStore(redisConfig),
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  resave: true,
+  saveUninitialized: true
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 passportConfig(passport)
 
-// connect to mongodb
+// Connect to mongodb
 mongoose.Promise = global.Promise
 mongoose.connect(dbConfig.url, (err) => {
   if (err) throw err
@@ -54,10 +53,25 @@ mongoose.connect(dbConfig.url, (err) => {
 })
 
 /**
+ * Middlewears handler
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ */
+
+function isSignedIn(req, res, next) {
+  return req.isAuthenticated() ? next() : res.redirect('/signin')
+}
+
+function isLoggedOut(req, res, next) {
+  return req.isAuthenticated() ? res.redirect('/dashboard') : next()
+}
+
+/**
  * Routes handler
  */
 // ======= Home Page =======
-app.get('/', (req, res) => {
+app.get('/', isLoggedOut, (req, res) => {
   res.render('index')
 })
 
@@ -67,27 +81,35 @@ app.get('/logout', (req, res) => {
 })
 
 // ======= Sign In =======
-app.get('/signin', (req, res) => {
+app.get('/signin', isLoggedOut, (req, res) => {
   res.render('signin')
 })
 
-app.post('/signin', (req, res) => {
-  // TODO: implement signin form
-})
-
-// ======= Register =======
-app.get('/register', (req, res) => {
-  res.render('register')
-})
-
-app.post('/register', passport.authenticate('local-register', {
-  successRedirect: '/',
-  failureRedirect: '/register_error',
+app.post('/signin', passport.authenticate('local-signin', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/signin',
   failureFlash: true
 }))
 
+// ======= Register =======
+app.get('/register', isLoggedOut, (req, res) => {
+  res.render('register', { message: req.flash('error') })
+})
+
+app.post('/register', passport.authenticate('local-register', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/register',
+  failureFlash: true
+}))
+
+// ======== Dashboard ========
+app.get('/dashboard', isSignedIn, (req, res) => {
+  winston.info(`req.user : ${req.user}`)
+  res.render('dashboard', { user: req.user })
+})
+
 /**
- * Middlewears handler
+ * Error handler
  */
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

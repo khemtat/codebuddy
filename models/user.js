@@ -20,7 +20,8 @@ const userSchema = mongoose.Schema({
 })
 
 /**
- * Generating password hashed before called save function
+ * Pre save middlewears
+ * Generating a hashed password before called save function
  * @param {Function} next
  */
 userSchema.pre('save', function (next) {
