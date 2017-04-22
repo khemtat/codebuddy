@@ -25,14 +25,6 @@ function config(passport) {
     })
   })
 
-  // passport.use('local-register', new LocalStrategy({
-  //   usernameField: 'email',
-  //   passwordField: 'password',
-  //   passReqToCallback: true
-  // }, (email, password, done) => {
-  //   User.findOne()
-  // }))
-
   /**
    * passport strategy for local register
    */
@@ -42,7 +34,8 @@ function config(passport) {
     passReqToCallback: true
   },
   (req, email, password, done) => {
-    User.findOne({ email: email }, (err, user) => {
+    User.findOne({ email: email })
+    .exec((err, user) => {
       console.log(`user: ${user}`)
       if (err) return done(err)
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })
@@ -72,13 +65,13 @@ function config(passport) {
     passReqToCallback: true
   },
   (req, email, password, done) => {
-    User.findOne({ email: email }, (err, user) => {
-      console.log(`debug: ${email}, ${password}`)
+    User.findOne({ $or: [{email: email}, {username: email}] })
+    .exec((err, user) => {
       if (err) return done(err)
-      if (!user) return done(null, false, { message: 'Username is not exists' })
-      user.validPassword(password, (err, isMatch) => {
-        console.log(`user: ${user}`)
+      if (!user) return done(null, false, { message: 'Username is not exists'})
+      user.verifyPassword(password, (err, isMatch) => {
         if (err) return done(err)
+        console.log(`user: ${user}`)
         return isMatch === true ? done(null, user) : done(null, false, { message: 'Wrong password' })
       })
     })

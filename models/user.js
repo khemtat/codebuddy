@@ -36,10 +36,10 @@ userSchema.pre('save', function (next) {
  * Checking plain password and stored passport in database is valid
  * @param {String} plainPassword
  */
-userSchema.methods.validPassword = function validPassword(plainPassword, cb) {
+userSchema.methods.verifyPassword = function verifyPassword(plainPassword, done) {
   bcrypt.compare(plainPassword, this.password, (err, isMatch) => {
-    if (err) return cb(err)
-    return cb(null, isMatch)
+    if (err) return done(err)
+    return done(null, isMatch)
   })
 }
 
