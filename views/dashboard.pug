@@ -5,9 +5,9 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
     title Fixed Menu Example - Semantic
-    link(rel='stylesheet', type='text/css', href='public/semantic/dist/semantic.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
     script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
-    script(src='semantic/dist/semantic.min.js')
+    script(src='/semantic/dist/semantic.min.js')
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -55,6 +55,7 @@ html
       filter: initial !important;
       }
   body
+    h1 user.username
     .ui.fixed.inverted.menu
       .ui.container
         a.header.item(href='#')
