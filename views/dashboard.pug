@@ -25,6 +25,7 @@ html
       margin: 5em 0em 0em;
       padding: 5em 0em;
       }
+      
     script(type='text/javascript').
       $(document).on("click", ".show", function () {
       $(".ui.modal").modal("setting", {
@@ -35,16 +36,12 @@ html
       }).modal("show");
       }).on("click", ".ui.button", function () {
       switch ($(this).data("value")) {
-      case 'easy':
-      $("#result").html("easy");
+      case 'submit':
+      $("#result").html("submit");
       $(".ui.modal").modal("hide");
       break;
-      case 'normal':
-      $("#result").html("normal");
-      $(".ui.modal").modal("hide");
-      break;
-      case 'hard':
-      $("#result").html("hard");
+      case 'cancel':
+      $("#result").html("cancel");
       $(".ui.modal").modal("hide");
       break;
       }
@@ -105,7 +102,7 @@ html
             input(type='text', name='buddy-id', placeholder='Your buddy')
       .actions
         button.ui.button.approve.green(type='submit') Create
-        .ui.button.approve.red(data-value='cancle') Cancel
+        .ui.button.approve.red(data-value='cancel') Cancel
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column
