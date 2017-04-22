@@ -71,13 +71,13 @@ html
           .ui.red.horizontal.label 1
         .ui.simple.dropdown.right.item
             i.user.icon
-            |  Kittikorn Prasertsak
+            = user.info.name
             i.dropdown.icon
             .menu
-              a.item(href='/user/kittikorn')
+              a.item(href='/profile/'+user.username)
                 i.unhide.icon
                 |  View Profile
-              a.item(href='/editprofile')
+              a.item(href='/settings')
                 i.edit.icon
                 |  Edit Profile
               a.item(href='/signout')

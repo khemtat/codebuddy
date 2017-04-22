@@ -75,7 +75,7 @@ app.get('/', isLoggedOut, (req, res) => {
   res.render('index')
 })
 
-app.get('/logout', (req, res) => {
+app.get('/signout', (req, res) => {
   req.logout()
   res.redirect('/')
 })
