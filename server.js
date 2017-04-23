@@ -108,11 +108,6 @@ app.get('/dashboard', isSignedIn, (req, res) => {
   res.render('dashboard', { user: req.user })
 })
 
-app.post('/project', (req, res) => {
-  const Project = require('./models/project')
-  
-})
-
 // ======= PlayGround =======
 app.get('/playground', (req, res) => {
   res.render('playground')
