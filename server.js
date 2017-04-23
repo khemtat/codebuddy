@@ -113,6 +113,12 @@ app.get('/editprofile', (req, res) => {
   res.render('editprofile')
 })
 
+// ======= Notifications =======
+
+app.get('/notifications', (req, res) => {
+  res.render('notifications')
+})
+
 app.post('/editprofile', (req, res) => {
   // TODO: implement editprofile form
 })
