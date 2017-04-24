@@ -12,6 +12,8 @@ const winston = require('winston')
 const passport = require('passport')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
 
 /**
  * Config dependencies
@@ -123,6 +125,12 @@ app.get('/editprofile', (req, res) => {
   res.render('editprofile')
 })
 
+// ======= Notifications =======
+
+app.get('/notifications', (req, res) => {
+  res.render('notifications')
+})
+
 app.post('/editprofile', (req, res) => {
   // TODO: implement editprofile form
 })
@@ -141,6 +149,6 @@ app.use(errorHandler)
 /**
  * Server debugs
  */
-app.listen(port, () => {
+http.listen(port, () => {
   winston.info(`Listening on localhost:${port}`)
 })
