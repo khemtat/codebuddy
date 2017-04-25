@@ -86,6 +86,10 @@ html
       i.close.icon
       .header Create New Project
       .content
+        .ui.negative.message
+          i.close.icon
+          .header Error Project Name Invalid !
+          p Lorem ipsum
         form.ui.form(action='/project', method='POST')
           .field
             label Project Name :
@@ -103,9 +107,10 @@ html
             label Buddy ID :
             |  
             input(type='text', name='pBuddyUsername', placeholder='Your buddy')
-          .actions
-            button.ui.button.approve.green(type='submit') Create
-            .ui.button.approve.red(data-value='cancle') Cancel
+          .ui.basic.center.aligned.segment()
+            .actions
+              button.ui.button.approve.green(type='submit') Create
+              .ui.button.approve.red(data-value='cancel') Cancel
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column

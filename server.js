@@ -106,7 +106,6 @@ app.post('/register', passport.authenticate('local-register', {
 
 // ======== Dashboard ========
 app.get('/dashboard', isSignedIn, (req, res) => {
-  winston.info(`req.user : ${req.user}`)
   res.render('dashboard', { user: req.user })
 })
 
@@ -121,12 +120,13 @@ app.post('/project', (req, res) => {
   newProject.save(err => {
     if (err) throw err
   })
-  res.json(req.body)
+  res.render()
 })
 
 // ======= PlayGround =======
-app.get('/playground', (req, res) => {
-  res.render('playground')
+app.get('/project', (req, res) => {
+  if (!req.query.pid) res.redirect('/dashboard')
+  res.json(req.query.pid)
 })
 
 app.post('/playground', (req, res) => {
