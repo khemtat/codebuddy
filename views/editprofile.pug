@@ -57,6 +57,10 @@ html
                 i.sign.out.icon
                 |  Sign Out
     .ui.raised.very.padded.text.container.segment
+      .ui.negative.message
+        i.close.icon
+        .header Name Invalid !
+        p Lorem ipsum
       h1.ui.header Edit your profile
       p Edit your profile in the form below
       form.ui.form
@@ -100,7 +104,7 @@ html
               label Female
         .field
           .ui.checkbox
-            input.hidden(type='checkbox', tabindex='0')
+            input(type='checkbox', tabindex='0')
             |  
             label I agree to the Terms and Conditions
         |  
