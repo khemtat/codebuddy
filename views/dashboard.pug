@@ -98,9 +98,10 @@ html
             label Buddy ID :
             |  
             input(type='text', name='buddy-id', placeholder='Your buddy')
-      .actions
-        button.ui.button.approve.green(type='submit') Create
-        .ui.button.approve.red(data-value='cancel') Cancel
+          .ui.basic.center.aligned.segment()
+            .actions
+              button.ui.button.approve.green(type='submit') Create
+              .ui.button.approve.red(data-value='cancel') Cancel
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column
