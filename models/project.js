@@ -8,13 +8,16 @@ const shortid = require('shortid')
  * `Project` model schema based on Mongoose schema
  */
 const projectSchema = mongoose.Schema({
-  pid: shortid.generate,
+  pid: { type: String, default: shortid.generate },
   title: String,
   description: String,
   createdAt: { type: Date, default: Date.now },
   collaborator: String,
-  language: String,
+  language: { type: String, default: 'py' },
   files: [{ name: String, lastModify: { type: Date, default: Date.now }, code: String }]
 })
 
-module.exports = mongoose.Model('Project', projectSchema)
+/**
+ * Expose `Project` model
+ */
+module.exports = mongoose.model('Project', projectSchema)

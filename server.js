@@ -110,6 +110,20 @@ app.get('/dashboard', isSignedIn, (req, res) => {
   res.render('dashboard', { user: req.user })
 })
 
+const Project = require('./models/project')
+// ======== Project ==========
+app.post('/project', (req, res) => {
+  const newProject = new Project()
+  newProject.title = req.body.pName
+  newProject.description = req.body.pDescription
+  newProject.language = req.body.pLanguage
+  newProject.collaborator = req.body.pBuddyUsername
+  newProject.save(err => {
+    if (err) throw err
+  })
+  res.json(req.body)
+})
+
 // ======= PlayGround =======
 app.get('/playground', (req, res) => {
   res.render('playground')
