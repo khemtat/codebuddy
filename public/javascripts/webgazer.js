@@ -1307,7 +1307,7 @@ var objectdetect = (function() {
 
   /**
    * Unites two dynamic sets containing objects i and j, say Si and Sj, into
-   * a new set that Si âˆª Sj, assuming that Si âˆ© Sj = âˆ…;
+   * a new set that Si ∪ Sj, assuming that Si ∩ Sj = ∅;
    * @param {number} i
    * @param {number} j
    */
@@ -2006,10 +2006,10 @@ var objectdetect = (function() {
   };
 
   /**
-   * Matches sets of features {mi} and {mâ€²j} extracted from two images taken
+   * Matches sets of features {mi} and {m′j} extracted from two images taken
    * from similar, and often successive, viewpoints. A classical procedure
    * runs as follows. For each point {mi} in the first image, search in a
-   * region of the second image around location {mi} for point {mâ€²j}. The
+   * region of the second image around location {mi} for point {m′j}. The
    * search is based on the similarity of the local image windows, also known
    * as kernel windows, centered on the points, which strongly characterizes
    * the points when the images are sufficiently close. Once each keypoint is
@@ -2131,7 +2131,7 @@ var objectdetect = (function() {
    * corner candidate p. The detector classifies p as a corner if there exists
    * a set of n contiguous pixelsin the circle which are all brighter than the
    * intensity of the candidate pixel Ip plus a threshold t, or all darker
-   * than Ip âˆ’ t.
+   * than Ip − t.
    *
    *       15 00 01
    *    14          02

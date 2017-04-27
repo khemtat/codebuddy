@@ -105,32 +105,33 @@ app.post('/register', passport.authenticate('local-register', {
 }))
 
 // ======== Dashboard ========
+const Project = require('./models/project')
+
 app.get('/dashboard', isSignedIn, (req, res) => {
-  res.render('dashboard', { user: req.user })
+  Project.find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] }, (err, docs) => {
+    res.render('dashboard', { user: req.user, projects: docs })
+  })
 })
 
-const Project = require('./models/project')
 // ======== Project ==========
-app.post('/project', (req, res) => {
+app.get('/project', isSignedIn, (req, res) => {
+  if (!req.query.pid) res.redirect('/dashboard')
+  Project.findOne({ pid: req.query.pid }, (err, doc) => {
+    res.render('playground', { user: req.user, project: doc })
+  })
+})
+
+app.post('/project', isSignedIn, (req, res) => {
   const newProject = new Project()
   newProject.title = req.body.pName
   newProject.description = req.body.pDescription
   newProject.language = req.body.pLanguage
+  newProject.creator = req.user.username
   newProject.collaborator = req.body.pBuddyUsername
-  newProject.save(err => {
+  newProject.save((err) => {
     if (err) throw err
   })
-  res.render()
-})
-
-// ======= PlayGround =======
-app.get('/project', (req, res) => {
-  if (!req.query.pid) res.redirect('/dashboard')
-  res.json(req.query.pid)
-})
-
-app.post('/playground', (req, res) => {
-  // TODO: implement playground form
+  res.redirect('dashboard')
 })
 
 // ======= editprofile =======

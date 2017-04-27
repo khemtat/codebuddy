@@ -86,10 +86,10 @@ html
       i.close.icon
       .header Create New Project
       .content
-        .ui.negative.message
-          i.close.icon
-          .header Error Project Name Invalid !
-          p Lorem ipsum
+        //- .ui.negative.message
+        //-   i.close.icon
+        //-   .header Error Project Name Invalid !
+        //-   p Lorem ipsum
         form.ui.form(action='/project', method='POST')
           .field
             label Project Name :
@@ -120,61 +120,35 @@ html
             button#new.ui.button.approve.green.show(style='float: right;') Create New Project
       br
       .ui.relaxed.divided.list
-        .item
-          a.ui.blue.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/christian.jpg')
-            .detail.middle Pj. Owner
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
+        each project in projects
+          if project.creator === user.username
+            .item
+              a.ui.blue.image.label.middle.aligned
+                img(src='https://semantic-ui.com/images/avatar/small/christian.jpg')
+                .detail.middle Owner
+              .content
+                a.header(href='/project?pid='+project.pid)= project.title
+                |
+                .description= project.description
+                | Update x mins ago (
+                a(href='/profile/'+project.collaborator)
+                  | @
+                  = project.collaborator
+                |)
+          else if project.collaborator === user.username
+            .item
+              a.ui.yellow.image.label.middle.aligned
+                img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
+                .detail.middle Co-Worker
+              .content
+                a.header(href='/project?pid='+project.pid)= project.title
+                |
+                .description= project.description
+                | Update x mins ago (
+                a(href='/profile/'+project.creator)
+                  | @
+                  = project.creator
+                |)
     .ui.inverted.vertical.footer.segment
       .ui.center.aligned.container
         img.ui.centered.small.image(src='images/logo-white-s.png')
