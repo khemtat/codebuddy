@@ -1,30 +1,7 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Dashboard - CodeBuddy
-    link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
-    script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
-    script(src='/semantic/dist/semantic.min.js')
-    style(type='text/css').
-      body {
-      background-color: #FFFFFF;
-      }
-      .ui.menu .item img.logo {
-      margin-right: 1.5em;
-      }
-      .main.container {
-      margin-top: 7em;
-      }
-      .wireframe {
-      margin-top: 2em;
-      }
-      .ui.footer.segment {
-      margin: 5em 0em 0em;
-      padding: 5em 0em;
-      }
+    include layout/header.pug
     script(type='text/javascript').
       $(document).on("click", ".show", function () {
       $(".ui.modal").modal("setting", {
@@ -55,33 +32,7 @@ html
       filter: initial !important;
       }
   body
-    .ui.attached.stackable.menu
-      .ui.container
-        img.logo.large(src='images/logo-codebuddy-s.png')
-        a.item(href='/')
-          i.home.icon
-          |  Home
-        a.item(href='/dashboard')
-          i.grid.layout.icon
-          |  Projects
-        a.item(href='/notifications')
-          i.mail.icon
-          |  Messages
-          .ui.red.horizontal.label 1
-        .ui.simple.dropdown.right.item
-            i.user.icon
-            = user.info.name
-            i.dropdown.icon
-            .menu
-              a.item(href='/profile/'+user.username)
-                i.unhide.icon
-                |  View Profile
-              a.item(href='/settings')
-                i.edit.icon
-                |  Edit Profile
-              a.item(href='/signout')
-                i.sign.out.icon
-                |  Sign Out
+    include layout/menu.pug
     .ui.small.modal
       i.close.icon
       .header Create New Project
@@ -149,12 +100,4 @@ html
                   | @
                   = project.creator
                 |)
-    .ui.inverted.vertical.footer.segment
-      .ui.center.aligned.container
-        img.ui.centered.small.image(src='images/logo-white-s.png')
-        .ui.horizontal.inverted.small.divided.link.list
-          a.item(href='#') How it worked?
-          |  
-          a.item(href='#') Contact Us
-          |  
-          a.item(href='#') About Us
+    include layout/footer.pug

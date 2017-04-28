@@ -1,12 +1,7 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Project - CodeBuddy
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
-    //- script(src='/javascripts/webgazer.js')
+    include layout/header.pug
     script(type='text/javascript').
       webgazer.setGazeListener(function (data, elapsedTime) {
         if (data == null) {
@@ -44,32 +39,7 @@ html
       filter: initial !important;
       }
   body
-    .ui.attached.stackable.menu
-      .ui.container
-        a(href='/')
-          img.logo.large(src='images/logo-codebuddy-s.png')
-        a.item(href='/dashboard')
-          i.grid.layout.icon
-          |  Dashboard
-        a.item(href='/notifications')
-          i.mail.icon
-          |  Notifications
-          .ui.red.horizontal.label 1
-        .ui.simple.dropdown.right.item
-            i.user.icon
-            |
-            = user.info.name
-            i.dropdown.icon
-            .menu
-              a.item(href='/user/'+user.username)
-                i.unhide.icon
-                |  View Profile
-              a.item(href='/editprofile')
-                i.edit.icon
-                |  Edit Profile
-              a.item(href='/signout')
-                i.sign.out.icon
-                |  Sign Out
+    include layout/menu.pug
     .ui.container.segment
       .ui.grid
         .four.wide.column
@@ -157,15 +127,7 @@ html
         .ui.form
           .field
             textarea(style='width:100px; height: 100px;', rows='5')
-    .ui.inverted.vertical.footer.segment
-      .ui.center.aligned.container
-        img.ui.centered.small.image(src='/images/logo-white-s.png')
-        .ui.horizontal.inverted.small.divided.link.list
-          a.item(href='#') How it worked?
-          |  
-          a.item(href='#') Contact Us
-          |  
-          a.item(href='#') About Us
+    include layout/footer.pug
       script(src='/javascripts/jquery.min.js')
       script(src='/javascripts/main.js')
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')

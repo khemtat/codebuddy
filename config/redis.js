@@ -4,6 +4,6 @@
 module.exports = {
   redisConfig: {
     host: 'localhost',
-    port: 6379
+    port: 32768
   }
 }
