@@ -62,9 +62,24 @@ html
     .ui.modal
       .header Code Review
       .content
-        p some Content
-        p
-        p
+          .field
+            label Line NO :
+            |  
+            input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
+          .field
+            label Comment :
+            |  
+            input(type='text', name='pDescription', placeholder='Something about this line')
+          .field
+            label Priority :
+            select.ui.dropdown(name='pLanguage')
+               option(value='2') High
+               option(value='1') Medium
+               option(value='0') Low
+          .ui.basic.center.aligned.segment()
+            .actions
+              button.ui.button.approve.green(type='submit') Create
+              .ui.button.approve.red(data-value='cancel') Cancel
 
     .ui.container.segment
       .ui.grid
@@ -145,7 +160,7 @@ html
                 var B1 = editor.findWordAt({line: A1, ch: A2}).anchor.ch;
                 var B2 = editor.findWordAt({line: A1, ch: A2}).head.ch;
                 
-                alert(A1);
+                $("input.disabled").val(A1);
                 
                 $('.ui.modal').modal('show');
                });   
