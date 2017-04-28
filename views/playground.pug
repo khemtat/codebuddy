@@ -46,10 +46,6 @@ html
     link(rel='stylesheet', href='codemirror/codemirror.css')
     script(src='codemirror/javascript.js')
     script(src='codemirror/python.js')
-    style.
-      .CodeMirror { height: auto; border: 1px solid #ddd; }
-      .CodeMirror-scroll { max-height: 200px; }
-      .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
   body
     include layout/menu.pug
     .ui.container.segment
@@ -111,7 +107,7 @@ html
                   .content
                     .header project_information.json
                     .description Project information
-        .four.wide.column.right
+        .twelve.wide.column.right
           .ui.form
               textarea#demotext
                 |  print(&quot;Total score for %s is %s &quot; % (name, score))
@@ -123,6 +119,15 @@ html
                 lineNumbers: true,
                 indentUnit: 4,
                 matchBrackets: true
+               });
+               editor.on('contextmenu', function() {
+                var A1 = editor.getCursor().line;
+                var A2 = editor.getCursor().ch;
+                var B1 = editor.findWordAt({line: A1, ch: A2}).anchor.ch;
+                var B2 = editor.findWordAt({line: A1, ch: A2}).head.ch;
+                
+                alert(A1);
+
                });
       .ui.grid
         .four.wide.column
@@ -152,7 +157,7 @@ html
             video#localVideo(style='height: 150px;', oncontextmenu='return false;')
             #localVolume.volume_bar
           #remotes
-        .four.wide.column.right &lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;
+        .twelve.wide.column.right &lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;
     include layout/footer.pug
       script(src='/javascripts/jquery.min.js')
       script(src='/javascripts/main.js')
