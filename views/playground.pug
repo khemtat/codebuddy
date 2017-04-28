@@ -38,26 +38,39 @@ html
       * {
       filter: initial !important;
       }
+    script.
+      var editor = CodeMirror.fromTextArea(myTextarea, {
+      lineNumbers: true
+      });
+    script(src='codemirror/codemirror.js')
+    link(rel='stylesheet', href='codemirror/codemirror.css')
+    script(src='codemirror/javascript.js')
+    script(src='codemirror/python.js')
+    style.
+      .CodeMirror { height: auto; border: 1px solid #ddd; }
+      .CodeMirror-scroll { max-height: 200px; }
+      .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
   body
     include layout/menu.pug
     .ui.container.segment
       .ui.grid
         .four.wide.column
-          h1.ui.header= project.title
-          p= project.description
-        .eight.wide.column
+          h1.ui.header Project Name
+          p Project Description
+        .seven.wide.column
           center
             | Time
             h3
-              #time
-        .four.wide.column.right
-          button.ui.labeled.icon.button
-            i.save.icon
-            |  Save
-          |  
-          button.ui.positive.labeled.icon.button
-            i.terminal.icon
-            |  Run
+              #time 10.00
+        .five.wide.column.right
+          center
+            button.ui.primary.labeled.icon.button
+              i.refresh.icon
+              |  Switch Role
+            |  
+            button.ui.positive.labeled.icon.button
+              i.terminal.icon
+              |  Run
       .ui.divider
       br
       .ui.grid
@@ -98,6 +111,21 @@ html
                   .content
                     .header project_information.json
                     .description Project information
+        .four.wide.column.right
+          .ui.form
+              textarea#demotext
+                |  print(&quot;Total score for %s is %s &quot; % (name, score))
+              script.
+                var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
+                mode: {name: "python",
+                version: 3,
+                singleLineStringErrors: false},
+                lineNumbers: true,
+                indentUnit: 4,
+                matchBrackets: true
+               });
+      .ui.grid
+        .four.wide.column
           h1#title Video Chat
           style.
             .videoContainer {
@@ -124,9 +152,7 @@ html
             video#localVideo(style='height: 150px;', oncontextmenu='return false;')
             #localVolume.volume_bar
           #remotes
-        .ui.form
-          .field
-            textarea(style='width:100px; height: 100px;', rows='5')
+        .four.wide.column.right &lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;
     include layout/footer.pug
       script(src='/javascripts/jquery.min.js')
       script(src='/javascripts/main.js')
