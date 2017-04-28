@@ -46,8 +46,43 @@ html
     link(rel='stylesheet', href='codemirror/codemirror.css')
     script(src='codemirror/javascript.js')
     script(src='codemirror/python.js')
+
+    style#extension_grayscale(type='text/css').
+      html *,
+      * {
+      filter: initial !important;
+      }
   body
     include layout/menu.pug
+    .ui.small.modal
+      i.close.icon
+      .header Create New Project
+      .content
+        //- .ui.negative.message
+        //-   i.close.icon
+        //-   .header Error Project Name Invalid !
+        //-   p Lorem ipsum
+        form.ui.form(action='/project', method='POST')
+          .field
+            label Project Name :
+            |  
+            input(type='text', name='pName', placeholder='Your Project Name')
+          .field
+            label Description :
+            |  
+            input(type='text', name='pDescription', placeholder='Something about your project')
+          .field
+            label Language :
+            select.ui.dropdown(name='pLanguage')
+               option(value='0') Python
+          .field
+            label Buddy ID :
+            |  
+            input(type='text', name='pBuddyUsername', placeholder='Your buddy')
+          .ui.basic.center.aligned.segment()
+            .actions
+              button.ui.button.approve.green(type='submit') Create
+              .ui.button.approve.red(data-value='cancel') Cancel
     .ui.container.segment
       .ui.grid
         .four.wide.column
@@ -64,7 +99,7 @@ html
               i.refresh.icon
               |  Switch Role
             |  
-            button.ui.positive.labeled.icon.button
+            button.ui.positive.labeled.icon.button.show
               i.terminal.icon
               |  Run
       .ui.divider
@@ -120,6 +155,7 @@ html
                 indentUnit: 4,
                 matchBrackets: true
                });
+
                editor.on('contextmenu', function() {
                 var A1 = editor.getCursor().line;
                 var A2 = editor.getCursor().ch;
@@ -127,8 +163,31 @@ html
                 var B2 = editor.findWordAt({line: A1, ch: A2}).head.ch;
                 
                 alert(A1);
+               });  
 
-               });
+                editor.on('contextmenu', function() {
+                $(".ui.modal").modal("setting", {
+                closable: false,
+                onApprove: function () {
+                return false;
+                }
+                }).modal("show");
+                }).on("click", ".ui.button", function () {
+                switch ($(this).data("value")) {
+                case 'easy':
+                $("#result").html("easy");
+                $(".ui.modal").modal("hide");
+                break;
+                case 'normal':
+                $("#result").html("normal");
+                $(".ui.modal").modal("hide");
+                break;
+                case 'hard':
+                $("#result").html("hard");
+                $(".ui.modal").modal("hide");
+                break;
+                }
+                }); 
       .ui.grid
         .four.wide.column
           h1#title Video Chat
