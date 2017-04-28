@@ -14,14 +14,15 @@ const router = express.Router()
  * @method {GET} return rendered `playground.pug`
  * @method {POST} handle create new project form on `dashboard` page
  */
+router.use(auth.isSignedIn)
 router.route('/')
-  .get(auth.isSignedIn, (req, res) => {
+  .get((req, res) => {
     if (!req.query.pid) res.redirect('/dashboard')
     Project.findOne({ pid: req.query.pid }, (err, doc) => {
       res.render('playground', { user: req.user, project: doc })
     })
   })
-  .post(auth.isSignedIn, (req, res) => {
+  .post((req, res) => {
     const newProject = new Project()
     newProject.title = req.body.pName
     newProject.description = req.body.pDescription

@@ -59,7 +59,7 @@ mongoose.connect(dbConfig.url, (err) => {
 /**
  * Routes handler
  */
-app.use(require('./routes/index'))
+app.use(require('./routes/'))
 
 /**
  * Error handler
