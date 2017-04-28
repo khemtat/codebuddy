@@ -58,6 +58,14 @@ html
       }
   body
     include layout/menu.pug
+
+    .ui.modal
+      .header Code Review
+      .content
+        p some Content
+        p
+        p
+
     .ui.container.segment
       .ui.grid
         .four.wide.column
@@ -74,7 +82,7 @@ html
               i.refresh.icon
               |  Switch Role
             |  
-            button.ui.positive.labeled.icon.button(type='button', value='showModal', onclick="$('.ui.modal').modal('show');")
+            button.ui.positive.labeled.icon.button
               i.terminal.icon
               |  Run
       .ui.divider
@@ -170,36 +178,6 @@ html
             #localVolume.volume_bar
           #remotes
         .twelve.wide.column.right &lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;
-    
-    .ui.small.modal
-      i.close.icon
-      .header Create New Project
-      .content
-        //- .ui.negative.message
-        //-   i.close.icon
-        //-   .header Error Project Name Invalid !
-        //-   p Lorem ipsum
-        form.ui.form(action='/project', method='POST')
-          .field
-            label Project Name :
-            |  
-            input(type='text', name='pName', placeholder='Your Project Name')
-          .field
-            label Description :
-            |  
-            input(type='text', name='pDescription', placeholder='Something about your project')
-          .field
-            label Language :
-            select.ui.dropdown(name='pLanguage')
-               option(value='0') Python
-          .field
-            label Buddy ID :
-            |  
-            input(type='text', name='pBuddyUsername', placeholder='Your buddy')
-          .ui.basic.center.aligned.segment()
-            .actions
-              button.ui.button.approve.green(type='submit') Create
-              .ui.button.approve.red(data-value='cancel') Cancel
 
     include layout/footer.pug
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
