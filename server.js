@@ -1,19 +1,21 @@
 /**
  * Module dependencies
  */
-const express = require('express')
+import express from 'express'
+import path from 'path'
+import flash from 'connect-flash'
+import morgan from 'morgan'
+import session from 'express-session'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
+import winston from 'winston'
+import passport from 'passport'
+import redis from 'connect-redis'
+import http from 'http'
+
 const app = express()
-const path = require('path')
-const flash = require('connect-flash')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const winston = require('winston')
-const passport = require('passport')
-const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
-const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+const RedisStore = redis(session)
+const server = http.createServer(app)
 
 /**
  * Config dependencies
@@ -55,100 +57,9 @@ mongoose.connect(dbConfig.url, (err) => {
 })
 
 /**
- * Middlewears handler
- * @param {Object} req
- * @param {Object} res
- * @param {Function} next
- */
-
-function isSignedIn(req, res, next) {
-  return req.isAuthenticated() ? next() : res.redirect('/signin')
-}
-
-function isLoggedOut(req, res, next) {
-  return req.isAuthenticated() ? res.redirect('/dashboard') : next()
-}
-
-/**
  * Routes handler
  */
-// ======= Home Page =======
-app.get('/', isLoggedOut, (req, res) => {
-  res.render('index')
-})
-
-app.get('/signout', (req, res) => {
-  req.logout()
-  res.redirect('/')
-})
-
-// ======= Sign In =======
-app.get('/signin', isLoggedOut, (req, res) => {
-  res.render('signin')
-})
-
-app.post('/signin', passport.authenticate('local-signin', {
-  successRedirect: '/dashboard',
-  failureRedirect: '/signin',
-  failureFlash: true
-}))
-
-// ======= Register =======
-app.get('/register', isLoggedOut, (req, res) => {
-  res.render('register', { message: req.flash('error') })
-})
-
-app.post('/register', passport.authenticate('local-register', {
-  successRedirect: '/dashboard',
-  failureRedirect: '/register',
-  failureFlash: true
-}))
-
-// ======== Dashboard ========
-const Project = require('./models/project')
-
-app.get('/dashboard', isSignedIn, (req, res) => {
-  Project.find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] }, (err, docs) => {
-    res.render('dashboard', { user: req.user, projects: docs })
-  })
-})
-
-// ======== Project ==========
-app.get('/project', isSignedIn, (req, res) => {
-  if (!req.query.pid) res.redirect('/dashboard')
-  Project.findOne({ pid: req.query.pid }, (err, doc) => {
-    res.render('playground', { user: req.user, project: doc })
-  })
-})
-
-app.post('/project', isSignedIn, (req, res) => {
-  const newProject = new Project()
-  newProject.title = req.body.pName
-  newProject.description = req.body.pDescription
-  newProject.language = req.body.pLanguage
-  newProject.creator = req.user.username
-  newProject.collaborator = req.body.pBuddyUsername
-  newProject.save((err) => {
-    if (err) throw err
-  })
-  res.redirect('dashboard')
-})
-
-// ======= editprofile =======
-
-app.get('/editprofile', (req, res) => {
-  res.render('editprofile')
-})
-
-// ======= Notifications =======
-
-app.get('/notifications', (req, res) => {
-  res.render('notifications')
-})
-
-app.post('/editprofile', (req, res) => {
-  // TODO: implement editprofile form
-})
+app.use(require('./routes/index'))
 
 /**
  * Error handler
@@ -164,6 +75,6 @@ app.use(errorHandler)
 /**
  * Server debugs
  */
-http.listen(port, () => {
+server.listen(port, () => {
   winston.info(`Listening on localhost:${port}`)
 })

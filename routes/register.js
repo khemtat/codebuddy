@@ -1,14 +1,30 @@
-const express = require('express')
+/**
+ * Module dependencies
+ */
+import express from 'express'
+import passport from 'passport'
+
+import auth from '../middlewares/auth'
+
 const router = express.Router()
 
-/* GET register page. */
-router.get('/register', (req, res, next) => {
-  res.render('register')
-})
+/**
+ * `Register` route used as /register
+ * User can registering the account at this route
+ * @method {GET} return register page
+ * @method {POST} handle register form with passport strategy
+ */
+router.route('/')
+  .get(auth.isLoggedOut, (req, res) => {
+    res.render('register', { message: req.flash('error') })
+  })
+  .post(passport.authenticate('local-register', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/register',
+    failureFlash: true
+  }))
 
-router.post('/', (req, res, next) => {
-  console.log(`user: ${req.body.username}\npassword: ${req.body.password}`)
-  res.json(req.body)
-})
-
+/**
+ * Expose `router`
+ */
 module.exports = router
