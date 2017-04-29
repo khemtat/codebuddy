@@ -1,0 +1,27 @@
+.ui.attached.stackable.menu
+      .ui.container
+        img.logo.large(src='images/logo-codebuddy-s.png')
+        a.item(href='/')
+          i.home.icon
+          |  Home
+        a.item(href='/dashboard')
+          i.grid.layout.icon
+          |  Projects
+        a.item(href='/notifications')
+          i.mail.icon
+          |  Messages
+          .ui.red.horizontal.label 1
+        .ui.simple.dropdown.right.item
+            i.user.icon
+            = user.info.name
+            i.dropdown.icon
+            .menu
+              a.item(href='/profile/'+user.username)
+                i.unhide.icon
+                |  View Profile
+              a.item(href='/settings')
+                i.edit.icon
+                |  Edit Profile
+              a.item(href='/signout')
+                i.sign.out.icon
+                |  Sign Out

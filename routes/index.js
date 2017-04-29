@@ -22,6 +22,10 @@ router.use('/dashboard', dashboard)
 router.use('/project', project)
 router.use('/settings', settings)
 
+router.get('/editprofile', (req, res) => {
+  res.render('editprofile')
+})
+
 /**
  * Expose `router`
  */
