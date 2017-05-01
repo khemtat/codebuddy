@@ -8,7 +8,7 @@ function config(passport) {
   /**
    * serialize users and only parse the user id to the session
    * @param {Object} user
-   * @param {Callback} done
+   * @param {Function} done
    */
   passport.serializeUser((user, done) => {
     done(null, user.id)
@@ -17,7 +17,7 @@ function config(passport) {
   /**
    * deserialize users out of the session to get the ID that used to find user
    * @param {String} id
-   * @param {Callback} done
+   * @param {Function} done
    */
   passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
@@ -36,7 +36,6 @@ function config(passport) {
   (req, email, password, done) => {
     User.findOne({ email: email })
     .exec((err, user) => {
-      console.log(`user: ${user}`)
       if (err) return done(err)
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })
       User.findOne({ username: req.body.username }, (err, user) => {
@@ -65,13 +64,12 @@ function config(passport) {
     passReqToCallback: true
   },
   (req, email, password, done) => {
-    User.findOne({ $or: [{email: email}, {username: email}] })
+    User.findOne({ $or: [{ email: email }, { username: email }] })
     .exec((err, user) => {
       if (err) return done(err)
-      if (!user) return done(null, false, { message: 'Username is not exists'})
+      if (!user) return done(null, false, { message: 'Username is not exists' })
       user.verifyPassword(password, (err, isMatch) => {
         if (err) return done(err)
-        console.log(`user: ${user}`)
         return isMatch === true ? done(null, user) : done(null, false, { message: 'Wrong password' })
       })
     })

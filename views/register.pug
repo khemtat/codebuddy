@@ -6,8 +6,6 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
     title Code Buddy - Register
     link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
-    script(src='javascripts/jquery.min.js')
-    script(src='semantic/dist/semantic.min.js')
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -67,11 +65,11 @@ html
         .field
           label First Name
           |  
-          input(type='text', name='first-name', placeholder='First Name')
+          input(type='text', name='firstname', placeholder='First Name')
         .field
           label Last Name
           |  
-          input(type='text', name='last-name', placeholder='Last Name')
+          input(type='text', name='lastname', placeholder='Last Name')
         .field
           label Occupation
           |  
@@ -95,3 +93,5 @@ html
             label I agree to the Terms and Conditions
         |  
         button.ui.button(type='submit') Register
+    script(src='javascripts/jquery.min.js')
+    script(src='semantic/dist/semantic.min.js')

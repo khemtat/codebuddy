@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    title Playground - CodeBuddy
     include layout/header.pug
     script(type='text/javascript').
       $(document).on("click", ".show", function () {
@@ -84,8 +85,8 @@ html
     .ui.container.segment
       .ui.grid
         .four.wide.column
-          h1.ui.header Project Name
-          p Project Description
+          h1.ui.header= project.title
+          p= project.description
         .seven.wide.column
           center
             | Time
@@ -197,3 +198,4 @@ html
     include layout/footer.pug
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
       script(src='/javascripts/webrtc.js')
+      script(src='/javascripts/socket.io.min.js')
