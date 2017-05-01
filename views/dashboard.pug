@@ -71,22 +71,28 @@ html
           a.right
             button#new.ui.button.approve.green.show(style='float: right;') Create New Project
       br
-      .ui.relaxed.divided.list
+      .ui.items
         each project in projects
           if project.creator === user.username
-            .item
-              a.ui.blue.image.label.middle.aligned
-                img(src='https://semantic-ui.com/images/avatar/small/christian.jpg')
-                .detail.middle Owner
-              .content
-                a.header(href='/project?pid='+project.pid)= project.title
-                |
-                .description= project.description
-                | Update x mins ago (
-                a(href='/profile/'+project.collaborator)
-                  | @
-                  = project.collaborator
-                |)
+              .item
+                a.ui.tiny.image
+                  img(src='https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokemon_Egg-128.png')
+                .content
+                  .ui.grid
+                    .eight.wide.column
+                      b
+                        a.header(href='/project?pid='+project.pid)= project.title
+                      .description= project.description
+                    .eight.wide.column
+                      .ui.right.floated.primary.button
+                        | Setting
+                        i.right.chevron.icon
+                    p
+                      | Update x mins ago (
+                      a(href='/profile/'+project.collaborator )
+                      | @
+                      = project.collaborator
+                      |)                
           else if project.collaborator === user.username
             .item
               a.ui.yellow.image.label.middle.aligned
