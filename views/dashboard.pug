@@ -59,6 +59,12 @@ html
             label Buddy ID :
             |  
             input(type='text', name='pBuddyUsername', placeholder='Your buddy')
+          .field
+            label Time  :
+            select.ui.dropdown(name='pLanguage')
+               option(value='15') 15 minutes (Recommended)
+               option(value='10') 10 minutes
+               option(value='5') 5 minutes
           .ui.basic.center.aligned.segment()
             .actions
               button.ui.button.approve.green(type='submit') Create
