@@ -82,7 +82,9 @@ html
                 a.header(href='/project?pid='+project.pid)= project.title
                 |
                 .description= project.description
-                | Update x mins ago (
+                | Last updated 
+                = moment(project.createdAt).format('DD-MM-YYYY HH:mm')
+                |  (
                 a(href='/profile/'+project.collaborator)
                   | @
                   = project.collaborator

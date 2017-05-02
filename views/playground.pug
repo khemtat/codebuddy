@@ -3,28 +3,6 @@ html
   head
     title Playground - CodeBuddy
     include layout/header.pug
-    script(type='text/javascript').
-      $(document).on("click", ".show", function () {
-      $(".ui.modal").modal("setting", {
-      closable: false,
-      onApprove: function () {
-      return false;
-      }
-      }).modal("show");
-      }).on("click", ".ui.button", function () {
-      switch ($(this).data("value")) {
-      case 'easy':
-      $("#result").html("easy");
-      $(".ui.modal").modal("hide");
-      break;
-      case 'normal':
-      $("#result").html("normal");
-      $(".ui.modal").modal("hide");
-      break;
-      case 'hard':
-      $("#result").html("hard");
-      $(".ui.modal").modal("hide");
-      break
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -145,26 +123,6 @@ html
           .ui.form
               textarea#demotext.show
                 |  print(&quot;Total score for %s is %s &quot; % (name, score))
-              script.
-                var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
-                mode: {name: "python",
-                version: 3,
-                singleLineStringErrors: false},
-                lineNumbers: true,
-                indentUnit: 4,
-                matchBrackets: true
-               });
-
-               editor.on('dblclick', function() {
-                var A1 = editor.getCursor().line;
-                var A2 = editor.getCursor().ch;
-                var B1 = editor.findWordAt({line: A1, ch: A2}).anchor.ch;
-                var B2 = editor.findWordAt({line: A1, ch: A2}).head.ch;
-                
-                $("input.disabled").val(A1);
-                
-                $('.ui.modal').modal('show');
-               });   
       .ui.grid
         .four.wide.column
           h1#title Video Chat
@@ -199,3 +157,4 @@ html
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
       script(src='/javascripts/webrtc.js')
       script(src='/javascripts/socket.io.min.js')
+      script(src='/javascripts/playground.js')

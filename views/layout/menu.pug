@@ -13,12 +13,17 @@
             = user.info.name
             i.dropdown.icon
             .menu
+              .item
+                i.info.icon
+                | Signed in as 
+                = user.username
+              .ui.inverted.divider  
               a.item(href='/profile/'+user.username)
                 i.unhide.icon
-                |  View Profile
+                |  Your Profile
               a.item(href='/settings')
                 i.edit.icon
-                |  Edit Profile
+                |  Settings
               a.item(href='/signout')
                 i.sign.out.icon
                 |  Sign Out

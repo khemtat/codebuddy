@@ -12,10 +12,12 @@ import winston from 'winston'
 import passport from 'passport'
 import redis from 'connect-redis'
 import http from 'http'
+import socketio from 'socket.io'
 
 const app = express()
 const RedisStore = redis(session)
 const server = http.createServer(app)
+const io = socketio(server)
 
 /**
  * Config dependencies
@@ -54,6 +56,16 @@ mongoose.Promise = global.Promise
 mongoose.connect(dbConfig.url, (err) => {
   if (err) throw err
   winston.info('Connect to MongoDB successfully')
+})
+
+io.on('connection', (socket) => {
+  winston.info('User connected')
+  socket.on('disconnect', () => {
+    winston.info('User disconnected')
+  })
+  socket.on('document-update', (message) => {
+    winston.info(message)
+  })
 })
 
 /**
