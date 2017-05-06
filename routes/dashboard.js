@@ -1,11 +1,11 @@
 /**
  * Module dependencies
  */
-import express from 'express'
-import moment from 'moment'
+const express = require('express')
+const moment = require('moment')
 
-import Project from '../models/project'
-import auth from '../middlewares/auth'
+const Project = require('../models/project')
+const auth = require('../middlewares/auth')
 
 const router = express.Router()
 

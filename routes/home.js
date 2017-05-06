@@ -1,5 +1,5 @@
-import express from 'express'
-import auth from '../middlewares/auth'
+const express = require('express')
+const auth = require('../middlewares/auth')
 
 const router = express.Router()
 

@@ -41,6 +41,6 @@
     "eslint-plugin-react": "^6.10.3"
   },
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets es2015,stage-2"
+    "start": "nodemon server.js"
   }
 }

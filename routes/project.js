@@ -1,10 +1,10 @@
 /**
  * Module dependencies
  */
-import express from 'express'
+const express = require('express')
 
-import Project from '../models/project'
-import auth from '../middlewares/auth'
+const Project = require('../models/project')
+const auth = require('../middlewares/auth')
 
 const router = express.Router()
 

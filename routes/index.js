@@ -1,17 +1,17 @@
 /**
  * Module dependencies
  */
-import express from 'express'
+const express = require('express')
 
 /**
  * Import all routes
  */
-import home from './home'
-import signin from './signin'
-import register from './register'
-import dashboard from './dashboard'
-import project from './project'
-import settings from './settings'
+const home = require('./home')
+const signin = require('./signin')
+const register = require('./register')
+const dashboard = require('./dashboard')
+const project = require('./project')
+const settings = require('./settings')
 
 const router = express.Router()
 

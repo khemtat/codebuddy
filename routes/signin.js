@@ -1,10 +1,10 @@
 /**
  * Module dependencies
  */
-import express from 'express'
-import passport from 'passport'
+const express = require('express')
+const passport = require('passport')
 
-import auth from '../middlewares/auth'
+const auth = require('../middlewares/auth')
 
 const router = express.Router()
 
