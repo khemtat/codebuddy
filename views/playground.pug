@@ -27,6 +27,7 @@ html
       }
     script(src='codemirror/codemirror.js')
     link(rel='stylesheet', href='codemirror/codemirror.css')
+    link(rel='stylesheet', href='codemirror/themes/blackboard.css')
     script(src='codemirror/javascript.js')
     script(src='codemirror/python.js')
 
@@ -86,7 +87,7 @@ html
           .ui.top.attached.tabular.menu
             a.active.item Project
             |  
-            a.item Team Information
+            a.item Project Information
             .right.menu
               .item
           .ui.bottom.attached.segment
@@ -99,6 +100,7 @@ html
                     .description Source files for project
                     .list
                       .item
+                        i.arrow.right.icon
                         i.file.icon
                         .content
                           .header main.py
@@ -110,6 +112,7 @@ html
                     .description Unit testing files
                     .list
                       .item
+                        i.arrow.right.icon
                         i.folder.icon
                         .content
                           .header test_main.py
@@ -122,7 +125,7 @@ html
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
-                |  print(&quot;Total score for %s is %s &quot; % (name, score))
+                |  print(&quot;Total score for %s is %s &quot; % (name, score))  
       .ui.grid
         .four.wide.column
           h1#title Video Chat

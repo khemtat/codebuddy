@@ -1,17 +1,18 @@
-let socket = io()
+const socket = io()
 
 // from http://stackoverflow.com/a/901144/4181203
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+function getParameterByName(name) {
+  const url = window.location.href
+  const param = name.replace(/[\[\]]/g, "\\$&")
+  const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+  const results = regex.exec(url)
+
+  if (!results) return null
+  if (!results[2]) return ''
+  return decodeURIComponent(results[2].replace(/\+/g, " "))
 }
 
-let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
+const editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   mode: {
     name: 'python',
     version: 3,
@@ -19,6 +20,7 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   },
   lineNumbers: true,
   indentUnit: 4,
+  theme: 'blackboard',
   matchBrackets: true
 })
 
@@ -28,11 +30,11 @@ editor.on('dblclick', function () {
   let B1 = editor.findWordAt({
     line: A1,
     ch: A2
-  }).anchor.ch;
+  }).anchor.ch
   let B2 = editor.findWordAt({
     line: A1,
     ch: A2
-  }).head.ch;
+  }).head.ch
 
   $("input.disabled").val(A1)
 
@@ -40,13 +42,9 @@ editor.on('dblclick', function () {
 })
 
 editor.on('keyup', () => {
-  let message = {
+  const message = {
     id: getParameterByName('pid'),
     value: editor.getValue()
   }
-  socket.emit('document-update', message)
-})
-
-socket.on('document-update', (message) => {
-
+  socket.emit('code update', message)
 })

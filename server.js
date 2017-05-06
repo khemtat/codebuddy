@@ -1,18 +1,18 @@
 /**
  * Module dependencies
  */
-import express from 'express'
-import path from 'path'
-import flash from 'connect-flash'
-import morgan from 'morgan'
-import session from 'express-session'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
-import winston from 'winston'
-import passport from 'passport'
-import redis from 'connect-redis'
-import http from 'http'
-import socketio from 'socket.io'
+const express = require('express')
+const path = require('path')
+const flash = require('connect-flash')
+const morgan = require('morgan')
+const session = require('express-session')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const winston = require('winston')
+const passport = require('passport')
+const redis = require('connect-redis')
+const http = require('http')
+const socketio = require('socket.io')
 
 const app = express()
 const RedisStore = redis(session)
@@ -63,8 +63,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     winston.info('User disconnected')
   })
-  socket.on('document-update', (message) => {
-    winston.info(message)
+  socket.on('code update', (message) => {
+    winston.info(JSON.stringify(message))
   })
 })
 

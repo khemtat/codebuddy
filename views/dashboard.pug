@@ -59,6 +59,29 @@ html
             label Buddy ID :
             |  
             input(type='text', name='pBuddyUsername', placeholder='Your buddy')
+          .field
+            label Time  :
+            select.ui.dropdown(name='pLanguage')
+               option(value='15') 15 minutes (Recommended)
+               option(value='10') 10 minutes
+               option(value='5') 5 minutes
+          .ui.form
+            .inline.fields
+              .fields
+                label(for='fruit') Select your theme:
+                .field
+                  .radio.checkbox
+                    input.hidden(type='radio', name='theme', checked='', tabindex='0')
+                    |  
+                    label White (default)
+                    img.logo.small(src='images/whiteEditorTheme.PNG' ,width='80%', height='80%')
+                .field
+                  .radio.checkbox
+                    input.hidden(type='radio', name='theme', tabindex='0')
+                    |  
+                    label Blackboard
+                    img.logo.small(src='images/darkEditorTheme.PNG' ,width='80%',height='80%')
+
           .ui.basic.center.aligned.segment()
             .actions
               button.ui.button.approve.green(type='submit') Create
@@ -71,24 +94,29 @@ html
           a.right
             button#new.ui.button.approve.green.show(style='float: right;') Create New Project
       br
-      .ui.relaxed.divided.list
+      .ui.items
         each project in projects
           if project.creator === user.username
-            .item
-              a.ui.blue.image.label.middle.aligned
-                img(src='https://semantic-ui.com/images/avatar/small/christian.jpg')
-                .detail.middle Owner
-              .content
-                a.header(href='/project?pid='+project.pid)= project.title
-                |
-                .description= project.description
-                | Last updated 
-                = moment(project.createdAt).format('DD-MM-YYYY HH:mm')
-                |  (
-                a(href='/profile/'+project.collaborator)
-                  | @
-                  = project.collaborator
-                |)
+              .item
+                a.ui.tiny.image
+                  img(src='https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokemon_Egg-128.png')
+                .content
+                  .ui.grid
+                    .twelve.wide.column
+                      b
+                        a.header(href='/project?pid='+project.pid)= project.title
+                      .description= project.description
+                      | Last updated 
+                      = moment(project.createdAt).format('DD-MM-YYYY HH:mm A')
+                      |  (
+                      a(href='/profile/'+project.collaborator )
+                      | @
+                      = project.collaborator
+                      |) 
+                    .four.wide.column
+                      .ui.right.floated.primary.button
+                        | Setting
+                        i.right.chevron.icon                
           else if project.collaborator === user.username
             .item
               a.ui.yellow.image.label.middle.aligned
