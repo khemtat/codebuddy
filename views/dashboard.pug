@@ -3,6 +3,15 @@ html
   head
     title Dashboard - CodeBuddy
     include layout/header.pug
+    script(type='text/javascript').
+      $(document).on("click", ".show", function () {
+        $(".ui.modal").modal("setting", {
+          closable: false,
+          onApprove: function () {
+            return false;
+          }
+        }).modal("show");
+      })
   body
     include layout/menu.pug
     .ui.small.modal

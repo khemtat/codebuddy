@@ -17,6 +17,7 @@ mongoose.connection.on('error', (err) => {
   winston.error(`⚠️  ${err.message}`)
 })
 require('./models/User')
+require('./models/Project')
 
 /**
  * Start server and initiate socket.io server
@@ -24,7 +25,7 @@ require('./models/User')
 const app = require('./server')
 
 const server = app.listen(process.env.PORT || 8080, () => {
-  winston.info(`✅  Listening on ${server.address().address}:${server.address().port}`)
+  winston.info(`✅  Listening on localhost:${server.address().port}`)
 })
 
 require('./handlers/socket')(server)
