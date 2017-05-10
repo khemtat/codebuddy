@@ -3,45 +3,12 @@ html
   head
     title Dashboard - CodeBuddy
     include layout/header.pug
-    script(type='text/javascript').
-      $(document).on("click", ".show", function () {
-      $(".ui.modal").modal("setting", {
-      closable: false,
-      onApprove: function () {
-      return false;
-      }
-      }).modal("show");
-      }).on("click", ".ui.button", function () {
-      switch ($(this).data("value")) {
-      case 'easy':
-      $("#result").html("easy");
-      $(".ui.modal").modal("hide");
-      break;
-      case 'normal':
-      $("#result").html("normal");
-      $(".ui.modal").modal("hide");
-      break;
-      case 'hard':
-      $("#result").html("hard");
-      $(".ui.modal").modal("hide");
-      break;
-      }
-      });
-    style#extension_grayscale(type='text/css').
-      html *,
-      * {
-      filter: initial !important;
-      }
   body
     include layout/menu.pug
     .ui.small.modal
       i.close.icon
       .header Create New Project
       .content
-        //- .ui.negative.message
-        //-   i.close.icon
-        //-   .header Error Project Name Invalid !
-        //-   p Lorem ipsum
         form.ui.form(action='/project', method='POST')
           .field
             label Project Name :
@@ -106,13 +73,10 @@ html
                       b
                         a.header(href='/project?pid='+project.pid)= project.title
                       .description= project.description
-                      | Last updated 
-                      = moment(project.createdAt).format('DD-MM-YYYY HH:mm A')
-                      |  (
-                      a(href='/profile/'+project.collaborator )
-                      | @
-                      = project.collaborator
-                      |) 
+                      | Last updated #{moment(project.createdAt).fromNow()}
+                      | (
+                      a(href='/profile/'+project.collaborator ) @#{project.collaborator}
+                      |)
                     .four.wide.column
                       .button.ui.primary.right.labeled.icon.button
                         i.right.chevron.icon

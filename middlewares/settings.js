@@ -14,6 +14,7 @@ const bodyParser = require('body-parser')
 const redis = require('connect-redis')
 const passport = require('passport')
 const expressValidator = require('express-validator')
+const moment = require('moment')
 
 /**
  * Config dependencies
@@ -21,15 +22,11 @@ const expressValidator = require('express-validator')
 const RedisStore = redis(session)
 const redisConfig = require('../config/redis')
 const passportConfig = require('../config/passport')
-const dbSetup = require('./database')
 
 /**
  * Expose `settings`
  */
 module.exports = (app) => {
-  // MongoDB setup
-  dbSetup()
-
   // view engine setup
   app.set('views', path.join(__dirname, '../views'))
   app.set('view engine', 'pug')
@@ -55,6 +52,7 @@ module.exports = (app) => {
   app.use((req, res, next) => {
     res.locals.flashes = req.flash()
     res.locals.user = req.user || null
+    res.locals.moment = moment
     next()
   })
 }

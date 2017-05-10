@@ -1,8 +1,10 @@
 /**
  * Module dependencies
  */
+const mongoose = require('mongoose')
 const LocalStrategy = require('passport-local').Strategy
-const User = require('../models/User')
+
+const User = mongoose.model('User')
 
 function config(passport) {
   /**
@@ -40,16 +42,16 @@ function config(passport) {
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })
       User.findOne({ username: req.body.username }, (err, user) => {
         if (user) return done(null, false, { message: 'Username is already taken' })
-        const _user = new User()
-        _user.username = req.body.username
-        _user.email = email
-        _user.info.name = `${req.body.firstname} ${req.body.lastname}`
-        _user.info.occupation = req.body.occupation
-        _user.info.gender = req.body.gender
-        _user.password = password
-        _user.save((err) => {
+        const newUser = new User()
+        newUser.username = req.body.username
+        newUser.email = email
+        newUser.info.name = `${req.body.firstname} ${req.body.lastname}`
+        newUser.info.occupation = req.body.occupation
+        newUser.info.gender = req.body.gender
+        newUser.password = password
+        newUser.save((err) => {
           if (err) throw err
-          return done(null, _user)
+          return done(null, newUser)
         })
       })
     })
