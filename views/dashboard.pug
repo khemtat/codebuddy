@@ -114,9 +114,9 @@ html
                       = project.collaborator
                       |) 
                     .four.wide.column
-                      .ui.right.floated.primary.button
+                      .button.ui.primary.right.labeled.icon.button
+                        i.right.chevron.icon
                         | Setting
-                        i.right.chevron.icon                
           else if project.collaborator === user.username
             .item
               a.ui.yellow.image.label.middle.aligned

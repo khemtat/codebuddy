@@ -13,6 +13,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const redis = require('connect-redis')
 const passport = require('passport')
+const expressValidator = require('express-validator')
 
 /**
  * Config dependencies
@@ -36,13 +37,14 @@ module.exports = (app) => {
   // middlewares setting
   app.use(morgan('dev'))
   app.use(flash())
+  app.use(expressValidator())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({
     extended: true
   }))
   app.use(express.static(path.join(__dirname, '../public')))
   app.use(session({
-    secret: 'khktcodebuddysecretsigned',
+    secret: 'codebuddysecrets',
     store: new RedisStore(redisConfig),
     resave: true,
     saveUninitialized: true

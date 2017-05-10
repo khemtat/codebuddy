@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const validator = require('validator')
 
 /**
  * `User` model schema based on Mongoose schema
@@ -10,7 +11,14 @@ const bcrypt = require('bcrypt')
 const userSchema = mongoose.Schema({
   username: String,
   password: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    validate: [validator.isEmail, 'Invalid Email Address'],
+    required: 'Please enter an email address'
+  },
   info: {
     name: String,
     occupation: String,

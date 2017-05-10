@@ -3,7 +3,19 @@
  */
 module.exports = {
   redisConfig: {
-    host: 'localhost',
-    port: 32768
+    /**
+     * Redis configuration for development site
+     */
+    development: {
+      host: 'localhost',
+      port: 32768
+    },
+    /**
+     * Redis configuration for production site
+     */
+    production: {
+      host: undefined,
+      port: undefined
+    }
   }
 }

@@ -14,8 +14,9 @@ const router = express.Router()
  * @method {GET} return rendered `playground.pug`
  * @method {POST} handle create new project form on `dashboard` page
  */
-router.use(auth.isSignedIn)
-router.route('/')
+router
+  .use(auth.isSignedIn)
+  .route('/')
   .get((req, res) => {
     if (!req.query.pid) res.redirect('/dashboard')
     Project.findOne({ pid: req.query.pid }, (err, doc) => {

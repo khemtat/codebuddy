@@ -2,13 +2,13 @@
  * Module dependencies
  */
 const LocalStrategy = require('passport-local').Strategy
-const User = require('../models/user')
+const User = require('../models/User')
 
 function config(passport) {
   /**
    * serialize users and only parse the user id to the session
-   * @param {Object} user
-   * @param {Function} done
+   * @param {Object} user user instance
+   * @param {Function} done callback function
    */
   passport.serializeUser((user, done) => {
     done(null, user.id)
@@ -16,8 +16,8 @@ function config(passport) {
 
   /**
    * deserialize users out of the session to get the ID that used to find user
-   * @param {String} id
-   * @param {Function} done
+   * @param {String} id user id
+   * @param {Function} done callback function
    */
   passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
@@ -40,17 +40,17 @@ function config(passport) {
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })
       User.findOne({ username: req.body.username }, (err, user) => {
         if (user) return done(null, false, { message: 'Username is already taken' })
-      })
-      const newUser = new User()
-      newUser.username = req.body.username
-      newUser.email = email
-      newUser.info.name = `${req.body.firstname} ${req.body.lastname}`
-      newUser.info.occupation = req.body.occupation
-      newUser.info.gender = req.body.gender
-      newUser.password = password
-      newUser.save((err) => {
-        if (err) throw err
-        return done(null, newUser)
+        const _user = new User()
+        _user.username = req.body.username
+        _user.email = email
+        _user.info.name = `${req.body.firstname} ${req.body.lastname}`
+        _user.info.occupation = req.body.occupation
+        _user.info.gender = req.body.gender
+        _user.password = password
+        _user.save((err) => {
+          if (err) throw err
+          return done(null, _user)
+        })
       })
     })
   }))
