@@ -44,8 +44,8 @@ html
           |  Sign in
     .ui.raised.very.padded.text.container.segment
       h1.ui.header Register Now
-      if (message.length !== 0)
-        .ui.red.message= message
+      if locals.flashes['error']
+        .ui.red.message= locals.flashes['error']
       p Fill in the form below to get access
       form.ui.form(action='/register', method='POST')
         h4.ui.dividing.header Access information

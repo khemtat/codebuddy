@@ -2,9 +2,9 @@
  * Module dependencies
  */
 const express = require('express')
-const passport = require('passport')
 
 const auth = require('../middlewares/auth')
+const userController = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -15,14 +15,8 @@ const router = express.Router()
  * @method {POST} handle sign in form with passport strategy
  */
 router.route('/')
-  .get(auth.isLoggedOut, (req, res) => {
-    res.render('signin')
-  })
-  .post(passport.authenticate('local-signin', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signin',
-    failureFlash: true
-  }))
+  .get(auth.isLoggedOut, userController.getSigninForm)
+  .post(userController.postSigninForm)
 
 /**
  * Expose `router`

@@ -2,7 +2,6 @@
  * Module dependencies
  */
 const mongoose = require('mongoose')
-const mongodbErrorHandler = require('mongoose-mongodb-errors')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 

@@ -18,9 +18,9 @@ const editor = CodeMirror.fromTextArea(document.getElementById('demotext', {
     version: 3,
     singleLineStringErrors: false
   },
+  theme: 'seti',
   lineNumbers: true,
   indentUnit: 4,
-  theme: 'blackboard',
   matchBrackets: true
 }))
 

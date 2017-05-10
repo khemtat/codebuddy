@@ -25,12 +25,9 @@ html
       * {
       filter: initial !important;
       }
-    script(src='codemirror/codemirror.js')
     link(rel='stylesheet', href='codemirror/codemirror.css')
-    link(rel='stylesheet', href='codemirror/themes/blackboard.css')
-    script(src='codemirror/javascript.js')
-    script(src='codemirror/python.js')
-
+    link(rel='stylesheet', href='codemirror/theme/blackboard.css')
+    link(rel='stylesheet', href='codemirror/theme/seti.css')
     style#extension_grayscale(type='text/css').
       html *,
       * {
@@ -125,7 +122,6 @@ html
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
-                |  print(&quot;Total score for %s is %s &quot; % (name, score))  
       .ui.grid
         .four.wide.column
           h1#title Video Chat
@@ -154,9 +150,12 @@ html
             video#localVideo(style='height: 150px;', oncontextmenu='return false;')
             #localVolume.volume_bar
           #remotes
-        .twelve.wide.column.right &lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;&lt;&lt;&lt;&lt; terminal here&gt;&gt;&gt;
+        .twelve.wide.column.right
+          | terminal
 
     include layout/footer.pug
+      script(src='codemirror/codemirror.js')
+      script(src='codemirror/python.js')
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
       script(src='/javascripts/webrtc.js')
       script(src='/javascripts/socket.io.min.js')

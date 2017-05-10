@@ -52,4 +52,9 @@ module.exports = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
   passportConfig(passport)
+  app.use((req, res, next) => {
+    res.locals.flashes = req.flash()
+    res.locals.user = req.user || null
+    next()
+  })
 }

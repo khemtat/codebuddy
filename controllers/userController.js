@@ -1,5 +1,27 @@
-const mongoose = require('mongoose')
+const passport = require('passport')
 
-exports.registerForm = (req, res) => {
-  res.render('register', { message: req.flash('error') })
+/**
+ * Sign In Form `/signin`
+ */
+exports.getSigninForm = (req, res) => {
+  res.render('signin')
 }
+
+exports.postSigninForm = passport.authenticate('local-signin', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/signin',
+  failureFlash: true
+})
+
+/**
+ * Register Form `/register`
+ */
+exports.getRegisterForm = (req, res) => {
+  res.render('register')
+}
+
+exports.postRegisterForm = passport.authenticate('local-register', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/register',
+  failureFlash: true
+})

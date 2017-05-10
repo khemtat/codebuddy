@@ -20,7 +20,7 @@ router
   .get((req, res) => {
     if (!req.query.pid) res.redirect('/dashboard')
     Project.findOne({ pid: req.query.pid }, (err, doc) => {
-      res.render('playground', { user: req.user, project: doc })
+      res.render('playground', { project: doc })
     })
   })
   .post((req, res) => {
