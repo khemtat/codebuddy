@@ -6,6 +6,19 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
     title Code Buddy - Register
     link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
+    script(type='text/javascript', src='validator-js/validator.min.js')
+    script(type='text/javascript').
+      function validat(){
+      if (!validator.isAlpha(document.getElementsByName("firstname")[0].value)) {
+      alert("First Name Invalid ! Please Enter Only Alphabet");
+      }
+      if (!validator.isAlpha(document.getElementsByName("lastname")[0].value)) {
+      alert("Last Name Invalid ! Please Enter Only Alphabet");
+      }
+      if (!validator.isAlpha(document.getElementsByName("email")[0].value)) {
+      alert("Email Invalid ! Please Enter Only Alphabet");
+      }
+      }
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -52,24 +65,24 @@ html
         .required.field
           label Username
           |  
-          input(type='text', name='username', placeholder='codebuddy.com/profile/`username`')
+          input(type='text', name='username', placeholder='codebuddy.com/profile/`username`', required='')
         .required.field
           label Password
           |  
-          input(type='password', name='password')
+          input(type='password', name='password' ,required='')
         .required.field
           label E-mail
           |  
-          input(type='email', name='email', placeholder='your-mail@email.com')
+          input(type='email', name='email', placeholder='your-mail@email.com',required='')
         h4.ui.dividing.header Personal information
         .required.field
           label First Name
           |  
-          input(type='text', name='firstname', placeholder='First Name')
+          input(type='text', name='firstname', placeholder='First Name',required='')
         .required.field
           label Last Name
           |  
-          input(type='text', name='lastname', placeholder='Last Name')
+          input(type='text', name='lastname', placeholder='Last Name',required='')
         .field
           label Occupation
           |  
@@ -129,10 +142,10 @@ html
       
         .required.field
           .ui.checkbox
-            input(type='checkbox', name="agree", tabindex='0')
+            input(type='checkbox', name="agree", tabindex='0',required='')
             |  
             label I agree to the Terms and Conditions 
         |  
-        button.ui.button(type='submit') Register
+        button.ui.button(type='submit', onclick='validat()') Register
     script(src='javascripts/jquery.min.js')
     script(src='semantic/dist/semantic.min.js')
