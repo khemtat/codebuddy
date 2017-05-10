@@ -3,7 +3,7 @@
  */
 const express = require('express')
 
-const Project = require('../models/project')
+const Project = require('../models/Project')
 const auth = require('../middlewares/auth')
 
 const router = express.Router()

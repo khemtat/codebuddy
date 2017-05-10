@@ -16,6 +16,7 @@ module.exports = (server) => {
 
   // Event routing
   io.on('connection', (client) => {
+    // recieve project id from client and stored in projectId
     let projectId = ''
 
     winston.info('Client connected')
@@ -35,7 +36,6 @@ module.exports = (server) => {
      * @param {Object} payload receive code from client payload
      */
     client.on('code change', (payload) => {
-      winston.info('`code change` event called')
       const origin = !!payload.code.origin
       // origin mustn't be an `undefined` type
       if (origin) {

@@ -35,5 +35,5 @@ app.use((req, res, next) => {
  * Server debugs
  */
 server.listen(port, () => {
-  winston.info(`Listening on localhost:${port}`)
+  winston.info(`✅  Listening on localhost:${port}`)
 })
