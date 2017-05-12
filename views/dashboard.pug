@@ -1,5 +1,4 @@
 include mixins/_displayFlashes
-
 doctype html
 html
   head
@@ -14,7 +13,8 @@ html
           }
         }).modal("show");
       })
-  body
+  
+block content
     include layout/menu.pug
     .ui.small.modal
       i.close.icon

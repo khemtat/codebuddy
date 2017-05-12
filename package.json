@@ -4,6 +4,7 @@
   "private": true,
   "main": "server.js",
   "dependencies": {
+    "asyncawait": "^1.0.6",
     "bcrypt": "^1.0.2",
     "body-parser": "~1.15.2",
     "code-mirror-themes": "^1.0.0",

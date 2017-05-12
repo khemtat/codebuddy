@@ -1,10 +1,14 @@
 html
   head
     block header
+      include header
     block script
-    style(type='text/css').
-      .row{
-        max-width:900px;
-      }
+      style(type='text/css').
+        .row{
+          max-width:900px;
+        }
   body
-  extends footer
+    include menu
+    block content
+    include footer  
+    block footerExtend

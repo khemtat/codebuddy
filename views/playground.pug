@@ -1,41 +1,6 @@
-doctype html
-html
-  head
-    title Playground - CodeBuddy
-    include layout/header.pug
-    style(type='text/css').
-      body {
-      background-color: #FFFFFF;
-      }
-      .ui.menu .item img.logo {
-      margin-right: 1.5em;
-      }
-      .main.container {
-      margin-top: 7em;
-      }
-      .wireframe {
-      margin-top: 2em;
-      }
-      .ui.footer.segment {
-      margin: 5em 0em 0em;
-      padding: 5em 0em;
-      }
-    style#extension_grayscale(type='text/css').
-      html *,
-      * {
-      filter: initial !important;
-      }
-    link(rel='stylesheet', href='codemirror/codemirror.css')
-    link(rel='stylesheet', href='codemirror/theme/blackboard.css')
-    link(rel='stylesheet', href='codemirror/theme/seti.css')
-    style#extension_grayscale(type='text/css').
-      html *,
-      * {
-      filter: initial !important;
-      }
-  body
-    include layout/menu.pug
+extends layout/layout.pug
 
+block content
     .ui.modal
       .header Code Review
       .content
@@ -152,8 +117,7 @@ html
           #remotes
         .twelve.wide.column.right
           | terminal
-
-    include layout/footer.pug
+block footerExtend
       script(src='codemirror/codemirror.js')
       script(src='codemirror/python.js')
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')

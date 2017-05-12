@@ -1,7 +1,11 @@
 doctype html
 html
   head
+    block head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    include layout/header.pug
   body
     block content
+    block foot
+      include layout/footer.pug
