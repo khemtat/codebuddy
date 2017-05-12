@@ -10,7 +10,10 @@ const winston = require('winston')
  */
 mongoose.Promise = global.Promise // Tell Mongoose to use ES6 promises
 mongoose.connect(dbConfig.url, (err) => {
-  if (err) throw err
+  if (err) {
+    winston.error(`⚠️  ${err.message}`)
+    return
+  }
   winston.info('✅  Connect to MongoDB successfully')
 })
 mongoose.connection.on('error', (err) => {

@@ -1,3 +1,5 @@
+include mixins/_displayFlashes
+
 doctype html
 html
   head
@@ -22,29 +24,30 @@ html
           .field
             label Project Name :
             |  
-            input(type='text', name='pName', placeholder='Your Project Name')
+            input(type='text', name='title', placeholder='Your Project Name')
           .field
             label Description :
             |  
-            input(type='text', name='pDescription', placeholder='Something about your project')
+            input(type='text', name='description', placeholder='Something about your project')
           .field
             label Language :
-            select.ui.dropdown(name='pLanguage')
+            select.ui.dropdown(name='language')
                option(value='0') Python
           .field
             label Buddy ID :
             |  
-            input(type='text', name='pBuddyUsername', placeholder='Your buddy')
+            input(type='hidden' name='creator' value=user.username)
+            input(type='text', name='collaborator', placeholder='Your buddy')
           .field
             label Time  :
-            select.ui.dropdown(name='pLanguage')
+            select.ui.dropdown(name='swaptime')
                option(value='15') 15 minutes (Recommended)
                option(value='10') 10 minutes
                option(value='5') 5 minutes
           .ui.form
             .inline.fields
               .fields
-                label(for='fruit') Select your theme:
+                label(for='theme') Select your theme:
                 .field
                   .radio.checkbox
                     input.hidden(type='radio', name='theme', checked='', tabindex='0')
@@ -62,6 +65,7 @@ html
             .actions
               button.ui.button.approve.green(type='submit') Create
               .ui.button.approve.red(data-value='cancel') Cancel
+    +displayFlashes(flashes)
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column

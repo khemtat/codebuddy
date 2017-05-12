@@ -3,8 +3,9 @@
  */
 const express = require('express')
 const moment = require('moment')
+const mongoose = require('mongoose')
 
-const Project = require('../models/Project')
+const Project = mongoose.model('Project')
 const auth = require('../middlewares/auth')
 
 const router = express.Router()

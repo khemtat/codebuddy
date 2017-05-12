@@ -2,10 +2,10 @@
  * Module dependencies
  */
 const express = require('express')
-const mongoose = require('mongoose')
 
-const Project = mongoose.model('Project')
 const auth = require('../middlewares/auth')
+const projectController = require('../controllers/projectController')
+const { catchErrors } = require('../handlers/errorHandlers')
 
 const router = express.Router()
 
@@ -18,24 +18,8 @@ const router = express.Router()
 router
   .use(auth.isSignedIn)
   .route('/')
-  .get((req, res) => {
-    if (!req.query.pid) res.redirect('/dashboard')
-    Project.findOne({ pid: req.query.pid }, (err, doc) => {
-      res.render('playground', { project: doc })
-    })
-  })
-  .post((req, res) => {
-    const newProject = new Project()
-    newProject.title = req.body.pName
-    newProject.description = req.body.pDescription
-    newProject.language = req.body.pLanguage
-    newProject.creator = req.user.username
-    newProject.collaborator = req.body.pBuddyUsername
-    newProject.save((err) => {
-      if (err) throw err
-    })
-    res.redirect('dashboard')
-  })
+  .get(projectController.getPlayground)
+  .post(catchErrors(projectController.createProject))
 
 /**
  * Expose `router`

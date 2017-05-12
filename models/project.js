@@ -7,10 +7,19 @@ const shortid = require('shortid')
 /**
  * `Project` model schema based on Mongoose schema
  */
-const projectSchema = mongoose.Schema({
-  pid: { type: String, default: shortid.generate },
-  title: String,
-  description: String,
+const projectSchema = new mongoose.Schema({
+  pid: {
+    type: String,
+    default: shortid.generate
+  },
+  title: {
+    type: String,
+    required: [true, 'Please enter a project title']
+  },
+  description: {
+    type: String,
+    required: [true, 'Please fill in project description']
+  },
   createdAt: { type: Date, default: Date.now },
   creator: String,
   collaborator: String,

@@ -1,0 +1,10 @@
+mixin displayFlashes(flashes)
+  if flashes
+    ui.grid.container
+      .row
+        - const flashTypes = Object.keys(flashes)
+        each flashType in flashTypes
+          each message in flashes[flashType]
+            .ui(class = `${flashType} message`)
+              i.icon.close
+              p!= message

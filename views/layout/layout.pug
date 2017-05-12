@@ -1,6 +1,10 @@
 html
-    head
-        block header
-        block script
-    body
-        extends footer
+  head
+    block header
+    block script
+    style(type='text/css').
+      .row{
+        max-width:900px;
+      }
+  body
+  extends footer
