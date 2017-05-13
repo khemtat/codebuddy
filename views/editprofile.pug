@@ -1,9 +1,6 @@
-doctype html
-html
-  head
-    include layout/header.pug
-  body
-    include layout/menu.pug
+extends layout/layout.pug
+
+block content
     .ui.raised.very.padded.text.container.segment
       h1.ui.header Edit your profile
       p Edit your profile in the form below
@@ -53,4 +50,3 @@ html
             label I agree to the Terms and Conditions
         |  
         button.ui.button(type='submit') Register
-    include layout/footer.pug
