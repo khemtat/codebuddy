@@ -25,3 +25,10 @@ exports.postRegisterForm = passport.authenticate('local-register', {
   failureRedirect: '/register',
   failureFlash: true
 })
+
+/**
+ * Profile `/profile`
+ */
+exports.getSettingProfile = (req, res) => {
+  res.render('editprofile')
+}

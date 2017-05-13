@@ -1,7 +1,6 @@
 const socketio = require('socket.io')
 const winston = require('winston')
 const Redis = require('ioredis')
-const redisConf = require('../config/redis')
 const _ = require('lodash')
 
 /**
@@ -12,7 +11,8 @@ module.exports = (server) => {
   const io = socketio(server)
 
   // Initiate redis connection for persist data
-  const redis = new Redis(redisConf.development)
+  const sub = new Redis()
+  const pub = new Redis()
 
   // Event routing
   io.on('connection', (client) => {
@@ -29,6 +29,9 @@ module.exports = (server) => {
       projectId = payload.pid
       winston.info(`User joined at pid: ${payload.pid}`)
       client.join(payload.pid)
+      sub.subscribe(payload.pid, (err, count) => {
+        winston.info(`Client subscribed to project ${payload.pid} and ${count} clients in the channel`)
+      })
     })
 
     /**
@@ -39,8 +42,15 @@ module.exports = (server) => {
       const origin = !!payload.code.origin
       // origin mustn't be an `undefined` type
       if (origin) {
-        client.broadcast.to(projectId).emit('editor update', payload.code)
+        winston.info(`Publish to ${projectId}`)
+        pub.publish(projectId, payload.code)
+        // client.broadcast.to(projectId).emit('editor update', payload.code)
       }
+    })
+
+    sub.on('message', (channel, payload) => {
+      winston.info(`'message' called and will emit to channel ${channel}`)
+      client.broadcast.to(channel).emit('editor update', payload)
     })
 
     /**

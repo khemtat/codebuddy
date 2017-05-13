@@ -2,14 +2,18 @@
  * Module dependencies
  */
 const mongoose = require('mongoose')
-const dbConfig = require('./config/mongodb')
 const winston = require('winston')
+
+/**
+ * Load environment config to `process.env`
+ */
+require('dotenv').config()
 
 /**
  * Initiate MongoDB connection
  */
 mongoose.Promise = global.Promise // Tell Mongoose to use ES6 promises
-mongoose.connect(dbConfig.url, (err) => {
+mongoose.connect(process.env.MONGODB_URL, (err) => {
   if (err) {
     winston.error(`⚠️  ${err.message}`)
     return

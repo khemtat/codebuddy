@@ -2,11 +2,9 @@
  * Module dependencies
  */
 const express = require('express')
-const moment = require('moment')
-const mongoose = require('mongoose')
 
-const Project = mongoose.model('Project')
 const auth = require('../middlewares/auth')
+const dashboardController = require('../controllers/dashboardController')
 
 const router = express.Router()
 
@@ -15,12 +13,7 @@ const router = express.Router()
  * Finding user projects from database and pass results to the dashboard file
  * @method {GET} return rendered `dashboard.pug`
  */
-router.get('/', auth.isSignedIn, (req, res) => {
-  const query = [{ creator: req.user.username }, { collaborator: req.user.username }]
-  Project.find({ $or: query }, (err, docs) => {
-    res.render('dashboard', { user: req.user, projects: docs, moment: moment })
-  })
-})
+router.get('/', auth.isSignedIn, dashboardController.getDashboard)
 
 /**
  * Expose `router`

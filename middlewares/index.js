@@ -20,7 +20,6 @@ const moment = require('moment')
  * Config dependencies
  */
 const RedisStore = redis(session)
-const redisConfig = require('../config/redis')
 const passportConfig = require('../config/passport')
 
 /**
@@ -42,7 +41,9 @@ module.exports = (app) => {
   app.use(express.static(path.join(__dirname, '../public')))
   app.use(session({
     secret: 'codebuddysecrets',
-    store: new RedisStore(redisConfig),
+    store: new RedisStore({
+      url: process.env.REDIS_SERVER
+    }),
     resave: true,
     saveUninitialized: true
   }))
