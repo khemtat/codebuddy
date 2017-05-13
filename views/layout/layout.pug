@@ -1,12 +1,13 @@
+include ../mixins/_displayFlashes
 html
   head
+    include header
     block header
-      include header
-    block script
-      style(type='text/css').
+    style(type='text/css').
         .row{
           max-width:900px;
         }
+    block script
   body
     include menu
     block content
