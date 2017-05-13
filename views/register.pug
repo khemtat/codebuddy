@@ -1,12 +1,7 @@
-include mixins/_form
-doctype html
-html
-  head
+extends layout/layout.pug
+
+block header
     meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    title Code Buddy - Register
-    link(rel='stylesheet', type='text/css', href='semantic/dist/semantic.min.css')
     style(type='text/css').
       body {
       background-color: #FFFFFF;
@@ -26,23 +21,7 @@ html
       }
     style#extension_grayscale(type='text/css').
       html *, * { filter: initial !important; }
-  html
-  body
-    .ui.attached.stackable.menu
-      .ui.container
-        img.logo.large(src='images/logo-codebuddy-s.png')
-        a.item(href='/')
-          i.home.icon
-          |  Home
-        a.item(href='/howitworked')
-          i.info.icon
-          |  How it worked ?
-        a.item(href='/aboutus')
-          i.users.icon
-          |  About us
-        a.right.item(href='/signin')
-          i.sign.in.icon
-          |  Sign in
+block content
     .ui.raised.very.padded.text.container.segment
       h1.ui.header Register Now
       if flashes['error']
