@@ -1,29 +1,33 @@
 .ui.attached.stackable.menu
       .ui.container
         img.logo.large(src='../images/logo-codebuddy-s.png')
-        a.item(href='/dashboard')
-          i.grid.layout.icon
-          |  Dashboard
-        a.item(href='/notifications')
-          i.mail.icon
-          |  Messages
-          .ui.red.horizontal.label 1
-        .ui.simple.dropdown.right.item
-            i.user.icon
-            = user.info.name
-            i.dropdown.icon
-            .menu
-              .item
-                i.info.icon
-                | Signed in as 
-                = user.username
-              .ui.inverted.divider  
-              a.item(href='/profile/'+user.username)
-                i.unhide.icon
-                |  Your Profile
-              a.item(href='/settings/profile')
-                i.setting.icon
-                |  Setting Profile
-              a.item(href='/signout')
-                i.sign.out.icon
-                |  Sign Out
+        if (user)
+          a.item(href='/dashboard')
+            i.grid.layout.icon
+            |  Dashboard
+          a.item(href='/notifications')
+            i.mail.icon
+            |  Messages
+            .ui.red.horizontal.label 1
+          .ui.simple.dropdown.right.item
+              i.user.icon
+              = user.info.name
+              i.dropdown.icon
+              .menu
+                .item
+                  i.info.icon
+                  | Signed in as 
+                  = user.username
+                .ui.inverted.divider  
+                a.item(href='/profile/'+user.username)
+                  i.unhide.icon
+                  |  Your Profile
+                a.item(href='/settings/profile')
+                  i.setting.icon
+                  |  Setting Profile
+                a.item(href='/signout')
+                  i.sign.out.icon
+                  |  Sign Out
+        else
+          
+            
