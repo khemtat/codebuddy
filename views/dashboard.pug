@@ -1,18 +1,15 @@
 extends layout/layout.pug
 
-block header
+block script
     script(type='text/javascript').
-      $(document).on("click", ".show", function () {
-        $(".ui.modal").modal("setting", {
-          closable: false,
-          onApprove: function () {
-            return false;
-          }
-        }).modal("show");
-      })
+            $(document).ready(function(){
+                $('.newProject').click(function(){
+                    $('#newProject-modal').modal('show');
+                });
+            });
   
 block content
-    .ui.small.modal
+    .ui.small.modal#newProject-modal
       i.close.icon
       .header Create New Project
       .content
@@ -68,7 +65,7 @@ block content
           h1.ui.header My Projects
         .right.column
           a.right
-            button#new.ui.button.approve.green.show(style='float: right;') Create New Project
+            button#new.ui.button.approve.green.newProject(style='float: right;') Create New Project
       br
       .ui.items
         each project in projects
