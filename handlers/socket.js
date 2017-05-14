@@ -35,10 +35,12 @@ module.exports = (server) => {
      * @param {Object} payload receive code from client payload
      */
     client.on('code change', (payload) => {
-      const origin = !!payload.code.origin
-      // origin mustn't be an `undefined` type
+      const origin = !!payload.code.origin && (payload.code.origin !== 'setValue')
+      // origin mustn't be an `undefined` or `setValue` type
       if (origin) {
+        winston.info(`Emitted 'editor update' to client with pid: ${projectId}`)
         client.broadcast.to(projectId).emit('editor update', payload.code)
+        redis.set(projectId, payload.editor)
       }
     })
 

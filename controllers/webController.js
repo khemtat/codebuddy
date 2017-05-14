@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Redis = require('ioredis')
+const winston = require('winston')
 
 const Project = mongoose.model('Project')
 
@@ -22,9 +24,9 @@ exports.getDashboard = async (req, res) => {
   res.render('dashboard', { projects: projects })
 }
 
-exports.getPlayground = (req, res) => {
+exports.getPlayground = async (req, res) => {
   if (!req.query.pid) res.redirect('/dashboard')
-  Project.findOne({ pid: req.query.pid }, (err, doc) => {
+  await Project.findOne({ pid: req.query.pid }, (err, doc) => {
     res.render('playground', { project: doc })
   })
 }
@@ -33,4 +35,11 @@ exports.createProject = async (req, res) => {
   const project = await (new Project(req.body)).save()
   req.flash('success', `Successfully Created ${project.title} Project.`)
   res.redirect('dashboard')
+}
+
+exports.getEditorCode = async (req, res) => {
+  winston.info(`getEditorCode called: with pid: ${req.params.pid}`)
+  const redis = new Redis()
+  const data = await redis.get(req.params.pid)
+  res.send(data).status(200)
 }

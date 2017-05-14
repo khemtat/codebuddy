@@ -13,16 +13,23 @@ function getParameterByName(name) {
 }
 
 const editor = CodeMirror.fromTextArea(document.getElementById('demotext', {
-  theme: 'blackboard',
-  lineNumbers: true,
-  indentUnit: 4,
-  matchBrackets: true,
   mode: {
     name: 'python',
     version: 3,
     singleLineStringErrors: false
-  }
+  },
+  lineNumbers: true,
+  theme: 'blackboard',
+  indentUnit: 4,
+  matchBrackets: true
 }))
+
+$.ajax({
+  url: `/project/getCode/${getParameterByName('pid')}`,
+  success: function (payload) {
+    editor.setValue(payload)
+  }
+})
 
 editor.on('dblclick', () => {
   let A1 = editor.getCursor().line
@@ -46,11 +53,11 @@ socket.emit('join project', {
 editor.on('change', (ins, data) => {
   console.log('### editor `change` event called')
   socket.emit('code change', {
-    code: data
+    code: data,
+    editor: editor.getValue()
   })
 })
 
 socket.on('editor update', (payload) => {
-  console.log('### Receive message from event `editor update`\n')
   editor.replaceRange(payload.text, payload.from, payload.to)
 })

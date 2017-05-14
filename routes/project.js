@@ -18,8 +18,13 @@ const router = express.Router()
 router
   .use(auth.isSignedIn)
   .route('/')
-  .get(webController.getPlayground)
+  .get(catchErrors(webController.getPlayground))
   .post(catchErrors(webController.createProject))
+
+router
+  .use(auth.isSignedIn)
+  .route('/getCode/:pid')
+  .get(webController.getEditorCode)
 
 /**
  * Expose `router`
