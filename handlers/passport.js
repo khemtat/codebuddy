@@ -36,7 +36,7 @@ function config(passport) {
     passReqToCallback: true
   },
   async (req, email, password, done) => {
-    await User.findOne({ email: email })
+    User.findOne({ email: email })
     .exec((err, user) => {
       if (err) return done(err)
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })

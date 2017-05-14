@@ -40,7 +40,8 @@ module.exports = (app) => {
   }))
   app.use(express.static(path.join(__dirname, '../public')))
   app.use(session({
-    secret: 'codebuddysecrets',
+    key: process.env.KEY,
+    secret: process.env.SECRET,
     store: new RedisStore({
       url: process.env.REDIS_SERVER
     }),
