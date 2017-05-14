@@ -1,15 +1,11 @@
 const express = require('express')
 const auth = require('../middlewares/auth')
+const webController = require('../controllers/webController')
 
 const router = express.Router()
 
-router.get('/', auth.isLoggedOut, (req, res) => {
-  res.render('index')
-})
+router.get('/', auth.isLoggedOut, webController.getHomepage)
 
-router.get('/signout', (req, res) => {
-  req.logout()
-  res.redirect('/')
-})
+router.get('/signout', webController.userSignout)
 
 module.exports = router

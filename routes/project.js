@@ -4,7 +4,7 @@
 const express = require('express')
 
 const auth = require('../middlewares/auth')
-const projectController = require('../controllers/projectController')
+const webController = require('../controllers/webController')
 const { catchErrors } = require('../handlers/errorHandlers')
 
 const router = express.Router()
@@ -18,8 +18,8 @@ const router = express.Router()
 router
   .use(auth.isSignedIn)
   .route('/')
-  .get(projectController.getPlayground)
-  .post(catchErrors(projectController.createProject))
+  .get(webController.getPlayground)
+  .post(catchErrors(webController.createProject))
 
 /**
  * Expose `router`

@@ -23,9 +23,8 @@ block header
       html *, * { filter: initial !important; }
 block content
     .ui.raised.very.padded.text.container.segment
+      +displayFlashes(flashes)
       h1.ui.header Register Now
-      if flashes['error']
-        .ui.red.message= flashes['error']
       +registerForm()
     script(src='javascripts/jquery.min.js')
     script(src='semantic/dist/semantic.min.js')

@@ -4,6 +4,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const mongodbErrorHandler = require('mongoose-mongodb-errors')
 
 /**
  * `User` model schema based on Mongoose schema
@@ -14,8 +15,8 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [{ validator: username => validator.isAlphanumeric(username), msg: 'Invalid username' }],
-    required: [true, 'Username required']
+    validate: [validator.isAlphanumeric, 'Invalid username'],
+    required: 'Please enter an username'
   },
   password: String,
   email: {
@@ -23,11 +24,15 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [{ validator: email => validator.isEmail(email), msg: 'Invalid Email Address' }],
-    required: [true, 'User email address required']
+    validate: [validator.isEmail, 'Invalid Email Address'],
+    required: 'Please enter an email address'
   },
   info: {
-    name: String,
+    name: {
+      type: String,
+      required: 'Please enter a personal information',
+      trim: true
+    },
     occupation: String,
     gender: String
   }
@@ -57,6 +62,8 @@ userSchema.methods.verifyPassword = function verifyPassword(plainPassword, done)
     return done(null, isMatch)
   })
 }
+
+userSchema.plugin(mongodbErrorHandler)
 
 /**
  * Expose `User` model

@@ -4,7 +4,8 @@
 const express = require('express')
 
 const auth = require('../middlewares/auth')
-const dashboardController = require('../controllers/dashboardController')
+const webController = require('../controllers/webController')
+const { catchErrors } = require('../handlers/errorHandlers')
 
 const router = express.Router()
 
@@ -13,7 +14,7 @@ const router = express.Router()
  * Finding user projects from database and pass results to the dashboard file
  * @method {GET} return rendered `dashboard.pug`
  */
-router.get('/', auth.isSignedIn, dashboardController.getDashboard)
+router.get('/', auth.isSignedIn, catchErrors(webController.getDashboard))
 
 /**
  * Expose `router`

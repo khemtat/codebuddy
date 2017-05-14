@@ -1,42 +1,42 @@
 mixin registerForm(user)
   p Fill in the form below to get access
-      form.ui.form(action='/register', method='POST')
+      form.ui.form(action='/register' method='POST')
         h4.ui.dividing.header Access information
         .required.field
           label Username
           |  
-          input(type='text', name='username', placeholder='codebuddy.com/profile/`username`', required='')
+          input(type='text' name='username' placeholder='codebuddy.com/profile/`username`' required)
         .required.field
           label Password
           |  
-          input(type='password', name='password' ,required='')
+          input(type='password' name='password' required)
         .required.field
           label E-mail
           |  
-          input(type='email', name='email', placeholder='your-mail@email.com',required='')
+          input(type='email' name='email' placeholder='your-mail@email.com' required)
         h4.ui.dividing.header Personal information
         .required.field
           label First Name
           |  
-          input(type='text', name='firstname', placeholder='First Name',required='')
+          input(type='text' name='firstname' placeholder='First Name' required)
         .required.field
           label Last Name
           |  
-          input(type='text', name='lastname', placeholder='Last Name',required='')
+          input(type='text' name='lastname' placeholder='Last Name' required)
         .field
           label Occupation
           |  
-          input(type='text', name='occupation', placeholder='occupation')
+          input(type='text' name='occupation' placeholder='occupation')
         .required.field
           label Gender
           .field
             .ui.radio.checkbox
-              input(type='radio', name='gender', value='male')
+              input(type='radio' name='gender' value='male')
               |  
               label Male
           .field
             .ui.radio.checkbox
-              input(type='radio', name='gender', value='female')
+              input(type='radio' name='gender' value='female')
               |  
               label Female
         textarea(rows='5')
@@ -82,23 +82,23 @@ mixin registerForm(user)
       
         .required.field
           .ui.checkbox
-            input(type='checkbox', name="agree", tabindex='0',required='')
+            input(type='checkbox' name="agree" tabindex='0' required)
             |  
             label I agree to the Terms and Conditions 
         |  
-        button.ui.button(type='submit', onclick='validat()') Register
+        button.ui.button(type='submit' onclick='validat()') Register
 
 mixin signinForm(user)
-  form.ui.large.form(action='/signin', method='POST')
+  form.ui.large.form(action='/signin' method='POST')
     .ui.stacked.segment
       .field
         .ui.left.icon.input
           i.user.icon
           |  
-          input(type='text', name='email', placeholder='E-mail address')
+          input(type='text' name='email' placeholder='E-mail address' required)
       .field
         .ui.left.icon.input
           i.lock.icon
           |  
-          input(type='password', name='password', placeholder='Password')
+          input(type='password' name='password' placeholder='Password' required)
     button.ui.fluid.large.teal.submit.button(type='submit') Sign In

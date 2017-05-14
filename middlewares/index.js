@@ -20,7 +20,7 @@ const moment = require('moment')
  * Config dependencies
  */
 const RedisStore = redis(session)
-const passportConfig = require('../config/passport')
+const passportConfig = require('../handlers/passport')
 
 /**
  * Expose `settings`
