@@ -35,8 +35,8 @@ function config(passport) {
     passwordField: 'password',
     passReqToCallback: true
   },
-  (req, email, password, done) => {
-    User.findOne({ email: email })
+  async (req, email, password, done) => {
+    await User.findOne({ email: email })
     .exec((err, user) => {
       if (err) return done(err)
       if (user) return done(null, false, { message: 'Email is invalid or already taken' })
@@ -50,7 +50,7 @@ function config(passport) {
         newUser.info.gender = req.body.gender
         newUser.password = password
         newUser.save((err) => {
-          if (err) throw err
+          if (err) return done(err)
           return done(null, newUser)
         })
       })

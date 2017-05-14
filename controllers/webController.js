@@ -2,6 +2,26 @@ const mongoose = require('mongoose')
 
 const Project = mongoose.model('Project')
 
+exports.getHomepage = (req, res) => {
+  res.render('index')
+}
+
+exports.userSignout = (req, res) => {
+  req.logout()
+  res.redirect('/')
+}
+
+exports.getDashboard = async (req, res) => {
+  const projects = await Project
+    .find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] })
+    .sort({ createdAt: -1 })
+    .exec((err, docs) => {
+      if (err) throw err
+      return docs
+    })
+  res.render('dashboard', { projects: projects })
+}
+
 exports.getPlayground = (req, res) => {
   if (!req.query.pid) res.redirect('/dashboard')
   Project.findOne({ pid: req.query.pid }, (err, doc) => {
