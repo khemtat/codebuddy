@@ -1,5 +1,10 @@
 extends layout/layout.pug
 
+block script
+  link(rel='stylesheet', href='/codemirror/codemirror.css')
+  link(rel='stylesheet', href='../codemirror/theme/blackboard.css')
+  link(rel='stylesheet', href='../codemirror/theme/seti.css')
+  script(src='/codemirror/codemirror.js')
 block content
     .ui.modal
       .header Code Review
@@ -118,8 +123,7 @@ block content
         .twelve.wide.column.right
           | terminal
 block footerExtend
-      script(src='codemirror/codemirror.js')
-      script(src='codemirror/python.js')
+      script(src='/codemirror/python.js')
       script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
       script(src='/javascripts/webrtc.js')
       script(src='/javascripts/socket.io.min.js')

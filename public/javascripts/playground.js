@@ -13,15 +13,15 @@ function getParameterByName(name) {
 }
 
 const editor = CodeMirror.fromTextArea(document.getElementById('demotext', {
+  theme: 'blackboard',
+  lineNumbers: true,
+  indentUnit: 4,
+  matchBrackets: true,
   mode: {
     name: 'python',
     version: 3,
     singleLineStringErrors: false
-  },
-  theme: 'seti',
-  lineNumbers: true,
-  indentUnit: 4,
-  matchBrackets: true
+  }
 }))
 
 editor.on('dblclick', () => {
