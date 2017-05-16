@@ -24,6 +24,10 @@ const editor = CodeMirror.fromTextArea(document.getElementById('demotext', {
   matchBrackets: true
 }))
 
+if (user === 'khemtat') {
+  editor.setOption('readOnly', 'nocursor')
+}
+
 $.ajax({
   url: `/project/getCode/${getParameterByName('pid')}`,
   success: function (payload) {

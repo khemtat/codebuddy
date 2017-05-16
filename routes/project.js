@@ -24,7 +24,7 @@ router
 router
   .use(auth.isSignedIn)
   .route('/getCode/:pid')
-  .get(webController.getEditorCode)
+  .get(catchErrors(webController.getEditorCode))
 
 /**
  * Expose `router`

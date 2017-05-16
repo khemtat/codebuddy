@@ -5,6 +5,8 @@ block script
   link(rel='stylesheet', href='../codemirror/theme/blackboard.css')
   link(rel='stylesheet', href='../codemirror/theme/seti.css')
   script(src='/codemirror/codemirror.js')
+  script.
+    let user="#{user.username}"
 block content
     .ui.modal
       .header Code Review
@@ -128,3 +130,4 @@ block footerExtend
       script(src='/javascripts/webrtc.js')
       script(src='/javascripts/socket.io.min.js')
       script(src='/javascripts/playground.js')
+      script(src='/javascripts/peer.min.js')

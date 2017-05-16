@@ -39,7 +39,6 @@ exports.createProject = async (req, res) => {
 
 exports.getEditorCode = async (req, res) => {
   winston.info(`getEditorCode called: with pid: ${req.params.pid}`)
-  const redis = new Redis()
-  const data = await redis.get(req.params.pid)
+  const data = await new Redis().get(req.params.pid)
   res.send(data).status(200)
 }
