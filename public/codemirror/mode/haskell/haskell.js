@@ -56,7 +56,7 @@ CodeMirror.defineMode("haskell", function(_config, modeConfig) {
       if (source.eat('\'')) {
         return "string";
       }
-      return "string error";
+      return "error";
     }
 
     if (ch == '"') {
@@ -166,7 +166,7 @@ CodeMirror.defineMode("haskell", function(_config, modeConfig) {
       }
     }
     setState(normal);
-    return "string error";
+    return "error";
   }
 
   function stringGap(source, setState) {
@@ -194,7 +194,7 @@ CodeMirror.defineMode("haskell", function(_config, modeConfig) {
       "module", "newtype", "of", "then", "type", "where", "_");
 
     setType("keyword")(
-      "\.\.", ":", "::", "=", "\\", "<-", "->", "@", "~", "=>");
+      "\.\.", ":", "::", "=", "\\", "\"", "<-", "->", "@", "~", "=>");
 
     setType("builtin")(
       "!!", "$!", "$", "&&", "+", "++", "-", ".", "/", "/=", "<", "<=", "=<<",

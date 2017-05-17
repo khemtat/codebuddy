@@ -90,8 +90,8 @@ CodeMirror.defineMode("octave", function() {
     if (stream.match(wordRegexp(['nan','NaN','inf','Inf']))) { return 'number'; };
 
     // Handle Strings
-    var m = stream.match(/^"(?:[^"]|"")*("|$)/) || stream.match(/^'(?:[^']|'')*('|$)/)
-    if (m) { return m[1] ? 'string' : "string error"; }
+    if (stream.match(/^"([^"]|(""))*"/)) { return 'string'; } ;
+    if (stream.match(/^'([^']|(''))*'/)) { return 'string'; } ;
 
     // Handle words
     if (stream.match(keywords)) { return 'keyword'; } ;
@@ -126,11 +126,7 @@ CodeMirror.defineMode("octave", function() {
         state.tokenize = tokenTranspose;
       }
       return style;
-    },
-
-    lineComment: '%',
-
-    fold: 'indent'
+    }
   };
 });
 
