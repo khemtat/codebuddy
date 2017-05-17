@@ -39,9 +39,13 @@ module.exports = (server) => {
       // origin mustn't be an `undefined` or `setValue` type
       if (origin) {
         winston.info(`Emitted 'editor update' to client with pid: ${projectId}`)
-        client.broadcast.to(projectId).emit('editor update', payload.code)
+        client.to(projectId).emit('editor update', payload.code)
         redis.set(projectId, payload.editor)
       }
+    })
+
+    client.on('user status', (payload) => {
+      client.to(projectId).emit('update status', payload)
     })
 
     /**

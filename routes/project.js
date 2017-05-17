@@ -11,7 +11,7 @@ const router = express.Router()
 
 /**
  * `Project` route used as `/project`
- * Return the playground page for using in pair-programming collaboration
+ * Return the playground page used in pair-programming collaboration
  * @method {GET} return rendered `playground.pug`
  * @method {POST} handle create new project form on `dashboard` page
  */

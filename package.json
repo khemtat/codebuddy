@@ -2,7 +2,7 @@
   "name": "codebuddy",
   "version": "0.0.0",
   "private": true,
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {
     "asyncawait": "^1.0.6",
     "bcrypt": "^1.0.2",

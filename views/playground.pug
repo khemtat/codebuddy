@@ -1,10 +1,10 @@
 extends layout/layout.pug
 
 block script
-  link(rel='stylesheet', href='/codemirror/codemirror.css')
-  link(rel='stylesheet', href='../codemirror/theme/blackboard.css')
-  link(rel='stylesheet', href='../codemirror/theme/seti.css')
-  script(src='/codemirror/codemirror.js')
+  link(rel='stylesheet' href='/xterm/xterm.css')
+  link(rel='stylesheet' href='/codemirror/lib/codemirror.css')
+  link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
+  link(rel='stylesheet' href='/codemirror/theme/seti.css')
   script.
     let user="#{user.username}"
 block content
@@ -40,6 +40,9 @@ block content
             | Time
             h3
               #time 10.00
+            - let userDisplay = user.username === project.creator ? project.collaborator : project.creator
+            | #{userDisplay} is now
+            .user.status
         .five.wide.column.right
           center
             button.ui.primary.labeled.icon.button
@@ -123,11 +126,15 @@ block content
             #localVolume.volume_bar
           #remotes
         .twelve.wide.column.right
-          | terminal
+          .terminal
 block footerExtend
-      script(src='/codemirror/python.js')
-      script(src='/SimpleWebRTC-master/simplewebrtc.bundle.js')
-      script(src='/javascripts/webrtc.js')
-      script(src='/javascripts/socket.io.min.js')
-      script(src='/javascripts/playground.js')
-      script(src='/javascripts/peer.min.js')
+  script(src = '/js/static/jquery.min.js')
+  script(src = '/codemirror/lib/codemirror.js')
+  script(src = '/codemirror/mode/python/python.js')
+  //- script(src = '/SimpleWebRTC-master/simplewebrtc.bundle.js')
+  //- script(src = '/js/static/webrtc.js')
+  script(src = '/js/static/socket.io.min.js')
+  script(src = '/js/static/peer.min.js')
+  script(src = '/js/app/playground.js')
+  script(src = '/xterm/xterm.js')
+  script(src = '/xterm/addons/attach/attach.js')
