@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const winston = require('winston')
 
 /**
- * Load environment config to `process.env`
+ * Load environment variables config to `process.env`
  */
 require('dotenv').config()
 

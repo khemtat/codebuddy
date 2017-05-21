@@ -46,13 +46,13 @@ block content
                     input.hidden(type='radio', name='theme', checked='', tabindex='0')
                     |  
                     label White (default)
-                    img.logo.small(src='images/whiteEditorTheme.PNG' ,width='80%', height='80%')
+                    img.logo.small(src='images/whiteEditorTheme.PNG' ,width='80%', height='15%')
                 .field
                   .radio.checkbox
                     input.hidden(type='radio', name='theme', tabindex='0')
                     |  
                     label Blackboard
-                    img.logo.small(src='images/darkEditorTheme.PNG' ,width='80%',height='80%')
+                    img.logo.small(src='images/darkEditorTheme.PNG' ,width='80%',height='15%')
 
           .ui.basic.center.aligned.segment()
             .actions
@@ -96,7 +96,7 @@ block content
                 a.header(href='/project?pid='+project.pid)= project.title
                 |
                 .description= project.description
-                | Update x mins ago (
+                | Last updated #{moment(project.createdAt).fromNow()} (
                 a(href='/profile/'+project.creator)
                   | @
                   = project.creator

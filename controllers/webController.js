@@ -14,14 +14,13 @@ exports.userSignout = (req, res) => {
 }
 
 exports.getDashboard = async (req, res) => {
-  const projects = await Project
+  await Project
     .find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] })
     .sort({ createdAt: -1 })
     .exec((err, docs) => {
       if (err) throw err
-      return docs
+      res.render('dashboard', { projects: docs })
     })
-  res.render('dashboard', { projects: projects })
 }
 
 exports.getPlayground = async (req, res) => {
@@ -35,10 +34,4 @@ exports.createProject = async (req, res) => {
   const project = await (new Project(req.body)).save()
   req.flash('success', `Successfully Created ${project.title} Project.`)
   res.redirect('dashboard')
-}
-
-exports.getEditorCode = async (req, res) => {
-  winston.info(`getEditorCode called: with pid: ${req.params.pid}`)
-  const data = await new Redis().get(req.params.pid)
-  res.send(data).status(200)
 }

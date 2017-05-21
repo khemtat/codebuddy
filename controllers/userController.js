@@ -26,10 +26,10 @@ exports.postRegisterForm = passport.authenticate('local-register', {
   failureFlash: true
 })
 
+/**
+ * Validate request body by using express-validator
+ */
 exports.validateRegister = (req, res, next) => {
-  /**
-   * Check field required isn't empty
-   */
   // username field
   req.checkBody('username', 'You must enter a username!').notEmpty()
   req.checkBody('username', 'This username is not valid!').isAlphanumeric()

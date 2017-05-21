@@ -5,6 +5,7 @@ block script
   link(rel='stylesheet' href='/codemirror/lib/codemirror.css')
   link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
   link(rel='stylesheet' href='/codemirror/theme/seti.css')
+  link(rel='stylesheet' href='/codemirror/theme/material.css')
   script.
     let user="#{user.username}"
 block content
@@ -12,13 +13,13 @@ block content
       .header Code Review
       .content
           .field
-            label Line NO :
+            label Line No :
             |  
             input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
           .field
             label Comment :
             |  
-            input(type='text', name='pDescription', placeholder='Something about this line')
+            textarea(name='pDescription' rows='4' cols='50' placeholder='Something about this line')
           .field
             label Priority :
             select.ui.dropdown(name='pLanguage')
@@ -37,19 +38,19 @@ block content
           p= project.description
         .seven.wide.column
           center
-            | Time
-            h3
-              #time 10.00
-            - let userDisplay = user.username === project.creator ? project.collaborator : project.creator
-            | #{userDisplay} is now
+            .swap.time(style='margin: 0 0 10 0')
+              #time <strong>Auto Swapping Role In:</strong> 15.00 min
+              - let userDisplay = user.username === project.creator ? project.collaborator : project.creator
             .user.status
+              | #{userDisplay} is now: 
+              span.user.status!= '<strong><em>Offline</em></strong>'
         .five.wide.column.right
           center
-            button.ui.primary.labeled.icon.button
+            button.ui.primary.labeled.icon.button.disabled
               i.refresh.icon
               |  Switch Role
             |  
-            button.ui.positive.labeled.icon.button
+            button.ui.positive.labeled.icon.button(id='run' onClick='runCode()')
               i.terminal.icon
               |  Run
       .ui.divider
@@ -126,9 +127,8 @@ block content
             #localVolume.volume_bar
           #remotes
         .twelve.wide.column.right
-          .terminal
+          #xterm-container
 block footerExtend
-  script(src = '/js/static/jquery.min.js')
   script(src = '/codemirror/lib/codemirror.js')
   script(src = '/codemirror/mode/python/python.js')
   //- script(src = '/SimpleWebRTC-master/simplewebrtc.bundle.js')
@@ -137,4 +137,19 @@ block footerExtend
   script(src = '/js/static/peer.min.js')
   script(src = '/js/app/playground.js')
   script(src = '/xterm/xterm.js')
-  script(src = '/xterm/addons/attach/attach.js')
+  script(src = '/xterm/addons/fit/fit.js')
+  script.
+    var term = new Terminal({
+      cols: 120,
+      rows: 10
+    })
+    term.open(document.getElementById('xterm-container'), false)
+
+  script.
+    function runCode() {
+      const data = JSON.stringify({
+        code: editor.getValue()
+      })
+      console.log(data)
+      socket.emit('run code', data)
+    }
