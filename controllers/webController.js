@@ -30,6 +30,14 @@ exports.getPlayground = async (req, res) => {
   })
 }
 
+exports.getAboutUs = (req, res) => {
+  res.render('aboutus')
+}
+
+exports.getFeature = (req, res) => {
+  res.render('feature')
+}
+
 exports.createProject = async (req, res) => {
   const project = await (new Project(req.body)).save()
   req.flash('success', `Successfully Created ${project.title} Project.`)

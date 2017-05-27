@@ -11,6 +11,8 @@ router.use('/register', require('./register'))
 router.use('/dashboard', require('./dashboard'))
 router.use('/project', require('./project'))
 router.use('/settings', require('./settings'))
+router.use('/aboutus', require('./aboutus'))
+router.use('/feature', require('./feature'))
 
 router.get('/editprofile', (req, res) => {
   res.render('editprofile')
