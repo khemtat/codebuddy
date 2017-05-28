@@ -34,7 +34,27 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   theme: 'material',
   indentUnit: 4,
   matchBrackets: true
+  
 })
+
+/**
+ * Code Mirror Change Theme
+ */
+var isLight = false;
+
+function changeTheme(){
+if (!isLight) {
+      var theme = "default";
+      editor.setOption("theme", theme);
+      location.hash = "#" + theme;
+}
+else {
+      var theme = "material";
+      editor.setOption("theme", theme);
+      location.hash = "#" + theme;
+}
+      isLight = !isLight;
+}
 
 /**
  * Code review modal

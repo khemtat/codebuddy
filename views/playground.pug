@@ -102,7 +102,10 @@ block content
                     .header project_information.json
                     .description Project information
           .ui.bottom.attached.tab.segment(data-tab='second')
-            | Second
+            .ui.toggle.lightmodetoggle.checkbox
+              input(type='checkbox',onChange='changeTheme()')#lightmodetoggle
+              label Enable Light Mode 
+
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
