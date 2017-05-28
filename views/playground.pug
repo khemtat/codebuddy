@@ -105,45 +105,54 @@ block content
             .ui.toggle.lightmodetoggle.checkbox
               input(type='checkbox',onChange='changeTheme()')#lightmodetoggle
               label Enable Light Mode 
-
+          .ui.segments
+            .ui.segment
+              p Video Chat 
+                button.ui.mute.toggle.button.active(onClick='muteEvent(this)')
+                  i.mute.icon
+                button.ui.video.toggle.button.active(onClick='videoEvent(this)')
+                  i.video.play.icon
+            .ui.secondary.segment
+              style.
+                .videoContainer {
+                position: relative;
+                width: 200px;
+                height: 150px;
+                }
+                .videoContainer video {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                }
+                .volume_bar {
+                position: absolute;
+                width: 5px;
+                height: 0px;
+                right: 0px;
+                bottom: 0px;
+                background-color: #12acef;
+                }
+              p#subTitle
+              form#createRoom
+              p You
+              .videoContainer
+                video#localVideo(style='height: 150px;', oncontextmenu='return false;')
+                #localVolume.volume_bar
+              p Buddy
+              #remotes
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
+          .ui.segments
+            .ui.segment
+              p Terminal
+            .ui.secondary.segment
+              #xterm-container
       .ui.grid
         .four.wide.column
-          h1#title Video Chat
-          style.
-            .videoContainer {
-            position: relative;
-            width: 200px;
-            height: 150px;
-            }
-            .videoContainer video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            }
-            .volume_bar {
-            position: absolute;
-            width: 5px;
-            height: 0px;
-            right: 0px;
-            bottom: 0px;
-            background-color: #12acef;
-            }
-          p#subTitle
-          form#createRoom
-          .videoContainer
-            video#localVideo(style='height: 150px;', oncontextmenu='return false;')
-            #localVolume.volume_bar
-          #remotes
-          button.ui.mute.toggle.button.active(onClick='muteEvent(this)')
-            i.mute.icon
-          button.ui.video.toggle.button.active(onClick='videoEvent(this)')
-            i.video.play.icon
+
         .twelve.wide.column.right
-          h1 Terminal
-          #xterm-container
+
 block footerExtend
   script(src = '/codemirror/lib/codemirror.js')
   script(src = '/codemirror/mode/python/python.js')
