@@ -66,7 +66,7 @@ if (user === 'khemtat') {
 }
 
 /**
- * User join the project
+ * User join the project and initate local editor
  */
 socket.emit('join project', {
   pid: getParameterByName('pid'),
@@ -75,6 +75,7 @@ socket.emit('join project', {
 
 socket.on('init state', (payload) => {
   editor.setValue(payload.editor)
+  console.log(payload)
 })
 
 /**
@@ -124,6 +125,53 @@ socket.on('update status', (payload) => {
   $(".user.status").html(`<strong><em>${hidden}</em></strong>`)
 })
 
-socket.on('run result', (payload) => {
-  console.log(`Result from running code: ${payload.result}`)
+/**
+ * Run code
+ */
+const term = new Terminal({
+  cols: 120,
+  rows: 10,
+  cursorBlink: true
+})
+term.open(document.getElementById('xterm-container'), false)
+ term._initialized = true;
+
+  var shellprompt = '\033[1;3;31m$ \033[0m';
+
+  term.prompt = function () {
+    term.write('\r\n' + shellprompt);
+  };
+  term.prompt()
+term.on('key', function (key, ev) {
+    var printable = (
+      !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+    );
+
+    if (ev.keyCode == 13) {
+      term.prompt();
+      console.log()
+    } else if (ev.keyCode == 8) {
+     // Do not delete the prompt
+      if (term.x > 2) {
+        term.write('\b \b');
+      }
+    } else if (printable) {
+      console.log(`printable : ${key}`)
+      term.write(key);
+    }
+  });
+
+function runCode() {
+  socket.emit('run code', {
+    code: editor.getValue()
+  })
+  term.writeln('Running pytest.py...')
+}
+
+/**
+ * Terminal socket
+ */
+socket.on('term update', (payload) => {
+  term.writeln(payload)
+  term.prompt()
 })

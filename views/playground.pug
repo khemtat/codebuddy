@@ -127,6 +127,7 @@ block content
             #localVolume.volume_bar
           #remotes
         .twelve.wide.column.right
+          h1 Terminal
           #xterm-container
 block footerExtend
   script(src = '/codemirror/lib/codemirror.js')
@@ -135,21 +136,6 @@ block footerExtend
   //- script(src = '/js/static/webrtc.js')
   script(src = '/js/static/socket.io.min.js')
   script(src = '/js/static/peer.min.js')
-  script(src = '/js/app/playground.js')
   script(src = '/xterm/xterm.js')
   script(src = '/xterm/addons/fit/fit.js')
-  script.
-    var term = new Terminal({
-      cols: 120,
-      rows: 10
-    })
-    term.open(document.getElementById('xterm-container'), false)
-
-  script.
-    function runCode() {
-      const data = JSON.stringify({
-        code: editor.getValue()
-      })
-      console.log(data)
-      socket.emit('run code', data)
-    }
+  script(src = '/js/app/playground.js')

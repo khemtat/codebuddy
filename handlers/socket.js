@@ -2,7 +2,6 @@ const socketio = require('socket.io')
 const winston = require('winston')
 const Redis = require('ioredis')
 const mongoose = require('mongoose')
-const _ = require('lodash')
 
 const Project = mongoose.model('Project')
 
@@ -34,10 +33,14 @@ module.exports = (server) => {
       client.join(projectId)
       Project.update({ pid: projectId }, { $set: { createdAt: Date.now() } }, (err) => {
         if (err) throw err
-        winston.info(`Update ${projectId} date modified successfully!`)
+        // winston.info(`Update ${projectId} date modified successfully!`)
       })
       client.emit('init state', {
-        editor: await redis.hget(`project:${projectId}`, 'editor', (err, ret) => ret)
+        editor: await redis.hget(`project:${projectId}`, 'editor', (err, ret) => ret),
+        role: {
+          driver: await redis.hget(`project:${projectId}`, 'driver', (err, ret) => ret),
+          reviewer: await redis.hget(`project:${projectId}`, 'reviewer', (err, ret) => ret)
+        }
       })
     })
 
@@ -60,7 +63,17 @@ module.exports = (server) => {
     })
 
     client.on('run code', (payload) => {
-      winston.info(`Receive code ${payload}`)
+      const fs = require('fs');
+      const path = require('path')
+      fs.writeFile('pytest.py', payload.code, (err) => {
+        if (err) throw err
+      })
+      const nodepty = require('node-pty')
+      const pty = nodepty.spawn('python', ['pytest.py'])
+      pty.on('data', (data) => {
+        winston.info(data)
+        io.in(projectId).emit('term update', data)
+      })
     })
 
     /**
