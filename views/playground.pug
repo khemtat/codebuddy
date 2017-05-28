@@ -137,8 +137,10 @@ block content
             video#localVideo(style='height: 150px;', oncontextmenu='return false;')
             #localVolume.volume_bar
           #remotes
-          button.ui.toggle.button.active(onClick='show(this)')
+          button.ui.mute.toggle.button.active(onClick='muteEvent(this)')
             i.mute.icon
+          button.ui.video.toggle.button.active(onClick='videoEvent(this)')
+            i.video.play.icon
         .twelve.wide.column.right
           h1 Terminal
           #xterm-container
@@ -152,39 +154,3 @@ block footerExtend
   script(src = '/xterm/xterm.js')
   script(src = '/xterm/addons/fit/fit.js')
   script(src = '/js/app/playground.js')
-  script(type='text/javascript').
-      function show(b){
-      if($(b).hasClass("active"))
-      {
-        webrtc.mute();
-      }
-      else
-      {
-        webrtc.unmute();
-      }
-      }
-      // attach ready event
-      $(document)
-      .ready(function() {
-      var $toggle  = $('.ui.toggle.button');
-      $toggle
-      .state({
-      text: {
-      inactive : '<i class="mute icon"/>',
-      active   : '<i class="unmute icon"/>'
-      }
-      })
-      ;
-      })
-      ;
-      $buttons
-      .on('click', handler.activate)
-      ;
-      $toggle
-      .state({
-      text: {
-      inactive : '<i class="mute icon"/>',
-      active   : '<i class="unmute icon"/>'
-      }
-      })
-      ;

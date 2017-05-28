@@ -33,7 +33,7 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   theme: 'material',
   indentUnit: 4,
   matchBrackets: true
-  
+
 })
 
 /**
@@ -41,18 +41,18 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
  */
 var isLight = false;
 
-function changeTheme(){
-if (!isLight) {
-      var theme = "default";
-      editor.setOption("theme", theme);
-      location.hash = "#" + theme;
-}
-else {
-      var theme = "material";
-      editor.setOption("theme", theme);
-      location.hash = "#" + theme;
-}
-      isLight = !isLight;
+function changeTheme() {
+  if (!isLight) {
+    var theme = "default";
+    editor.setOption("theme", theme);
+    location.hash = "#" + theme;
+  }
+  else {
+    var theme = "material";
+    editor.setOption("theme", theme);
+    location.hash = "#" + theme;
+  }
+  isLight = !isLight;
 }
 
 /**
@@ -69,7 +69,7 @@ editor.on('dblclick', () => {
     line: A1,
     ch: A2
   }).head.ch
-  $('input.disabled').val(A1+1)
+  $('input.disabled').val(A1 + 1)
   $('.ui.modal').modal('show')
 })
 
@@ -143,32 +143,32 @@ const term = new Terminal({
   cursorBlink: true
 })
 term.open(document.getElementById('xterm-container'), false)
- term._initialized = true;
+term._initialized = true;
 
-  var shellprompt = '\033[1;3;31m$ \033[0m';
+var shellprompt = '\033[1;3;31m$ \033[0m';
 
-  term.prompt = function () {
-    term.write('\r\n' + shellprompt);
-  };
-  term.prompt()
+term.prompt = function () {
+  term.write('\r\n' + shellprompt);
+};
+term.prompt()
 term.on('key', function (key, ev) {
-    var printable = (
-      !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
-    );
+  var printable = (
+    !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+  );
 
-    if (ev.keyCode == 13) {
-      term.prompt();
-      console.log()
-    } else if (ev.keyCode == 8) {
-     // Do not delete the prompt
-      if (term.x > 2) {
-        term.write('\b \b');
-      }
-    } else if (printable) {
-      console.log(`printable : ${key}`)
-      term.write(key);
+  if (ev.keyCode == 13) {
+    term.prompt();
+    console.log()
+  } else if (ev.keyCode == 8) {
+    // Do not delete the prompt
+    if (term.x > 2) {
+      term.write('\b \b');
     }
-  });
+  } else if (printable) {
+    console.log(`printable : ${key}`)
+    term.write(key);
+  }
+});
 
 function runCode() {
   socket.emit('run code', {
@@ -188,6 +188,62 @@ socket.on('term update', (payload) => {
 /**
  * WebRTC TEST MUTING
  */
-function webRtcMute(){
-    webrtc.mute()
+function muteEvent(b) {
+  if ($(b).hasClass("active")) {
+    webrtc.mute();
+  }
+  else {
+    webrtc.unmute();
+  }
 }
+function videoEvent(b) {
+  if ($(b).hasClass("active")) {
+    webrtc.pauseVideo();
+  }
+  else {
+    webrtc.resumeVideo();
+  }
+}
+// attach ready event -- Video Toggle
+$(document)
+  .ready(function () {
+    $('.ui.video.toggle.button')
+      .state({
+        text: {
+          inactive: '<i class="video play icon"/>',
+          active: '<i class="pause circle icon"/>'
+        }
+      })
+      ;
+    $('.ui.mute.toggle.button')
+      .state({
+        text: {
+          inactive: '<i class="mute icon"/>',
+          active: '<i class="unmute icon"/>'
+        }
+      })
+      ;
+  })
+  ;
+$('.ui.video.toggle.button')
+  .on('click', handler.activate)
+  ;
+$('.ui.video.toggle.button')
+  .state({
+    text: {
+      inactive: '<i class="video play icon"/>',
+      active: '<i class="pause circle icon"/>'
+    }
+  })
+  ;
+$('.ui.mute.toggle.button')
+  .on('click', handler.activate)
+  ;
+$('.ui.mute.toggle.button')
+  .state({
+    text: {
+      inactive: '<i class="mute icon"/>',
+      active: '<i class="unmute icon"/>'
+    }
+  })
+  ;
