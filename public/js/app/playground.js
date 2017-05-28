@@ -210,8 +210,8 @@ $(document)
     $('.ui.video.toggle.button')
       .state({
         text: {
-          inactive: '<i class="video play icon"/>',
-          active: '<i class="pause circle icon"/>'
+      inactive: '<i class="pause circle icon"/>',
+      active: '<i class="play video icon"/>'
         }
       })
       ;
@@ -231,8 +231,8 @@ $('.ui.video.toggle.button')
 $('.ui.video.toggle.button')
   .state({
     text: {
-      inactive: '<i class="video play icon"/>',
-      active: '<i class="pause circle icon"/>'
+      inactive: '<i class="pause circle icon"/>',
+      active: '<i class="play video icon"/>'
     }
   })
   ;
