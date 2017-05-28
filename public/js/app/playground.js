@@ -2,7 +2,6 @@
  * Dependencies declaration
  */
 const socket = io()
-const peer = new Peer({ key: 'tetugzaynsvy4x6r' })
 let role = 0
 
 /**
@@ -74,16 +73,6 @@ editor.on('dblclick', () => {
   $('.ui.modal').modal('show')
 })
 
-/**
- * PeerJS connection
- */
-peer.on('open', (id) => {
-  console.log(`my peer id is ${id}`)
-})
-
-if (user === 'khemtat') {
-  editor.setOption('readOnly', 'nocursor')
-}
 
 /**
  * User join the project and initate local editor
@@ -195,3 +184,10 @@ socket.on('term update', (payload) => {
   term.writeln(payload)
   term.prompt()
 })
+
+/**
+ * WebRTC TEST MUTING
+ */
+function webRtcMute(){
+    webrtc.mute()
+}
