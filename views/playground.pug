@@ -47,6 +47,7 @@ block content
               #time <strong>Auto Swapping Role In:</strong> 15.00 min
               - let userDisplay = user.username === project.creator ? project.collaborator : project.creator
             .user.status
+              i.green.circle.icon
               | #{userDisplay} is now: 
               span.user.status!= '<strong><em>Offline</em></strong>'
         .five.wide.column.right
