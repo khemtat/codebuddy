@@ -3,6 +3,7 @@ extends layout/layout.pug
 block script
   link(rel='stylesheet' href='/xterm/xterm.css')
   link(rel='stylesheet' href='/codemirror/lib/codemirror.css')
+  link(rel='stylesheet' href='/codemirror/addon/selection/active-line.js')
   link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
   link(rel='stylesheet' href='/codemirror/theme/seti.css')
   link(rel='stylesheet' href='/codemirror/theme/material.css')
@@ -14,7 +15,7 @@ block script
     });
 
 block content
-    .ui.modal
+    .ui.reviewer.small.modal
       .header Code Review
       .content
           .field
@@ -35,6 +36,22 @@ block content
             .actions
               button.ui.button.approve.green(type='submit') Create
               .ui.button.approve.red(data-value='cancel') Cancel
+    .ui.coder.small.modal
+      .header Review Description
+      .content
+          .field
+            label Line No :
+            |  
+            input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
+          .field
+            label Comment :
+              #Comment
+          .field
+            label Priority :
+              #Priority
+          .ui.basic.center.aligned.segment()
+            .actions
+              .ui.button.approve.red(data-value='cancel') Close
 
     .ui.container.segment
       .ui.grid

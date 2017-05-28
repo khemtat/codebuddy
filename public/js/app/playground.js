@@ -3,6 +3,7 @@
  */
 const socket = io()
 let role = 0
+var myRole = 0
 
 /**
  * get query parameter from URL
@@ -28,7 +29,10 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   mode: {
     name: 'python',
     version: 3,
-    singleLineStringErrors: false
+    singleLineStringErrors: false,
+    styleActiveLine: true,
+    lineNumbers: true,
+    lineWrapping: true
   },
   theme: 'material',
   indentUnit: 4,
@@ -70,7 +74,14 @@ editor.on('dblclick', () => {
     ch: A2
   }).head.ch
   $('input.disabled').val(A1 + 1)
-  $('.ui.modal').modal('show')
+  if(!myRole)
+  {
+    $('.ui.coder.small.modal').modal('show')
+  }
+  else
+  {
+    $('.ui.reviewer.small.modal').modal('show')
+  }
 })
 
 
