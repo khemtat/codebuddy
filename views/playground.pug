@@ -8,6 +8,11 @@ block script
   link(rel='stylesheet' href='/codemirror/theme/material.css')
   script.
     let user="#{user.username}"
+  script(type='text/javascript').
+    $(document).ready(function(){
+        $('.demo.menu .item').tab({history:false});
+    });
+
 block content
     .ui.modal
       .header Code Review
@@ -57,13 +62,13 @@ block content
       br
       .ui.grid
         .four.wide.column
-          .ui.top.attached.tabular.menu
-            a.active.item Project
+          .ui.top.attached.tabular.demo.menu
+            a.active.item(data-tab='first') Project
             |  
-            a.item Project Information
+            a.item(data-tab='second') Project Information
             .right.menu
               .item
-          .ui.bottom.attached.segment
+          .ui.bottom.attached.active.tab.segment(data-tab='first')
             p
               .ui.list
                 .item
@@ -95,6 +100,8 @@ block content
                   .content
                     .header project_information.json
                     .description Project information
+          .ui.bottom.attached.tab.segment(data-tab='second')
+            | Second
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
