@@ -1,4 +1,7 @@
 const passport = require('passport')
+const mongoose = require('mongoose')
+
+const User = mongoose.model('User')
 
 /**
  * Sign In Form `/signin`
@@ -66,4 +69,13 @@ exports.validateRegister = (req, res, next) => {
  */
 exports.getSettingProfile = (req, res) => {
   res.render('editprofile')
+}
+
+exports.getUsernames = async (req, res) => {
+  const data = await User.find({}, { username: 1, _id: 0 }).lean().exec((err, ret) => ret)
+  let temp = []
+  data.map(obj => {
+    temp.push(obj.username)
+  })
+  res.json(temp).status(200)
 }

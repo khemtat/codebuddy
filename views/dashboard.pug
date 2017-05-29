@@ -4,15 +4,20 @@ block script
     script(src='/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')
     link(rel='stylesheet', href='/easy-autocomplete/dist/easy-autocomplete.min.css')
     script(type='text/javascript').
-            $(document).ready(function(){
-                $('.newProject').click(function(){
-                    $('#newProject-modal').modal('show');
-                });
-                      var options = {
-        data: ["blue", "greengreengreen", "pink", "red", "yellow"]
-      };
-      $("#collaborator").easyAutocomplete(options);
-            });
+      const options = {}
+      $.ajax({
+        url: '/api/usernames',
+        success: function (result) {
+          options.data = result
+          console.log(options)
+        }
+      })
+      $(document).ready(function () {
+        $('.newProject').click(function () {
+          $('#newProject-modal').modal('show');
+        });
+        $("#collaborator").easyAutocomplete(options);
+      });
   
 block content
     .ui.small.modal#newProject-modal
