@@ -80,7 +80,7 @@ editor.on('dblclick', () => {
     reviews.map((review) => {
       if (review.line === line) {
         console.log(review)
-        $('#comment').html(review.description)
+        $('textarea.disabled.line.description').val(review.description)
         $('#priority').html(review.priority)
       }
     })
@@ -88,7 +88,11 @@ editor.on('dblclick', () => {
   }
   else
   {
+    $('textarea.line.description').val(review.description)
     $('.ui.reviewer.small.modal').modal('show')
+  }
+  if (user === 'kittikorn') {
+  editor.setOption('readOnly', 'true')
   }
 })
 
