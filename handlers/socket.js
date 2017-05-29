@@ -35,26 +35,56 @@ module.exports = (server) => {
      * after that socket will fire `init state` with editor code to initiate local editor
      */
     client.on('join project', async (payload) => {
-      projectId = payload.pid
-      curUser = payload.username
-      winston.info(`User ${payload.username} joined at pid: ${payload.pid}`)
-      client.join(projectId)
-      Project.update({ pid: projectId }, { $set: { createdAt: Date.now() } }, (err) => {
-        if (err) throw err
-        // winston.info(`Update ${projectId} date modified successfully!`)
-      })
+      try {
+        projectId = payload.pid
+        curUser = payload.username
+        winston.info(`User ${payload.username} joined at pid: ${payload.pid}`)
+        client.join(projectId)
+        Project.update({
+          pid: projectId
+        }, {
+          $set: {
+            createdAt: Date.now()
+          }
+        }, (err) => {
+          if (err) throw err
+        })
 
-      // assign roles
-      if (!projects[projectId]) {
-        winston.info(`created new projects['${projectId}']`)
-        projects[projectId] = null
-        io.in(projectId).emit('user roles', projects[projectId])
+        // Checking if this project hasn't have any roles assigned.
+        if (!projects[projectId]) {
+          winston.info(`created new projects['${projectId}']`)
+          projects[projectId] = {
+            roles: {
+              coder: '',
+              reviewer: ''
+            },
+            count: 1
+          }
+          winston.info(projects[projectId].count)
+          io.emit('role selection')
+        } else {
+          projects[projectId].count += 1
+          winston.info(projects[projectId].count)
+          io.emit('role updated', projects[projectId])
+        }
+
+        client.emit('init state', {
+          editor: await redis.hget(`project:${projectId}`, 'editor', (err, ret) => ret)
+        })
+      } catch (error) {
+        winston.info(`catching error: ${error}`)
       }
+    })
 
-      client.emit('init state', {
-        editor: await redis.hget(`project:${projectId}`, 'editor', (err, ret) => ret),
-        roles: projects[projectId]
-      })
+    client.on('role selected', (payload) => {
+      if (payload.select === 0) {
+        projects[projectId].roles.reviewer = curUser
+        projects[projectId].roles.coder = payload.partner
+      } else {
+        projects[projectId].roles.reviewer = payload.partner
+        projects[projectId].roles.coder = curUser
+      }
+      io.in(projectId).emit('role updated', projects[projectId])
     })
 
     /**
@@ -75,32 +105,6 @@ module.exports = (server) => {
       client.to(projectId).emit('update status', payload)
     })
 
-    // client.on('selected role', (payload) => {
-    //   winston.info(payload)
-    //   if (payload.select === 0) { // user select `reviewer role`
-    //     projects[projectId].coder = payload.partner
-    //     projects[projectId].reviewer = curUser
-    //   } else {
-    //     projects[projectId].coder = curUser
-    //     projects[projectId].reviewer = payload.partner
-    //   }
-    //   io.in(projectId).emit('roles update', projects[projectId])
-    // })
-
-    // client.on('role selected', async (payload) => {
-    //   if (payload === 0) {  // reviewer role selected
-    //     await redis.hset(`project:${projectId}`, 'reviewer', username)
-    //   } else { // coder role selected
-    //     await redis.hset(`project:${projectId}`, 'coder', username)
-    //   }
-    //   io.in(projectId).emit('user roles', {
-    //     role: {
-    //       coder: await redis.hget(`project:${projectId}`, 'coder', (err, ret) => ret),
-    //       reviewer: await redis.hget(`project:${projectId}`, 'reviewer', (err, ret) => ret)
-    //     }
-    //   })
-    // })
-
     client.on('run code', (payload) => {
       const fs = require('fs')
       const path = require('path')
@@ -120,8 +124,17 @@ module.exports = (server) => {
      * by exit means: reload page, close page/browser, session lost
      */
     client.on('disconnect', () => {
-      client.leave(projectId)
-      winston.info('Client disconnected')
+      try {
+        projects[projectId].count -= 1
+        winston.info(`user left project ${projectId} now has ${projects[projectId].count} user(s) online`)
+        if (projects[projectId].count === 0) {
+          delete projects[projectId]
+        }
+        client.leave(projectId)
+        winston.info('Client disconnected')
+      } catch (error) {
+        winston.info(`catching error: ${error}`)
+      }
     })
   })
 }

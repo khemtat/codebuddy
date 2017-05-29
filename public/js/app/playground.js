@@ -3,7 +3,7 @@
  */
 const socket = io()
 let role = 0
-var myRole = 0
+let myRole = ''
 let reviews = []
 
 /**
@@ -76,19 +76,20 @@ editor.on('dblclick', () => {
   }).head.ch
   $('input.disabled.line.no').val(A1 + 1)
   let line = $('input.disabled.line.no').val()
-  if(user !== "kittikorn") {
-    reviews.map((review) => {
-      if (review.line === line) {
-        console.log(review)
-        $('#comment').html(review.description)
-        $('#priority').html(review.priority)
-      }
-    })
-    $('.ui.coder.small.modal').modal('show')
-  }
-  else
-  {
-    $('.ui.reviewer.small.modal').modal('show')
+  switch (myRole) {
+    case 'coder':
+      reviews.map((review) => {
+        if (review.line === line) {
+          console.log(review)
+          $('#comment').html(review.description)
+          $('#priority').html(review.priority)
+        }
+      })
+      $('.ui.coder.small.modal').modal('show')
+      break
+    case 'reviewer':
+      $('.ui.reviewer.small.modal').modal('show')
+      break
   }
 })
 
@@ -102,34 +103,41 @@ socket.emit('join project', {
 
 socket.on('init state', (payload) => {
   editor.setValue(payload.editor)
-  console.log(payload)
-  if (!payload.roles) {
-    console.log('you need to select role')
-    $('#selectRole-modal')
+  // console.log(payload)
+  // if (!payload.roles) {
+  //   console.log('you need to select role')
+  // }
+})
+
+socket.on('role selection', () => {
+  $('#selectRole-modal')
     .modal({
       closable  : false,
       onDeny    : function(){
         console.log('select : reviewer')
-        editor.setOption('readOnly', 'nocursor')
-        socket.emit('selected role', {
+        socket.emit('role selected', {
           select: 0,
           partner
         })
       },
       onApprove : function() {
         console.log('select : coder')
-        socket.emit('selected role', {
+        socket.emit('role selected', {
           select: 1,
           partner
         })
       }
     })
     .modal('show')
-  }
 })
 
-socket.on('role update', (payload) => {
-  console.log(payload)
+socket.on('role updated', (payload) => {
+  if (user === payload.roles.reviewer) {
+    editor.setOption('readOnly', 'nocursor')
+    myRole = 'reviewer'
+  } else {
+    myRole = 'coder'
+  }
 })
 
 // function pickRole(roleFlag) {
