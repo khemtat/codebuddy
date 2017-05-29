@@ -99,14 +99,10 @@ block content
                       a(href='/profile/'+project.collaborator ) @#{project.collaborator}
                       |)
                     .five.wide.column
-                      .ui.vertical.animated.button(tabindex='0')
+                      .ui.right.floated.alignedvertical.animated.button(tabindex='0')
                         .hidden.content Setting
                         .visible.content
                           i.setting.icon
-                      .ui.vertical.animated.red.button(tabindex='0')
-                        .hidden.content Delete
-                        .visible.content
-                          i.remove.icon
                       
           else if project.collaborator === user.username
             .item
