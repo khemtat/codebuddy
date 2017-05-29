@@ -2,8 +2,8 @@
  * Dependencies declaration
  */
 const socket = io()
-const peer = new Peer({ key: 'tetugzaynsvy4x6r' })
 let role = 0
+var myRole = 0
 
 /**
  * get query parameter from URL
@@ -29,12 +29,35 @@ let editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
   mode: {
     name: 'python',
     version: 3,
-    singleLineStringErrors: false
+    singleLineStringErrors: false,
+    styleActiveLine: true,
+    lineNumbers: true,
+    lineWrapping: true
   },
   theme: 'material',
   indentUnit: 4,
   matchBrackets: true
+
 })
+
+/**
+ * Code Mirror Change Theme
+ */
+var isLight = false;
+
+function changeTheme() {
+  if (!isLight) {
+    var theme = "default";
+    editor.setOption("theme", theme);
+    location.hash = "#" + theme;
+  }
+  else {
+    var theme = "material";
+    editor.setOption("theme", theme);
+    location.hash = "#" + theme;
+  }
+  isLight = !isLight;
+}
 
 /**
  * Code review modal
@@ -50,20 +73,16 @@ editor.on('dblclick', () => {
     line: A1,
     ch: A2
   }).head.ch
-  $('input.disabled').val(A1+1)
-  $('.ui.modal').modal('show')
+  $('input.disabled').val(A1 + 1)
+  if(!myRole)
+  {
+    $('.ui.coder.small.modal').modal('show')
+  }
+  else
+  {
+    $('.ui.reviewer.small.modal').modal('show')
+  }
 })
-
-/**
- * PeerJS connection
- */
-peer.on('open', (id) => {
-  console.log(`my peer id is ${id}`)
-})
-
-// if (user === 'khemtat') {
-//   editor.setOption('readOnly', 'nocursor')
-// }
 
 /**
  * User join the project and initate local editor
@@ -182,32 +201,32 @@ const term = new Terminal({
   cursorBlink: true
 })
 term.open(document.getElementById('xterm-container'), false)
- term._initialized = true;
+term._initialized = true;
 
-  var shellprompt = '\033[1;3;31m$ \033[0m';
+var shellprompt = '\033[1;3;31m$ \033[0m';
 
-  term.prompt = function () {
-    term.write('\r\n' + shellprompt);
-  };
-  term.prompt()
+term.prompt = function () {
+  term.write('\r\n' + shellprompt);
+};
+term.prompt()
 term.on('key', function (key, ev) {
-    var printable = (
-      !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
-    );
+  var printable = (
+    !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+  );
 
-    if (ev.keyCode == 13) {
-      term.prompt();
-      console.log()
-    } else if (ev.keyCode == 8) {
-     // Do not delete the prompt
-      if (term.x > 2) {
-        term.write('\b \b');
-      }
-    } else if (printable) {
-      console.log(`printable : ${key}`)
-      term.write(key);
+  if (ev.keyCode == 13) {
+    term.prompt();
+    console.log()
+  } else if (ev.keyCode == 8) {
+    // Do not delete the prompt
+    if (term.x > 2) {
+      term.write('\b \b');
     }
-  });
+  } else if (printable) {
+    console.log(`printable : ${key}`)
+    term.write(key);
+  }
+});
 
 function runCode() {
   socket.emit('run code', {
@@ -223,3 +242,66 @@ socket.on('term update', (payload) => {
   term.writeln(payload)
   term.prompt()
 })
+
+/**
+ * WebRTC TEST MUTING
+ */
+function muteEvent(b) {
+  if ($(b).hasClass("active")) {
+    webrtc.mute();
+  }
+  else {
+    webrtc.unmute();
+  }
+}
+function videoEvent(b) {
+  if ($(b).hasClass("active")) {
+    webrtc.pauseVideo();
+  }
+  else {
+    webrtc.resumeVideo();
+  }
+}
+// attach ready event -- Video Toggle
+$(document)
+  .ready(function () {
+    $('.ui.video.toggle.button')
+      .state({
+        text: {
+      inactive: '<i class="pause circle icon"/>',
+      active: '<i class="play video icon"/>'
+        }
+      })
+      ;
+    $('.ui.mute.toggle.button')
+      .state({
+        text: {
+          inactive: '<i class="mute icon"/>',
+          active: '<i class="unmute icon"/>'
+        }
+      })
+      ;
+  })
+  ;
+$('.ui.video.toggle.button')
+  .on('click', handler.activate)
+  ;
+$('.ui.video.toggle.button')
+  .state({
+    text: {
+      inactive: '<i class="pause circle icon"/>',
+      active: '<i class="play video icon"/>'
+    }
+  })
+  ;
+$('.ui.mute.toggle.button')
+  .on('click', handler.activate)
+  ;
+$('.ui.mute.toggle.button')
+  .state({
+    text: {
+      inactive: '<i class="mute icon"/>',
+      active: '<i class="unmute icon"/>'
+    }
+  })
+  ;

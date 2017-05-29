@@ -3,6 +3,7 @@ extends layout/layout.pug
 block script
   link(rel='stylesheet' href='/xterm/xterm.css')
   link(rel='stylesheet' href='/codemirror/lib/codemirror.css')
+  link(rel='stylesheet' href='/codemirror/addon/selection/active-line.js')
   link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
   link(rel='stylesheet' href='/codemirror/theme/seti.css')
   link(rel='stylesheet' href='/codemirror/theme/material.css')
@@ -22,6 +23,7 @@ block content
               i.unhide.icon
               |       Reviewer
     .ui.modal
+    .ui.reviewer.small.modal
       .header Code Review
       .content
           .field
@@ -42,6 +44,22 @@ block content
             .actions
               button.ui.button.approve.green(type='submit') Create
               .ui.button.approve.red(data-value='cancel') Cancel
+    .ui.coder.small.modal
+      .header Review Description
+      .content
+          .field
+            label Line No :
+            |  
+            input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
+          .field
+            label Comment :
+              #Comment
+          .field
+            label Priority :
+              #Priority
+          .ui.basic.center.aligned.segment()
+            .actions
+              .ui.button.approve.red(data-value='cancel') Close
 
     .ui.container.segment
       .ui.grid
@@ -80,7 +98,7 @@ block content
           .ui.top.attached.tabular.demo.menu
             a.active.item(data-tab='first') Project
             |  
-            a.item(data-tab='second') Project Information
+            a.item(data-tab='second') Setting
             .right.menu
               .item
           .ui.bottom.attached.active.tab.segment(data-tab='first')
@@ -116,41 +134,57 @@ block content
                     .header project_information.json
                     .description Project information
           .ui.bottom.attached.tab.segment(data-tab='second')
-            | Second
+            .ui.toggle.lightmodetoggle.checkbox
+              input(type='checkbox',onChange='changeTheme()')#lightmodetoggle
+              label Enable Light Mode 
+          .ui.segments
+            .ui.segment
+              p Video Chat 
+                button.ui.mute.toggle.button.active(onClick='muteEvent(this)')
+                  i.unmute.icon
+                button.ui.video.toggle.button.active(onClick='videoEvent(this)')
+                  i.video.play.icon
+            .ui.secondary.segment
+              style.
+                .videoContainer {
+                position: relative;
+                width: 200px;
+                height: 150px;
+                }
+                .videoContainer video {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                }
+                .volume_bar {
+                position: absolute;
+                width: 5px;
+                height: 0px;
+                right: 0px;
+                bottom: 0px;
+                background-color: #12acef;
+                }
+              p#subTitle
+              form#createRoom
+              p You
+              .videoContainer
+                video#localVideo(style='height: 150px;', oncontextmenu='return false;')
+                #localVolume.volume_bar
+              p Buddy
+              #remotes
         .twelve.wide.column.right
           .ui.form
               textarea#demotext.show
+          .ui.segments
+            .ui.segment
+              p Terminal
+            .ui.secondary.segment
+              #xterm-container
       .ui.grid
         .four.wide.column
-          h1#title Video Chat
-          style.
-            .videoContainer {
-            position: relative;
-            width: 200px;
-            height: 150px;
-            }
-            .videoContainer video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            }
-            .volume_bar {
-            position: absolute;
-            width: 5px;
-            height: 0px;
-            right: 0px;
-            bottom: 0px;
-            background-color: #12acef;
-            }
-          p#subTitle
-          form#createRoom
-          .videoContainer
-            video#localVideo(style='height: 150px;', oncontextmenu='return false;')
-            #localVolume.volume_bar
-          #remotes
+
         .twelve.wide.column.right
-          h1 Terminal
-          #xterm-container
+
 block footerExtend
   script.
     let user="#{user.username}"
@@ -161,10 +195,10 @@ block footerExtend
     });
   script(src = '/codemirror/lib/codemirror.js')
   script(src = '/codemirror/mode/python/python.js')
-  //- script(src = '/SimpleWebRTC-master/simplewebrtc.bundle.js')
-  //- script(src = '/js/static/webrtc.js')
+  script(src = '/SimpleWebRTC-master/simplewebrtc.bundle.js')
+  script(src = '/js/static/webrtc.js')
   script(src = '/js/static/socket.io.min.js')
-  script(src = '/js/static/peer.min.js')
+  //-script(src = '/js/static/peer.min.js')
   script(src = '/xterm/xterm.js')
   script(src = '/xterm/addons/fit/fit.js')
   script(src = '/js/app/playground.js')

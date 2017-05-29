@@ -11,6 +11,7 @@ var webrtc = new SimpleWebRTC({
     debug: false,
     detectSpeakingEvents: true
 });
+
 // when it's ready, join if we got a room from the URL
 webrtc.on('readyToCall', function () {
     // you can name it anything
