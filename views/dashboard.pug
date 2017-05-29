@@ -1,11 +1,17 @@
 extends layout/layout.pug
 
 block script
+    script(src='/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')
+    link(rel='stylesheet', href='/easy-autocomplete/dist/easy-autocomplete.min.css')
     script(type='text/javascript').
             $(document).ready(function(){
                 $('.newProject').click(function(){
                     $('#newProject-modal').modal('show');
                 });
+                      var options = {
+        data: ["blue", "greengreengreen", "pink", "red", "yellow"]
+      };
+      $("#collaborator").easyAutocomplete(options);
             });
   
 block content
@@ -22,15 +28,19 @@ block content
             label Description :
             |  
             input(type='text', name='description', placeholder='Something about your project')
-          .field
-            label Language :
-            select.ui.dropdown(name='language')
-               option(value='0') Python
-          .field
-            label Buddy ID :
-            |  
-            input(type='hidden' name='creator' value=user.username)
-            input(type='text', name='collaborator', placeholder='Your buddy')
+          .content
+            .ui.grid
+              .eleven.wide.column
+                .field
+                  label Language :
+                  select.ui.dropdown(name='language')
+                    option(value='0') Python
+                .field
+              .five.wide.column
+                  label Buddy ID :
+                  |  
+                  input(type='hidden' name='creator' value=user.username)
+                  input#collaborator(type='text',name='collaborator', placeholder='Search users...')
           .field
             label Time  :
             select.ui.dropdown(name='swaptime')
