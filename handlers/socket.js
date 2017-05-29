@@ -14,7 +14,7 @@ module.exports = (server) => {
 
   // Initiate redis connection for persist data
   const redis = new Redis()
-  let projects = {} // store users role in each project
+  const projects = {} // store users role in each project
 
   // Event routing
   io.on('connection', (client) => {
@@ -61,11 +61,11 @@ module.exports = (server) => {
             count: 1
           }
           winston.info(projects[projectId].count)
-          io.emit('role selection')
+          client.emit('role selection')
         } else {
           projects[projectId].count += 1
           winston.info(projects[projectId].count)
-          io.emit('role updated', projects[projectId])
+          client.emit('role updated', projects[projectId])
         }
 
         client.emit('init state', {
@@ -76,6 +76,11 @@ module.exports = (server) => {
       }
     })
 
+    /**
+     * `role selected` event fired when one of the project user select his role
+     * @param {Ibject} payload user selected role and partner username
+     * then socket will broadcast the role to his partner
+     */
     client.on('role selected', (payload) => {
       if (payload.select === 0) {
         projects[projectId].roles.reviewer = curUser
@@ -88,7 +93,7 @@ module.exports = (server) => {
     })
 
     /**
-     * `code change` event trigged when user typing in editor
+     * `code change` event fired when user typing in editor
      * @param {Object} payload receive code from client payload
      */
     client.on('code change', (payload) => {
@@ -101,10 +106,18 @@ module.exports = (server) => {
       }
     })
 
+    /**
+     * `user status` event fired every 3 seconds for checking user status
+     * @param {Object} payload user status from client-side
+     */
     client.on('user status', (payload) => {
       client.to(projectId).emit('update status', payload)
     })
 
+    /**
+     * `run code` event fired when user click on run button from front-end
+     * @param {Object} payload code from editor
+     */
     client.on('run code', (payload) => {
       const fs = require('fs')
       const path = require('path')
@@ -120,7 +133,7 @@ module.exports = (server) => {
     })
 
     /**
-     * `disconnect` event trigged when user exit from playground page
+     * `disconnect` event fired when user exit from playground page
      * by exit means: reload page, close page/browser, session lost
      */
     client.on('disconnect', () => {
