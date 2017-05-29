@@ -7,7 +7,6 @@ block script
   link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
   link(rel='stylesheet' href='/codemirror/theme/seti.css')
   link(rel='stylesheet' href='/codemirror/theme/material.css')
-
 block content
     .ui.basic.modal#selectRole-modal
       .ui.icon.header
@@ -29,20 +28,20 @@ block content
           .field
             label Line No :
             |  
-            input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
+            input.disabled.line.no(type='text' placeholder='Your Project Name', disabled='')
           .field
             label Comment :
             |  
-            textarea(name='pDescription' rows='4' cols='50' placeholder='Something about this line')
+            textarea.line.description(rows='4' cols='50' placeholder='Something about this line')
           .field
             label Priority :
-            select.ui.dropdown(name='pLanguage')
+            select.ui.dropdown.line.priority
                option(value='2') High
                option(value='1') Medium
                option(value='0') Low
           .ui.basic.center.aligned.segment()
             .actions
-              button.ui.button.approve.green(type='submit') Create
+              button.ui.button.approve.green(onClick='submitReview()') Submit
               .ui.button.approve.red(data-value='cancel') Cancel
     .ui.coder.small.modal
       .header Review Description
@@ -50,13 +49,13 @@ block content
           .field
             label Line No :
             |  
-            input.disabled(type='text', name='pLineNo', placeholder='Your Project Name', disabled='')
+            input.disabled.line.no(type='text' placeholder='Line number', disabled='')
           .field
             label Comment :
-              #Comment
+              #comment
           .field
             label Priority :
-              #Priority
+              #priority
           .ui.basic.center.aligned.segment()
             .actions
               .ui.button.approve.red(data-value='cancel') Close

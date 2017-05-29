@@ -24,6 +24,11 @@ module.exports = (server) => {
 
     winston.info('Client connected')
 
+    client.on('submit review', (payload) => {
+      winston.info(payload)
+      io.in(projectId).emit('new review', payload)
+    })
+
     /**
      * `join project` evnet trigged when user joining project in playground page
      * @param {Object} payload receive project id from client payload

@@ -4,6 +4,7 @@
 const socket = io()
 let role = 0
 var myRole = 0
+let reviews = []
 
 /**
  * get query parameter from URL
@@ -73,9 +74,16 @@ editor.on('dblclick', () => {
     line: A1,
     ch: A2
   }).head.ch
-  $('input.disabled').val(A1 + 1)
-  if(!myRole)
-  {
+  $('input.disabled.line.no').val(A1 + 1)
+  let line = $('input.disabled.line.no').val()
+  if(user !== "kittikorn") {
+    reviews.map((review) => {
+      if (review.line === line) {
+        console.log(review)
+        $('#comment').html(review.description)
+        $('#priority').html(review.priority)
+      }
+    })
     $('.ui.coder.small.modal').modal('show')
   }
   else
@@ -102,6 +110,7 @@ socket.on('init state', (payload) => {
       closable  : false,
       onDeny    : function(){
         console.log('select : reviewer')
+        editor.setOption('readOnly', 'nocursor')
         socket.emit('selected role', {
           select: 0,
           partner
@@ -173,7 +182,7 @@ socket.on('editor update', (payload) => {
 /**
  * User status checking
  */
-let windowIsFocus = false
+let windowIsFocus
 
 $(window).focus(() => {
   windowIsFocus = true
@@ -182,6 +191,7 @@ $(window).focus(() => {
 })
 
 setInterval(() => {
+  console.log(`windowFocus: ${windowIsFocus}`)
   socket.emit('user status', {
     status: windowIsFocus
   })
@@ -190,6 +200,24 @@ setInterval(() => {
 socket.on('update status', (payload) => {
   let hidden = payload.status ? 'Online' : 'Offline'
   $(".user.status").html(`<strong><em>${hidden}</em></strong>`)
+})
+
+function submitReview() {
+  socket.emit('submit review', {
+    line: $('input.disabled.line.no').val(),
+    description: $('textarea.line.description').val(),
+    priority: $('select.ui.dropdown.line.priority').val()
+  })
+}
+
+socket.on('new review', (payload) => {
+  console.log('new review...')
+  // editor.addLineClass(parseInt(payload.line-1), 'wrap', 'CodeMirror-activeline-background')
+  reviews.push(payload)
+  reviews.map((review) => {
+    console.log(review.line)
+    editor.addLineClass(parseInt(review.line-1), 'wrap', 'CodeMirror-activeline-background')
+  })
 })
 
 /**
