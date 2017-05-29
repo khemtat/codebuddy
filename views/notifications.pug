@@ -104,67 +104,27 @@ html
     .ui.raised.very.padded.text.container.segment
       .ui.two.column.doubling.stackable.grid.container
         .column
-          h1.ui.header Dashboard
+          h1.ui.header Notifications
         .right.column
           a.right
-            button#new.ui.button.approve.green.show(style='float: right;') Create New Project
-      br
       .ui.relaxed.divided.list
-        .item
-          a.ui.blue.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/christian.jpg')
-            .detail.middle Pj. Owner
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
-        .item
-          a.ui.yellow.image.label.middle.aligned
-            img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
-            .detail Co-worker
-          .content
-            a.header Semantic-Org/Semantic-UI
-            |  Lorem ipsum dolor sit amet,
-            .description
-              | Updated 10 mins ago (
-              a(href='#') @Username
-              | )
+        each project in projects
+          if project.creator === user.username
+              .item
+                .content
+                      b
+                        a.header(href='/project?pid='+project.pid)= project.title
+                          | has been created ! - 30/06/2017
+                      
+          else if project.collaborator === user.username
+              .item
+                .content
+                      b
+                        a.header(href='/project?pid='+project.pid) 
+                          | Joined to
+                          project.title
+                          | ! - 30/06/2017
+
     .ui.inverted.vertical.footer.segment
       .ui.center.aligned.container
         img.ui.centered.small.image(src='images/logo-white-s.png')
