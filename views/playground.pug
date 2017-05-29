@@ -6,14 +6,21 @@ block script
   link(rel='stylesheet' href='/codemirror/theme/blackboard.css')
   link(rel='stylesheet' href='/codemirror/theme/seti.css')
   link(rel='stylesheet' href='/codemirror/theme/material.css')
-  script.
-    let user="#{user.username}"
-  script(type='text/javascript').
-    $(document).ready(function(){
-        $('.demo.menu .item').tab({history:false});
-    });
 
 block content
+    .ui.basic.modal#selectRole-modal
+      .ui.icon.header
+        i.users.icon
+        |     Please Select Your Role
+      .content
+        .actions
+          center
+            .ui.blue.massive.inverted.positive.button
+              i.keyboard.icon
+              |       Coder
+            .ui.green.massive.inverted.negative.button
+              i.unhide.icon
+              |       Reviewer
     .ui.modal
       .header Code Review
       .content
@@ -45,11 +52,18 @@ block content
           center
             .swap.time(style='margin: 0 0 10 0')
               #time <strong>Auto Swapping Role In:</strong> 15.00 min
-              - let userDisplay = user.username === project.creator ? project.collaborator : project.creator
+              - let partner = user.username === project.creator ? project.collaborator : project.creator
+              - let curUser = user.username === project.creator ? project.creator : project.collaborator
             .user.status
               i.green.circle.icon
-              | #{userDisplay} is now: 
+              | #{partner} is now: 
               span.user.status!= '<strong><em>Offline</em></strong>'
+              //- | <strong>Driver</strong> 
+              //- i.green.circle.icon 
+              //- | #{curUser} | 
+              //- | <strong>Reviewer</strong> 
+              //- i.green.circle.icon
+              //- | #{partner}
         .five.wide.column.right
           center
             button.ui.primary.labeled.icon.button.disabled
@@ -138,6 +152,13 @@ block content
           h1 Terminal
           #xterm-container
 block footerExtend
+  script.
+    let user="#{user.username}"
+    let partner="#{partner}"
+  script(type='text/javascript').
+    $(document).ready(function(){
+        $('.demo.menu .item').tab({history:false});
+    });
   script(src = '/codemirror/lib/codemirror.js')
   script(src = '/codemirror/mode/python/python.js')
   //- script(src = '/SimpleWebRTC-master/simplewebrtc.bundle.js')

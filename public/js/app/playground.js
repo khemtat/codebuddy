@@ -61,9 +61,9 @@ peer.on('open', (id) => {
   console.log(`my peer id is ${id}`)
 })
 
-if (user === 'khemtat') {
-  editor.setOption('readOnly', 'nocursor')
-}
+// if (user === 'khemtat') {
+//   editor.setOption('readOnly', 'nocursor')
+// }
 
 /**
  * User join the project and initate local editor
@@ -76,7 +76,55 @@ socket.emit('join project', {
 socket.on('init state', (payload) => {
   editor.setValue(payload.editor)
   console.log(payload)
+  if (!payload.roles) {
+    console.log('you need to select role')
+    $('#selectRole-modal')
+    .modal({
+      closable  : false,
+      onDeny    : function(){
+        console.log('select : reviewer')
+        socket.emit('selected role', {
+          select: 0,
+          partner
+        })
+      },
+      onApprove : function() {
+        console.log('select : coder')
+        socket.emit('selected role', {
+          select: 1,
+          partner
+        })
+      }
+    })
+    .modal('show')
+  }
 })
+
+socket.on('role update', (payload) => {
+  console.log(payload)
+})
+
+// function pickRole(roleFlag) {
+//   socket.emit('role selected', roleFlag)
+// }
+
+// socket.on('need role', () => {
+//   // TODO: refactoring this implemented
+//   if (payload.role.coder === null && payload.role.reviewer === null) {
+//     $('#selectRole-modal')
+//     .modal({
+//       closable  : false,
+//       onDeny    : function(){
+//         console.log('reviewer')
+//       },
+//       onApprove : function() {
+//         console.log('coder')
+//       }
+//     })
+//     .modal('show')
+//   }
+//   console.log(payload)
+// })
 
 /**
  * If user exit or going elsewhere which can be caused this project window closed

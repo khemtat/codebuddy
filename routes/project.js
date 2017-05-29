@@ -18,7 +18,7 @@ const router = express.Router()
 router
   .use(auth.isSignedIn)
   .route('/')
-  .get(catchErrors(webController.getPlayground))
+  .get(webController.getPlayground)
   .post(catchErrors(webController.createProject))
 
 router
