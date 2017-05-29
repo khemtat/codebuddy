@@ -92,6 +92,13 @@ module.exports = (server) => {
       io.in(projectId).emit('role updated', projects[projectId])
     })
 
+    client.on('switch role', () => {
+      const temp = projects[projectId].roles.coder
+      projects[projectId].roles.coder = projects[projectId].roles.reviewer
+      projects[projectId].roles.reviewer = temp
+      io.in(projectId).emit('role updated', projects[projectId])
+    })
+
     /**
      * `code change` event fired when user typing in editor
      * @param {Object} payload receive code from client payload

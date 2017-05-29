@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const Redis = require('ioredis')
-const winston = require('winston')
 
 const Project = mongoose.model('Project')
 
@@ -19,14 +17,14 @@ exports.getDashboard = async (req, res) => {
     .sort({ createdAt: -1 })
     .exec((err, docs) => {
       if (err) throw err
-      res.render('dashboard', { projects: docs })
+      res.render('dashboard', { projects: docs, title: 'Dashboard' })
     })
 }
 
 exports.getPlayground = (req, res) => {
   if (!req.query.pid) res.redirect('/dashboard')
   Project.findOne({ pid: req.query.pid }, (err, doc) => {
-    res.render('playground', { project: doc })
+    res.render('playground', { project: doc, title: `${doc.title} - Playground` })
   })
 }
 
@@ -36,6 +34,26 @@ exports.getAboutUs = (req, res) => {
 
 exports.getFeature = (req, res) => {
   res.render('feature')
+}
+
+exports.getProfile = async (req, res) => {
+  await Project
+    .find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] })
+    .sort({ createdAt: -1 })
+    .exec((err, docs) => {
+      if (err) throw err
+      res.render('profile', { projects: docs })
+    })
+}
+
+exports.getNotifications = async (req, res) => {
+  await Project
+    .find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] })
+    .sort({ createdAt: -1 })
+    .exec((err, docs) => {
+      if (err) throw err
+      res.render('notifications', { projects: docs })
+    })
 }
 
 exports.createProject = async (req, res) => {

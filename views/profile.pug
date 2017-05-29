@@ -135,13 +135,11 @@ block content
               .ui.button.approve.red(data-value='cancel') Cancel
     +displayFlashes(flashes)
     .ui.raised.very.padded.text.container.segment
+      h3.ui.header FirstName LastName (@Username)
       .ui.two.column.doubling.stackable.grid.container
         .column
-          h1.ui.header My Projects
+          h1.ui Projects
         .right.column
-          a.right
-            button#new.ui.button.approve.green.newProject(style='float: right;') Create New Project
-      br
       .ui.items
         each project in projects
           if project.creator === user.username
@@ -152,17 +150,13 @@ block content
                   .ui.grid
                     .eleven.wide.column
                       b
-                        a.header(href='/project?pid='+project.pid)= project.title
+                        a.header= project.title
                       .description= project.description
                       | Last updated #{moment(project.createdAt).fromNow()}
                       | (
                       a(href='/profile/'+project.collaborator ) @#{project.collaborator}
                       |)
                     .five.wide.column
-                      .ui.right.floated.alignedvertical.animated.settingProject.button(tabindex='0')
-                        .hidden.content Setting
-                        .visible.content
-                          i.setting.icon
                       
           else if project.collaborator === user.username
             .item
@@ -170,7 +164,7 @@ block content
                 img(src='https://semantic-ui.com/images/avatar/small/elliot.jpg')
                 .detail.middle Co-Worker
               .content
-                a.header(href='/project?pid='+project.pid)= project.title
+                a.header= project.title
                 |
                 .description= project.description
                 | Last updated #{moment(project.createdAt).fromNow()} (

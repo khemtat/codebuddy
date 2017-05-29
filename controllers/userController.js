@@ -20,7 +20,7 @@ exports.postSigninForm = passport.authenticate('local-signin', {
  * Register Form `/register`
  */
 exports.getRegisterForm = (req, res) => {
-  res.render('register')
+  res.render('register', { title: 'Register' })
 }
 
 exports.postRegisterForm = passport.authenticate('local-register', {

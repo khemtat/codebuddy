@@ -72,18 +72,10 @@ block content
               - let partner = user.username === project.creator ? project.collaborator : project.creator
               - let curUser = user.username === project.creator ? project.creator : project.collaborator
             .user.status
-              i.green.circle.icon
-              | #{partner} is now: 
-              span.user.status!= '<strong><em>Offline</em></strong>'
-              //- | <strong>Driver</strong> 
-              //- i.green.circle.icon 
-              //- | #{curUser} | 
-              //- | <strong>Reviewer</strong> 
-              //- i.green.circle.icon
-              //- | #{partner}
+              span.user.status!= `<strong><em><i class='grey circle icon'></i>${partner}</em></strong`
         .five.wide.column.right
           center
-            button.ui.primary.labeled.icon.button.disabled
+            button.ui.primary.labeled.icon.button(onClick='switchRole()')
               i.refresh.icon
               |  Switch Role
             |  

@@ -4,6 +4,7 @@
 const socket = io()
 let role = 0
 let myRole = ''
+let partnerRole = ''
 let reviews = []
 
 /**
@@ -106,10 +107,6 @@ socket.emit('join project', {
 
 socket.on('init state', (payload) => {
   editor.setValue(payload.editor)
-  // console.log(payload)
-  // if (!payload.roles) {
-  //   console.log('you need to select role')
-  // }
 })
 
 socket.on('role selection', () => {
@@ -138,32 +135,13 @@ socket.on('role updated', (payload) => {
   if (user === payload.roles.reviewer) {
     editor.setOption('readOnly', 'nocursor')
     myRole = 'reviewer'
+    partnerRole = 'coder'
   } else {
     myRole = 'coder'
+    partnerRole = 'reviewer'
+    editor.setOption('readOnly', false)
   }
 })
-
-// function pickRole(roleFlag) {
-//   socket.emit('role selected', roleFlag)
-// }
-
-// socket.on('need role', () => {
-//   // TODO: refactoring this implemented
-//   if (payload.role.coder === null && payload.role.reviewer === null) {
-//     $('#selectRole-modal')
-//     .modal({
-//       closable  : false,
-//       onDeny    : function(){
-//         console.log('reviewer')
-//       },
-//       onApprove : function() {
-//         console.log('coder')
-//       }
-//     })
-//     .modal('show')
-//   }
-//   console.log(payload)
-// })
 
 /**
  * If user exit or going elsewhere which can be caused this project window closed
@@ -209,8 +187,11 @@ setInterval(() => {
 }, 3000)
 
 socket.on('update status', (payload) => {
-  let hidden = payload.status ? 'Online' : 'Offline'
-  $(".user.status").html(`<strong><em>${hidden}</em></strong>`)
+  if (payload.status) {
+    $(".user.status").html(`<strong><em><i class='green circle icon'></i>${partner} (${partnerRole})</em></strong>`)
+  } else {
+    $(".user.status").html(`<strong><em><i class='grey circle icon'></i>${partner} (${partnerRole})</em></strong>`)
+  }
 })
 
 function submitReview() {
@@ -344,3 +325,7 @@ $('.ui.mute.toggle.button')
     }
   })
   ;
+
+function switchRole() {
+  socket.emit('switch role')
+}
