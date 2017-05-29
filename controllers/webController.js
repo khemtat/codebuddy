@@ -38,6 +38,16 @@ exports.getFeature = (req, res) => {
   res.render('feature')
 }
 
+exports.getProfile = async (req, res) => {
+  await Project
+    .find({ $or: [{ creator: req.user.username }, { collaborator: req.user.username }] })
+    .sort({ createdAt: -1 })
+    .exec((err, docs) => {
+      if (err) throw err
+      res.render('profile', { projects: docs })
+    })
+}
+
 exports.createProject = async (req, res) => {
   const project = await (new Project(req.body)).save()
   req.flash('success', `Successfully Created ${project.title} Project.`)
