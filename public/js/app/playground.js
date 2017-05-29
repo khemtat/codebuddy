@@ -91,6 +91,9 @@ editor.on('dblclick', () => {
       $('.ui.reviewer.small.modal').modal('show')
       break
   }
+  if (user === 'kittikorn') {
+  editor.setOption('readOnly', 'true')
+  }
 })
 
 /**
