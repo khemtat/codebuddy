@@ -75,7 +75,7 @@ block content
                   img(src='https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokemon_Egg-128.png')
                 .content
                   .ui.grid
-                    .twelve.wide.column
+                    .eleven.wide.column
                       b
                         a.header(href='/project?pid='+project.pid)= project.title
                       .description= project.description
@@ -83,10 +83,16 @@ block content
                       | (
                       a(href='/profile/'+project.collaborator ) @#{project.collaborator}
                       |)
-                    .four.wide.column
-                      .button.ui.primary.right.labeled.icon.button
-                        i.right.chevron.icon
-                        | Setting
+                    .five.wide.column
+                      .ui.vertical.animated.button(tabindex='0')
+                        .hidden.content Setting
+                        .visible.content
+                          i.setting.icon
+                      .ui.vertical.animated.red.button(tabindex='0')
+                        .hidden.content Delete
+                        .visible.content
+                          i.remove.icon
+                      
           else if project.collaborator === user.username
             .item
               a.ui.yellow.image.label.middle.aligned
