@@ -7,7 +7,20 @@ html
       meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
       title Code Buddy - Online Pair Programming System
       link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
+      script(src='/js/static/jquery.min.js')
+      script(src='/semantic/dist/semantic.min.js')
       link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+      script.
+        $(document).ready(function () {
+        $('.newProject').click(function () {
+          $('#video-modal').modal('show');
+        });
+        });
+    .ui.small.modal#video-modal
+      i.close.icon
+      .content
+        .centered
+          iframe(width='700', height='350',centered='' , src='https://www.youtube.com/embed/nv86l7n5XuI', frameborder='0', allowfullscreen='')
     .ui.large.top.fixed.hidden.menu
       .ui.container
         img.logo.small(src='images/logo-codebuddy-s.png')
@@ -32,7 +45,7 @@ html
         .ui.text.container
           h1.ui.inverted.header Online Pair Programming System
           h2 Do whatever you want when you want to.
-          a.ui.huge.primary.button(href='/signin')
+          a.ui.huge.primary.button.newProject
             | Get Started
             i.right.arrow.icon
       .ui.vertical.stripe.quote.segment
