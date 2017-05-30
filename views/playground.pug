@@ -25,6 +25,7 @@ block content
     .ui.reviewer.small.modal
       .header Code Review
       .content
+        .ui.form
           .field
             label Line No :
             |  
@@ -33,12 +34,6 @@ block content
             label Comment :
             |  
             textarea.line.description(rows='4' cols='50' placeholder='Something about this line')
-          .field
-            label Priority :
-            select.ui.dropdown.line.priority
-               option(value='2') High
-               option(value='1') Medium
-               option(value='0') Low
           .ui.basic.center.aligned.segment()
             .actions
               button.ui.button.approve.green(onClick='submitReview()') Submit
@@ -46,6 +41,7 @@ block content
     .ui.coder.small.modal
       .header Review Description
       .content
+        .ui.form
           .field
             label Line No :
             |  
@@ -53,9 +49,6 @@ block content
           .field
             label Comment :
             textarea.disabled.line.description(rows='4' cols='50' placeholder='Something about this line')
-          .field
-            label Priority :
-            #priority
           .ui.basic.center.aligned.segment()
             .actions
               .ui.button.approve.red(data-value='cancel') Close
