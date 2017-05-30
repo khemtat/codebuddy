@@ -25,6 +25,13 @@ html
       margin: 5em 0em 0em;
       padding: 5em 0em;
       }
+      @media (min-height: 200px) {
+      .ui.footer.form-page { /* Increased specificity for SO snippet priority */
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      }
+      }
       
     script(type='text/javascript').
       $(document).on("click", ".show", function () {
@@ -125,7 +132,7 @@ html
                           project.title
                           | ! - 30/06/2017
 
-    .ui.inverted.vertical.footer.segment
+    .ui.inverted.vertical.footer.segment.form-page
       .ui.center.aligned.container
         img.ui.centered.small.image(src='images/logo-white-s.png')
         .ui.horizontal.inverted.small.divided.link.list
