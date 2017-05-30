@@ -11,18 +11,12 @@ html
     .ui.large.top.fixed.hidden.menu
       .ui.container
         img.logo.small(src='images/logo-codebuddy-s.png')
-        a.active.item(href='/') Home
-        a.item(href='/feature') Features
-        a.item(href='/aboutus') About Us
         .right.menu
           .item
             a.ui.button(href='/signin') Sign In
           .item
             a.ui.primary.button(href='/register') Register
     .ui.vertical.inverted.sidebar.menu
-      a.active.item Home
-      a.item Features
-      a.item About Us
       a.item Sign In
       a.item Register
     .pusher
@@ -31,33 +25,15 @@ html
           .ui.large.secondary.inverted.pointing.menu
             a.toc.item
               i.sidebar.icon
-            a.active.item(href='/') Home
-            a.item(href='/feature') Features
-            a.item(href='/aboutus') About Us
             .right.item
-              a.ui.simple.approve.green.button(href='/signin') Sign In
+              a.ui.inverted.button(href='/signin') Sign In
               a.ui.inverted.button(href='/register') Register
         .ui.text.container
           h1.ui.inverted.header Online Pair Programming System
           h2 Do whatever you want when you want to.
-          .ui.huge.primary.button
+          a.ui.huge.primary.button(href='/signin')
             | Get Started
             i.right.arrow.icon
-      .ui.vertical.stripe.segment
-        .ui.middle.aligned.stackable.grid.container
-          .row
-            .eight.wide.column
-              h3.ui.header We Help Companies and Companions
-              p
-                | We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.
-              h3.ui.header We Make Bananas That Can Dance
-              p
-                | Yes that&apos;s right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
-            .six.wide.right.floated.column
-              img.ui.large.bordered.rounded.image(src='/images/pair-programming.jpg')
-          .row
-            .center.aligned.column
-              a.ui.huge.button Check Them Out
       .ui.vertical.stripe.quote.segment
         .ui.equal.width.stackable.internally.celled.grid
           .center.aligned.row
@@ -74,11 +50,7 @@ html
         .ui.center.aligned.container
           img.ui.centered.small.image(src='images/logo-white-s.png')
           .ui.horizontal.inverted.small.divided.link.list
-            a.item(href='#') How it worked?
-            |  
-            a.item(href='#') Contact Us
-            |  
-            a.item(href='#') About Us
+              a.item(href='#') Developed by Kittikorn P.,  Khemtat L.& Teerapong L. IT KMITL
     script(src='/js/static/jquery.min.js')
     script(src='/semantic/dist/semantic.min.js')
     script(src='/semantic/dist/components/visibility.js')
