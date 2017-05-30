@@ -2,10 +2,11 @@
  * Dependencies declaration
  */
 const socket = io()
-let role = 0
-let myRole = ''
-let partnerRole = ''
-let reviews = []
+const roles = {
+  user: '',
+  partner: ''
+}
+const reviews = []
 
 /**
  * get query parameter from URL
@@ -77,7 +78,7 @@ editor.on('dblclick', () => {
   }).head.ch
   $('input.disabled.line.no').val(A1 + 1)
   let line = $('input.disabled.line.no').val()
-  switch (myRole) {
+  switch (roles.user) {
     case 'coder':
       reviews.map((review) => {
         if (review.line === line) {
@@ -92,23 +93,26 @@ editor.on('dblclick', () => {
       $('.ui.reviewer.small.modal').modal('show')
       break
   }
-  if (user === 'kittikorn') {
-  editor.setOption('readOnly', 'true')
-  }
 })
 
 /**
- * User join the project and initate local editor
+ * User join the project
  */
 socket.emit('join project', {
   pid: getParameterByName('pid'),
   username: user
 })
 
+/**
+ * After user join the project, user will recieve initiate data to perform in local editor
+ */
 socket.on('init state', (payload) => {
   editor.setValue(payload.editor)
 })
 
+/**
+ * If there's no one select the role, then first user that come to the project must choose one
+ */
 socket.on('role selection', () => {
   $('#selectRole-modal')
     .modal({
@@ -134,11 +138,11 @@ socket.on('role selection', () => {
 socket.on('role updated', (payload) => {
   if (user === payload.roles.reviewer) {
     editor.setOption('readOnly', 'nocursor')
-    myRole = 'reviewer'
-    partnerRole = 'coder'
+    roles.user = 'reviewer'
+    roles.partner = 'coder'
   } else {
-    myRole = 'coder'
-    partnerRole = 'reviewer'
+    roles.user = 'coder'
+    roles.partner = 'reviewer'
     editor.setOption('readOnly', false)
   }
 })
@@ -188,9 +192,9 @@ setInterval(() => {
 
 socket.on('update status', (payload) => {
   if (payload.status) {
-    $(".user.status").html(`<strong><em><i class='green circle icon'></i>${partner} (${partnerRole})</em></strong>`)
+    $(".user.status").html(`<strong><em><i class='green circle icon'></i>${partner} (${roles.partner})</em></strong>`)
   } else {
-    $(".user.status").html(`<strong><em><i class='grey circle icon'></i>${partner} (${partnerRole})</em></strong>`)
+    $(".user.status").html(`<strong><em><i class='grey circle icon'></i>${partner} (${roles.partner})</em></strong>`)
   }
 })
 
@@ -203,11 +207,8 @@ function submitReview() {
 }
 
 socket.on('new review', (payload) => {
-  console.log('new review...')
-  // editor.addLineClass(parseInt(payload.line-1), 'wrap', 'CodeMirror-activeline-background')
   reviews.push(payload)
   reviews.map((review) => {
-    console.log(review.line)
     editor.addLineClass(parseInt(review.line-1), 'wrap', 'CodeMirror-activeline-background')
   })
 })
@@ -243,7 +244,7 @@ term.on('key', function (key, ev) {
       term.write('\b \b');
     }
   } else if (printable) {
-    console.log(`printable : ${key}`)
+    // console.log(`printable : ${key}`)
     term.write(key);
   }
 });
@@ -288,43 +289,36 @@ $(document)
     $('.ui.video.toggle.button')
       .state({
         text: {
-      inactive: '<i class="pause circle icon"/>',
-      active: '<i class="play video icon"/>'
+          inactive: '<i class="pause circle icon"/>',
+          active: '<i class="play video icon"/>'
         }
-      })
-      ;
+      });
     $('.ui.mute.toggle.button')
       .state({
         text: {
           inactive: '<i class="mute icon"/>',
           active: '<i class="unmute icon"/>'
         }
-      })
-      ;
-  })
-  ;
+      });
+  });
 $('.ui.video.toggle.button')
-  .on('click', handler.activate)
-  ;
+  .on('click', handler.activate);
 $('.ui.video.toggle.button')
   .state({
     text: {
       inactive: '<i class="pause circle icon"/>',
       active: '<i class="play video icon"/>'
     }
-  })
-  ;
+  });
 $('.ui.mute.toggle.button')
-  .on('click', handler.activate)
-  ;
+  .on('click', handler.activate);
 $('.ui.mute.toggle.button')
   .state({
     text: {
       inactive: '<i class="mute icon"/>',
       active: '<i class="unmute icon"/>'
     }
-  })
-  ;
+  });
 
 function switchRole() {
   socket.emit('switch role')

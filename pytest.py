@@ -1,2 +1,4 @@
-print("Hello");
-print("get A");
+def main():
+    print('a')
+    
+main()
