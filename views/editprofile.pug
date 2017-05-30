@@ -1,36 +1,29 @@
 extends layout/layout.pug
 
 block content
+    script.
     .ui.raised.very.padded.text.container.segment
       h1.ui.header Edit your profile
       p Edit your profile in the form below
-      form.ui.form
+      form.ui.form(action='/settings/profile' method='POST')
         h4.ui.dividing.header Access information
-        .field
-          label Username
-          |  
-          input(type='text', name='user-name', placeholder='joe', disabled='true')
-        .field
-          label Password
-          |  
-          input(type='password', name='password')
         .field
           label E-mail
           |  
-          input(type='email', name='email', placeholder='joe@schmoe.com')
+          input(type='email' name='email' value=user.email)
         h4.ui.dividing.header Personal information
         .field
           label First Name
           |  
-          input(type='text', name='first-name', placeholder='First Name')
+          input(type='text', name='firstname', value=user.info.firstname || '')
         .field
           label Last Name
           |  
-          input(type='text', name='last-name', placeholder='Last Name')
+          input(type='text', name='lastname', value=user.info.lastname || '')
         .field
           label Occupation
           |  
-          input(type='text', name='occupation', placeholder='occupation')
+          input(type='text', name='occupation', placeholder='occupation' value=user.info.occupation)
         .field
           label Gender
           .field
@@ -49,4 +42,4 @@ block content
             |  
             label I agree to the Terms and Conditions
         |  
-        button.ui.button(type='submit') Register
+        button.ui.button(type='submit') Update profile
