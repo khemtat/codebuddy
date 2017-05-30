@@ -150,7 +150,7 @@ block content
                       a(href='/profile/'+project.collaborator ) @#{project.collaborator}
                       |)
                     .five.wide.column
-                      .ui.right.floated.alignedvertical.animated.settingProject.button(tabindex='0')
+                      .ui.right.floated.alignedvertical.animated.settingProject.button(tabindex='0', id=project.pid)
                         .hidden.content Setting
                         .visible.content
                           i.setting.icon
