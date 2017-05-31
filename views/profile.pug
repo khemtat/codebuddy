@@ -142,7 +142,7 @@ block content
               .ui.button.approve.red(data-value='cancel') Cancel
     +displayFlashes(flashes)
     .ui.raised.very.padded.text.container.segment
-      h3.ui.header FirstName LastName (@Username)
+      h2.ui.header #{user.info.name} (@#{user.username})
       .ui.two.column.doubling.stackable.grid.container
         .column
           h1.ui Projects

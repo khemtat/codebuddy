@@ -71,6 +71,12 @@ exports.getSettingProfile = (req, res) => {
   res.render('editprofile')
 }
 
+exports.getProfile = async (req, res) => {
+  const username = req.params.username
+  const user = await User.findOne({ username })
+  res.render('profile', { title: `${user.username} profile`, user })
+}
+
 exports.getUsernames = async (req, res) => {
   const data = await User.find({}, { username: 1, _id: 0 }).lean().exec((err, ret) => ret)
   let temp = []

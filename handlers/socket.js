@@ -66,6 +66,7 @@ module.exports = (server) => {
           projects[projectId].count += 1
           winston.info(projects[projectId].count)
           client.emit('role updated', projects[projectId])
+          io.in(projectId).emit('start countdown')
         }
 
         client.emit('init state', {

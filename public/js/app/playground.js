@@ -82,9 +82,8 @@ editor.on('dblclick', () => {
     case 'coder':
       reviews.map((review) => {
         if (review.line === line) {
-          console.log(review)
           $('#comment').html(review.description)
-          $('#priority').html(review.priority)
+          // $('#priority').html(review.priority)
         }
       })
       $('.ui.coder.small.modal').modal('show')
@@ -140,11 +139,14 @@ socket.on('role updated', (payload) => {
     editor.setOption('readOnly', 'nocursor')
     roles.user = 'reviewer'
     roles.partner = 'coder'
+    // alert('Your current role is : `Reviewer`')
   } else {
     roles.user = 'coder'
     roles.partner = 'reviewer'
     editor.setOption('readOnly', false)
+    // alert('Your current role is : `Coder`')
   }
+  // startCountdown()
 })
 
 /**
@@ -184,7 +186,6 @@ $(window).focus(() => {
 })
 
 setInterval(() => {
-  console.log(`windowFocus: ${windowIsFocus}`)
   socket.emit('user status', {
     status: windowIsFocus
   })
@@ -202,8 +203,9 @@ function submitReview() {
   socket.emit('submit review', {
     line: $('input.disabled.line.no').val(),
     description: $('textarea.line.description').val(),
-    priority: $('select.ui.dropdown.line.priority').val()
+    // priority: $('select.ui.dropdown.line.priority').val()
   })
+  $('textarea.line.description').val('')
 }
 
 socket.on('new review', (payload) => {

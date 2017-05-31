@@ -17,9 +17,8 @@ const router = express.Router()
  */
 router
   .use(auth.isSignedIn)
-  .route('/')
+  .route('/:username')
   .get(webController.getProfile)
-  .post(catchErrors(webController.createProject))
 
 router
   .use(auth.isSignedIn)

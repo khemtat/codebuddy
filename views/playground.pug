@@ -60,8 +60,10 @@ block content
           p= project.description
         .seven.wide.column
           center
-            .swap.time(style='margin: 0 0 10 0')
-              #time <strong>Auto Swapping Role In:</strong> 15.00 min
+            #swapTimer(style='margin: 0 0 10 0')
+              <strong>Auto Swapping Role In: </strong>
+              span.time
+              |  minutes
               - let partner = user.username === project.creator ? project.collaborator : project.creator
               - let curUser = user.username === project.creator ? project.creator : project.collaborator
             .user.status
@@ -177,12 +179,12 @@ block footerExtend
     $(document).ready(function(){
         $('.demo.menu .item').tab({history:false});
     });
-  script(src = '/codemirror/lib/codemirror.js')
-  script(src = '/codemirror/mode/python/python.js')
-  script(src = 'http://www.borntodev.com/SimpleWebRTC-master/simplewebrtc.bundle.js')
-  script(src = 'http://www.borntodev.com/SimpleWebRTC-master/webrtc2.js')
-  script(src = '/js/static/socket.io.min.js')
-  //-script(src = '/js/static/peer.min.js')
-  script(src = '/xterm/xterm.js')
-  script(src = '/xterm/addons/fit/fit.js')
-  script(src = '/js/app/playground.js')
+  script(src='/codemirror/lib/codemirror.js')
+  script(src='/codemirror/mode/python/python.js')
+  script(src='http://www.borntodev.com/SimpleWebRTC-master/simplewebrtc.bundle.js')
+  script(src='http://www.borntodev.com/SimpleWebRTC-master/webrtc2.js')
+  script(src='/js/static/socket.io.min.js')
+  script(src='/xterm/xterm.js')
+  script(src='/xterm/addons/fit/fit.js')
+  script(src='/js/static/countdown.min.js')
+  script(src='/js/app/playground.js')
