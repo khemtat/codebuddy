@@ -3,6 +3,10 @@ extends layout/layout.pug
 block content
     script.
     .ui.raised.very.padded.text.container.segment
+      .ui.negative.message
+        i.close.icon
+        .header Name Invalid !
+        p Lorem ipsum
       h1.ui.header Edit your profile
       p Edit your profile in the form below
       form.ui.form(action='/settings/profile' method='POST')
@@ -37,3 +41,19 @@ block content
               |  
               label Female
         button.ui.button(type='submit') Update profile
+        .field
+          .ui.checkbox
+            input(type='checkbox', tabindex='0')
+            |  
+            label I agree to the Terms and Conditions
+        |  
+        button.ui.button(type='submit') Register
+    .ui.inverted.vertical.footer.segment
+      .ui.center.aligned.container
+        img.ui.centered.small.image(src='images/logo-white-s.png')
+        .ui.horizontal.inverted.small.divided.link.list
+          a.item(href='#') How it worked?
+          |  
+          a.item(href='#') Contact Us
+          |  
+          a.item(href='#') About Us

@@ -28,3 +28,59 @@ block content
       +registerForm()
     script(src='/js/static/jquery.min.js')
     script(src='/semantic/dist/semantic.min.js')
+      p Fill in the form below to get access
+      form.ui.form
+        h4.ui.dividing.header Access information
+        .field
+          label Username
+          |  
+          input(type='text', name='user-name', placeholder='joe')
+        .field
+          label Password
+          |  
+          input(type='password', name='password')
+        .field
+          label E-mail
+          |  
+          input(type='email', name='email', placeholder='joe@schmoe.com')
+        h4.ui.dividing.header Personal information
+        .field
+          label First Name
+          |  
+          input(type='text', name='first-name', placeholder='First Name')
+        .field
+          label Last Name
+          |  
+          input(type='text', name='last-name', placeholder='Last Name')
+        .field
+          label Occupation
+          |  
+          input(type='text', name='occupation', placeholder='occupation')
+        .field
+          label Gender
+          .field
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='male')
+              |  
+              label Male
+          .field
+            .ui.radio.checkbox
+              input(type='radio', name='gender', value='female')
+              |  
+              label Female
+        .field
+          .ui.checkbox
+            input(type='checkbox', name="agree", tabindex='0')
+            |  
+            label I agree to the Terms and Conditions
+        |  
+        button.ui.button(type='submit') Register
+    .ui.inverted.vertical.footer.segment
+      .ui.center.aligned.container
+        img.ui.centered.small.image(src='images/logo-white-s.png')
+        .ui.horizontal.inverted.small.divided.link.list
+          a.item(href='#') How it worked?
+          |  
+          a.item(href='#') Contact Us
+          |  
+          a.item(href='#') About Us

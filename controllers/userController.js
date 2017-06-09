@@ -77,6 +77,9 @@ exports.getProfile = async (req, res) => {
   res.render('profile', { title: `${user.username} profile`, user })
 }
 
+/**
+ * Usd by autocomplete function in create project
+ */
 exports.getUsernames = async (req, res) => {
   const data = await User.find({}, { username: 1, _id: 0 }).lean().exec((err, ret) => ret)
   let temp = []
