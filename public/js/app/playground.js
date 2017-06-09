@@ -82,7 +82,7 @@ editor.on('dblclick', () => {
     case 'coder':
       reviews.map((review) => {
         if (review.line === line) {
-          $('#comment').html(review.description)
+          $('textarea.line.coder.disabled.description').val(review.description)
           // $('#priority').html(review.priority)
         }
       })
@@ -202,8 +202,7 @@ socket.on('update status', (payload) => {
 function submitReview() {
   socket.emit('submit review', {
     line: $('input.disabled.line.no').val(),
-    description: $('textarea.line.description').val(),
-    // priority: $('select.ui.dropdown.line.priority').val()
+    description: $('textarea.line.reviewer.description').val(),
   })
   $('textarea.line.description').val('')
 }

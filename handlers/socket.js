@@ -25,6 +25,7 @@ module.exports = (server) => {
     winston.info('Client connected')
 
     client.on('submit review', (payload) => {
+      // projects[projectId]['reviews'].push(payload)
       winston.info(payload)
       io.in(projectId).emit('new review', payload)
     })
@@ -56,7 +57,8 @@ module.exports = (server) => {
           projects[projectId] = {
             roles: {
               coder: '',
-              reviewer: ''
+              reviewer: '',
+              reviews: []
             },
             count: 1
           }
@@ -66,7 +68,6 @@ module.exports = (server) => {
           projects[projectId].count += 1
           winston.info(projects[projectId].count)
           client.emit('role updated', projects[projectId])
-          io.in(projectId).emit('start countdown')
         }
 
         client.emit('init state', {

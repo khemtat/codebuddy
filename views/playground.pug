@@ -33,7 +33,7 @@ block content
           .field
             label Comment :
             |  
-            textarea.line.description(rows='4' cols='50' placeholder='Something about this line')
+            textarea.line.reviewer.description(rows='4' cols='50' placeholder='Something about this line')
           .ui.basic.center.aligned.segment()
             .actions
               button.ui.button.approve.green(onClick='submitReview()') Submit
@@ -48,7 +48,7 @@ block content
             input.disabled.line.no(type='text' placeholder='Line number', disabled='')
           .field
             label Comment :
-            textarea.disabled.line.description(rows='4' cols='50' placeholder='Something about this line', disabled='')
+            textarea.coder.disabled.line.description(rows='4' cols='50' placeholder='Something about this line', disabled='')
           .ui.basic.center.aligned.segment()
             .actions
               .ui.button.approve.red(data-value='cancel') Close
@@ -181,8 +181,8 @@ block footerExtend
     });
   script(src='/codemirror/lib/codemirror.js')
   script(src='/codemirror/mode/python/python.js')
-  script(src='http://www.borntodev.com/SimpleWebRTC-master/simplewebrtc.bundle.js')
-  script(src='http://www.borntodev.com/SimpleWebRTC-master/webrtc2.js')
+  script(src='/js/static/simplewebrtc.bundle.js')
+  script(src='/js/static/webrtc.js')
   script(src='/js/static/socket.io.min.js')
   script(src='/xterm/xterm.js')
   script(src='/xterm/addons/fit/fit.js')
