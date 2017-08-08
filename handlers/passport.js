@@ -23,7 +23,8 @@ function config(passport) {
    */
   passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
-      done(err, user)
+      if (err) return done(err)
+      return (null, user)
     })
   })
 
@@ -34,27 +35,22 @@ function config(passport) {
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
-  },
-  async (req, email, password, done) => {
-    User.findOne({ email: email })
-    .exec((err, user) => {
-      if (err) return done(err)
-      if (user) return done(null, false, { message: 'Email is invalid or already taken' })
-      User.findOne({ username: req.body.username }, (err, user) => {
-        if (user) return done(null, false, { message: 'Username is already taken' })
-        const newUser = new User()
-        newUser.username = req.body.username
-        newUser.email = email
-        newUser.info.name = `${req.body.firstname} ${req.body.lastname}`
-        newUser.info.occupation = req.body.occupation
-        newUser.info.gender = req.body.gender
-        newUser.password = password
-        newUser.save((err) => {
-          if (err) return done(err)
-          return done(null, newUser)
-        })
-      })
-    })
+  }, async (req, email, password, done) => {
+    // checks if user or email is already exists
+    if (await User.findOne({ $or: [{ email }, { username: req.body.username }] })) {
+      return done(null, false, { message: 'Username or Email is already exist' })
+    }
+    // saves user to database
+    let user = new User()
+    user.username = req.body.username
+    user.email = email
+    user.info.firstname = req.body.firstname
+    user.info.lastname = req.body.lastname
+    user.info.occupation = req.body.occupation
+    user.info.gender = req.body.gender
+    user.password = password
+    user = await user.save()
+    return done(null, user)
   }))
 
   /**
@@ -69,10 +65,10 @@ function config(passport) {
     User.findOne({ $or: [{ email: email }, { username: email }] })
     .exec((err, user) => {
       if (err) return done(err)
-      if (!user) return done(null, false, { message: 'Username is not exists' })
+      if (!user) return done(null, false, { message: 'Username or Email is not exist' })
       user.verifyPassword(password, (err, isMatch) => {
         if (err) return done(err)
-        return isMatch === true ? done(null, user) : done(null, false, { message: 'Wrong password' })
+        return isMatch ? done(null, user) : done(null, false, { message: 'Wrong password' })
       })
     })
   }))

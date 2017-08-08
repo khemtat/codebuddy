@@ -26,7 +26,6 @@ mongoose.connect(process.env.MONGODB_URL, (err) => {
 mongoose.connection.on('error', (err) => {
   winston.error(`[%s] ${err.message}`, chalk.red('✗'))
 })
-
 require('./models/user')
 require('./models/project')
 

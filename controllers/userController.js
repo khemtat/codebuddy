@@ -81,7 +81,7 @@ exports.getProfile = async (req, res) => {
  * Usd by autocomplete function in create project
  */
 exports.getUsernames = async (req, res) => {
-  const data = await User.find({}, { username: 1, _id: 0 }).lean().exec((err, ret) => ret)
+  const data = await User.find({}, { username: 1, _id: 0 }).lean()
   let temp = []
   data.map(obj => {
     temp.push(obj.username)

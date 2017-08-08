@@ -15,7 +15,10 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [validator.isAlphanumeric, 'Invalid username'],
+    validate: {
+      isAsync: false,
+      validator: validator.isAlphanumeric
+    },
     required: 'Please enter an username'
   },
   password: String,
@@ -24,11 +27,19 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [validator.isEmail, 'Invalid Email Address'],
+    validate: {
+      isAsync: false,
+      validator: validator.isEmail
+    },
     required: 'Please enter an email address'
   },
   info: {
-    name: {
+    firstname: {
+      type: String,
+      required: 'Please enter a personal information',
+      trim: true
+    },
+    lastname: {
       type: String,
       required: 'Please enter a personal information',
       trim: true
@@ -43,12 +54,9 @@ const userSchema = mongoose.Schema({
  * Generating a hash password before called save function
  * @param {Function} next callback fucntion
  */
-userSchema.pre('save', function preSave(next) {
-  bcrypt.hash(this.password, 10, (err, hash) => {
-    if (err) return next(err)
-    this.password = hash
-    return next()
-  })
+userSchema.pre('save', async function preSave(next) {
+  this.password = await bcrypt.hash(this.password, 10)
+  next()
 })
 
 /**

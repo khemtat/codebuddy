@@ -5,7 +5,6 @@ const express = require('express')
 
 const router = express.Router()
 
-const { catchErrors } = require('../handlers/errorHandlers')
 const userController = require('../controllers/userController')
 const auth = require('../middlewares/auth')
 
@@ -17,7 +16,7 @@ const auth = require('../middlewares/auth')
  */
 router.route('/')
   .get(auth.isLoggedOut, userController.getRegisterForm)
-  .post(userController.validateRegister, catchErrors(userController.postRegisterForm))
+  .post(userController.validateRegister, userController.postRegisterForm)
 
 /**
  * Expose `router`

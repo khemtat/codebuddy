@@ -136,7 +136,6 @@ module.exports = (server) => {
       const nodepty = require('node-pty')
       const pty = nodepty.spawn('python', ['pytest.py'])
       pty.on('data', (data) => {
-        winston.info(data)
         io.in(projectId).emit('term update', data)
       })
     })
