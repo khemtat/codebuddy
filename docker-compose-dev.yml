@@ -1,0 +1,25 @@
+version: "2.1"
+
+services:
+  web:
+    image: node:7.10-alpine
+    volumes: 
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    depends_on:
+      - mongo
+      - redis
+    ports: 
+      - 8080:8080
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URL=mongodb://mongo:27017/codebuddy
+      - REDIS_SERVER=redis://redis:6379/1
+      - KEY=codebuddy
+      - SECRET=codebuddysecrets
+    command: sh -c "apk add --no-cache build-essential python; npm install -g nodemon; npm rebuild && npm run dev"
+  redis:
+    image: redis:3.0.7-alpine
+  mongo:
+    image: mongo:3.4.4
+    command: mongod --smallfiles

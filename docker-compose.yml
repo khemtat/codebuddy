@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+  web:
+    codebuddy:
+      image: codebuddy
+      restart: always
+      build: .
+      ports:
+        - 8080:8080
+  redis:
+    image: redis:latest
+    restart: always
+  mongodb:
+    image: 
