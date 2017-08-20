@@ -54,8 +54,9 @@ const userSchema = mongoose.Schema({
  * Generating a hash password before called save function
  * @param {Function} next callback fucntion
  */
-userSchema.pre('save', async function preSave(next) {
-  this.password = await bcrypt.hash(this.password, 10)
+userSchema.pre('save', async function (next) {
+  const SALT_ROUND = 12
+  this.password = await bcrypt.hash(this.password, SALT_ROUND)
   next()
 })
 
@@ -64,11 +65,13 @@ userSchema.pre('save', async function preSave(next) {
  * @param {String} plainPassword retrieve plain password from client
  * @return {Function} callback function which's stored `error value or null` and boolean `isMatch`
  */
-userSchema.methods.verifyPassword = function verifyPassword(plainPassword, done) {
-  bcrypt.compare(plainPassword, this.password, (err, isMatch) => {
-    if (err) return done(err)
+userSchema.methods.verifyPassword = async function (plainPassword, done) {
+  try {
+    const isMatch = await bcrypt.compare(plainPassword, this.password)
     return done(null, isMatch)
-  })
+  } catch(err) {
+    return done(err)
+  }
 }
 
 userSchema.plugin(mongodbErrorHandler)

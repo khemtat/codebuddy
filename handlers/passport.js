@@ -41,15 +41,17 @@ function config(passport) {
       return done(null, false, { message: 'Username or Email is already exist' })
     }
     // saves user to database
-    let user = new User()
-    user.username = req.body.username
-    user.email = email
-    user.info.firstname = req.body.firstname
-    user.info.lastname = req.body.lastname
-    user.info.occupation = req.body.occupation
-    user.info.gender = req.body.gender
-    user.password = password
-    user = await user.save()
+    let user = await new User().save({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      info: {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        occupation: req.body.occupation,
+        gender: req.body.gender
+      }
+    })
     return done(null, user)
   }))
 
@@ -60,17 +62,16 @@ function config(passport) {
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
-  },
-  (req, email, password, done) => {
-    User.findOne({ $or: [{ email: email }, { username: email }] })
-    .exec((err, user) => {
-      if (err) return done(err)
-      if (!user) return done(null, false, { message: 'Username or Email is not exist' })
-      user.verifyPassword(password, (err, isMatch) => {
-        if (err) return done(err)
-        return isMatch ? done(null, user) : done(null, false, { message: 'Wrong password' })
-      })
-    })
+  }, async (req, email, password, done) => {
+    try {
+      const user = await user.findOne({ $or: [{ email }, { username: email }]})
+      if (!user) {
+        return done(null, false, { message: 'Username or Email is not exist'})
+      }
+      return user.verifyPassword(password) ? done(null, user) : done(null, false, { message: 'Wrong password' })
+    } catch (err) {
+      return done(err)
+    }
   }))
 }
 

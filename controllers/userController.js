@@ -78,7 +78,7 @@ exports.getProfile = async (req, res) => {
 }
 
 /**
- * Usd by autocomplete function in create project
+ * Used by autocomplete function in create project
  */
 exports.getUsernames = async (req, res) => {
   const data = await User.find({}, { username: 1, _id: 0 }).lean()
