@@ -21,11 +21,13 @@ function config(passport) {
    * @param {String} id user id
    * @param {Function} done callback function
    */
-  passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-      if (err) return done(err)
-      return (null, user)
-    })
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findById(id)
+      return done(null, user)
+    } catch(err) {
+      return done(err)
+    }
   })
 
   /**
