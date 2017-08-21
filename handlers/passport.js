@@ -43,7 +43,7 @@ function config(passport) {
       return done(null, false, { message: 'Username or Email is already exist' })
     }
     // saves user to database
-    let user = await new User().save({
+    const user = await new User({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -53,7 +53,7 @@ function config(passport) {
         occupation: req.body.occupation,
         gender: req.body.gender
       }
-    })
+    }).save()
     return done(null, user)
   }))
 
