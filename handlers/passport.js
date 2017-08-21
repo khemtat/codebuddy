@@ -64,7 +64,7 @@ function config(passport) {
     passReqToCallback: true
   }, async (req, email, password, done) => {
     try {
-      const user = await user.findOne({ $or: [{ email }, { username: email }]})
+      const user = await User.findOne({ $or: [{ email }, { username: email }]})
       if (!user) {
         return done(null, false, { message: 'Username or Email is not exist'})
       }
