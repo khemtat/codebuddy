@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "public/SimpleWebRTC-master/package.json",
+        "public/contextMenu/package.json",
+        "public/easy-autocomplete/package.json",
+        "public/semantic/tasks/config/admin/templates/package.json",
+        "public/xterm/addons/attach/package.json",
+        "public/xterm/addons/fit/package.json",
+        "public/xterm/addons/fullscreen/package.json",
+        "public/xterm/addons/terminado/package.json"
+      ]
+    }
+  }
+}
