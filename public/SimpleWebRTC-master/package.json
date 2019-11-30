@@ -9,17 +9,17 @@
   "description": "World's easiest webrtc",
   "dependencies": {
     "filetransfer": "^2.0.4",
-    "localmedia": "^2.2.1",
-    "rtcpeerconnection": "^5.1.1",
+    "localmedia": "^5.2.0",
+    "rtcpeerconnection": "^8.4.0",
     "webrtcsupport": "^2.2.0",
     "wildemitter": "^1.2.0",
-    "socket.io-client": "1.3.7",
-    "attachmediastream": "^1.4.1",
+    "socket.io-client": "2.3.0",
+    "attachmediastream": "^2.1.0",
     "mockconsole": "0.0.1"
   },
   "devDependencies": {
-    "browserify": "^13.1.0",
-    "chromedriver": "^2.16.0",
+    "browserify": "^16.5.0",
+    "chromedriver": "^78.0.1",
     "express": "^4.14.1",
     "geckodriver": "^1.3.0",
     "precommit-hook": "^3.0.0",
@@ -27,8 +27,8 @@
     "selenium-webdriver": "^3.0.1",
     "tape": "^4.0.0",
     "testling": "^1.7.1",
-    "travis-multirunner": "^3.0.0",
-    "uglify-js": "^2.7.3"
+    "travis-multirunner": "^4.6.0",
+    "uglify-js": "^3.7.1"
   },
   "license": "MIT",
   "scripts": {
